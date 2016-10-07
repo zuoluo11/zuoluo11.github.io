@@ -13,21 +13,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[Hello World]]></title>
-      <url>https://zuoluo11.github.io/2016/09/17/hello-world/</url>
-      <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[c#基础-扩展方法]]></title>
       <url>https://zuoluo11.github.io/2016/09/12/c-%E5%9F%BA%E7%A1%80-%E6%89%A9%E5%B1%95%E6%96%B9%E6%B3%95/</url>
       <content type="html"><![CDATA[<h2 id="扩展方法的讲解"><a href="#扩展方法的讲解" class="headerlink" title="扩展方法的讲解"></a>扩展方法的讲解</h2><p>C#扩展方法，爱你在心口难开<br>转自<a href="http://www.cnblogs.com/wufengtinghai/archive/2011/08/05/2128110.html" target="_blank" rel="external">无风听海</a> </p>
@@ -95,6 +80,21 @@
 <p>2、运行上面的（除红色）的设置后，发现就算没有抛出异常，log4net每天同样会创建一个空的日志文件。<br>3、查找搜索了下国内网站，未发现解决的方法，只是想到如果log4net不支持的化，可以在网站运行后<br>创建一个定时器，每隔一天检查一下对应的日志文件是否有空，有则删除；<br>4、google搜索到国外的网站，发现可以继承<strong>FileAppender.MinimalLock</strong>类 重写<strong>ReleaseLock</strong> 方法 来实现写日志完成后检查空文件并删除的功能。<br><a href="http://stackoverflow.com/questions/2533403/how-to-disable-creation-of-empty-log-file-on-app-start" target="_blank" rel="external">引用地址</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">using <span class="built_in">log</span>4net.Appender;</div><div class="line">using System;</div><div class="line">using System.Collections.Generic;</div><div class="line">using System.IO;</div><div class="line">using System.Linq;</div><div class="line">using System.Text;</div><div class="line"></div><div class="line">namespace 命名空间</div><div class="line">&#123;</div><div class="line">    public class MinimalLockDeleteEmpty : FileAppender.MinimalLock</div><div class="line">    &#123;</div><div class="line">        public override void <span class="function"><span class="title">ReleaseLock</span></span>()</div><div class="line">        &#123;</div><div class="line">            base.ReleaseLock();</div><div class="line"></div><div class="line">            var <span class="built_in">log</span>File = new FileInfo(CurrentAppender.File);</div><div class="line">            <span class="keyword">if</span> (<span class="built_in">log</span>File.Exists &amp;&amp; <span class="built_in">log</span>File.Length &lt;= 0)</div><div class="line">            &#123;</div><div class="line">                <span class="built_in">log</span>File.Delete();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>5、最后在配置文件中将类插入完成调用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;lockingModel <span class="built_in">type</span>=<span class="string">"命名空间.MinimalLockDeleteEmpty"</span> /&gt;</div></pre></td></tr></table></figure></p>
 <p>6、最后Log4Net效果就是记录中没有空日志文件且存放服务器时按照月份建文件夹，文件夹内按照日期建日志文件。</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Hello World]]></title>
+      <url>https://zuoluo11.github.io/2016/08/10/hello-world/</url>
+      <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 ]]></content>
     </entry>
     

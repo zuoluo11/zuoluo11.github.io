@@ -191,7 +191,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ASP-NET日志/">ASP.NET日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4Net/">Log4Net</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/地图操作/">地图操作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/扩展方法/">扩展方法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/百度地图/">百度地图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/空日志删除/">空日志删除</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ASP-NET日志/">ASP.NET日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4Net/">Log4Net</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/地图操作/">地图操作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/扩展方法/">扩展方法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器兼容/">浏览器兼容</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/百度地图/">百度地图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/空日志删除/">空日志删除</a></li></ul>
                     </div>
                 </section>
                 
@@ -269,6 +269,80 @@
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-浏览器兼容" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/14/浏览器兼容/" class="article-date">
+      <time datetime="2016-10-14T05:58:34.000Z" itemprop="datePublished">2016-10-14</time>
+</a>
+
+ 
+    <a href="/2016/10/14/浏览器兼容/#comments" title="查看评论">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <span class="count-comment"></span>
+        
+            <span class="ds-thread-count"  data-thread-key="2016/10/14/浏览器兼容/" ></span>
+        
+        
+    </a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/14/浏览器兼容/">浏览器兼容</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="Firefox-Event与-IE-window-Event兼容"><a href="#Firefox-Event与-IE-window-Event兼容" class="headerlink" title="Firefox Event与 IE window Event兼容"></a>Firefox Event与 IE window Event兼容</h1><hr>
+<p>在系统开发中，需要用户操作鼠标右键打开菜单时，IE直接通过使用window.event来获得对象的事件而火狐浏览器则使用触发方法中的event来获得，为了同时兼容，最后需要标准化事件对象。即：var evt=evt || event<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">   $(function()&#123;</div><div class="line">        $(element).bind(&quot;contextmenu&quot;, function (evt) &#123;</div><div class="line">           //设置弹出框对象高度宽度</div><div class="line">           //获取的这个ID为obj的DIV对象就是个实例引起鼠标事件的元素</div><div class="line">           //evt代表事件对象（W3C DOM标准下）</div><div class="line">           var evt=evt || event; //标准化事件对象（W3C DOM 和IE DOM ）</div><div class="line">           evt.Target=evt.Target || evt.srcElement;//标准化事件对象属性&lt;引起事件的元素&gt;</div><div class="line">           //（W3C DOM 和IE DOM ）</div><div class="line">           evt.layerX=evt.layerX || evt.offsetX;//鼠标相对于引起事件的元素的父元素的X坐标(标准化IE)</div><div class="line">           evt.layerY=evt.layerY || evt.offsetY;//鼠标相对于引起事件的元素的父元素的Y坐标(标准化IE)</div><div class="line">           alert(&quot;相对这个DIV的X方向的坐标&quot;+evt.layerX+&quot;\n相对这个DIV的Y方向的坐标&quot;+evt.layerY)</div><div class="line">       &#125;</div><div class="line">   &#125;);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/前端基础/">前端基础</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器兼容/">浏览器兼容</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-ZIP压缩-Net与Android相互解压" class="article article-type-post" itemscope itemprop="blogPost">
   

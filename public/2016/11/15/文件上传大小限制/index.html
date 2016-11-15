@@ -15,12 +15,19 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="菜儿's BLog">
-<meta property="og:url" content="https://zuoluo11.github.io/categories/前端基础/index.html">
+<meta name="description" content="1、主要有两个地方需要配置，httpRuntime节点 maxRequestLength 最大请求长度 byterequestLimits节点 maxAllowedContentLength 最大上传文件长度 byte这两个值需要设置为一致，IIS7 最大支持2GB 即2147483647B
+12345678910111213141516171819&amp;lt;?xml version=&quot;1.0&quot; e">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ASP.Net 文件上传大小限制">
+<meta property="og:url" content="https://zuoluo11.github.io/2016/11/15/文件上传大小限制/index.html">
 <meta property="og:site_name" content="菜儿's BLog">
+<meta property="og:description" content="1、主要有两个地方需要配置，httpRuntime节点 maxRequestLength 最大请求长度 byterequestLimits节点 maxAllowedContentLength 最大上传文件长度 byte这两个值需要设置为一致，IIS7 最大支持2GB 即2147483647B
+12345678910111213141516171819&amp;lt;?xml version=&quot;1.0&quot; e">
+<meta property="og:updated_time" content="2016-11-15T01:28:40.094Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="菜儿's BLog">
+<meta name="twitter:title" content="ASP.Net 文件上传大小限制">
+<meta name="twitter:description" content="1、主要有两个地方需要配置，httpRuntime节点 maxRequestLength 最大请求长度 byterequestLimits节点 maxAllowedContentLength 最大上传文件长度 byte这两个值需要设置为一致，IIS7 最大支持2GB 即2147483647B
+12345678910111213141516171819&amp;lt;?xml version=&quot;1.0&quot; e">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -52,7 +59,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Category: 前端基础 | 菜儿&#39;s BLog</title>
+<title>ASP.Net 文件上传大小限制 | 菜儿&#39;s BLog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -62,10 +69,10 @@
         fancybox: true,
         animate: true,
         isHome: false,
-        isPost: false,
+        isPost: true,
         isArchive: false,
         isTag: false,
-        isCategory: true,
+        isCategory: false,
         fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
         scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
         search: true
@@ -263,60 +270,188 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-文件上传大小限制" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2016/10/14/浏览器兼容/" class="archive-article-date">
-      <time datetime="2016-10-14T12:58:34.000Z" itemprop="datePublished">10-14</time>
+    <div class="article-meta">
+      <a href="/2016/11/15/文件上传大小限制/" class="article-date">
+      <time datetime="2016-11-15T01:17:24.000Z" itemprop="datePublished">2016-11-15</time>
 </a>
 
 
-        </div>
-         
+    </div>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/10/14/浏览器兼容/">FireFox右键菜单兼容</a>
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ASP.Net 文件上传大小限制
     </h1>
   
 
-        <div class="article-info info-on-archive">
-          
+      </header>
+      
+      <div class="article-info article-info-post">
+        
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/前端基础/">前端基础</a>
+    <a class="article-category-link" href="/categories/插件/">插件</a>
     </div>
 
 
-          
+        
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器兼容/">浏览器兼容</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ASP-Net/">ASP.Net</a></li></ul>
     </div>
 
-        </div>
         <div class="clearfix"></div>
-    </header>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>1、主要有两个地方需要配置，<br>httpRuntime节点 maxRequestLength 最大请求长度 byte<br>requestLimits节点 maxAllowedContentLength 最大上传文件长度 byte<br>这两个值需要设置为一致，IIS7 最大支持2GB 即2147483647B</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span>?&gt;</div><div class="line">&lt;configuration&gt;</div><div class="line">  &lt;connectionStrings configSource=<span class="string">"XmlConfig\database.config"</span> /&gt;</div><div class="line">  &lt;appSettings configSource=<span class="string">"XmlConfig\system.config"</span> /&gt;</div><div class="line">  &lt;system.web&gt;</div><div class="line">    &lt;!-- 文件上传 允许请求的最大长度 单位byte 默认4096KB--&gt;</div><div class="line">    &lt;httpRuntime requestValidationMode=<span class="string">"2.0"</span> requestLengthDiskThreshold=<span class="string">"256"</span> </div><div class="line">                 maxRequestLength=<span class="string">"2147483647"</span> executionTimeout=<span class="string">"1800"</span>/&gt;</div><div class="line">  &lt;/system.web&gt;</div><div class="line">  &lt;system.webServer&gt;</div><div class="line">    &lt;modules runAllManagedModulesForAllRequests=<span class="string">"true"</span> /&gt;</div><div class="line">    &lt;security&gt;</div><div class="line">      &lt;requestFiltering&gt;</div><div class="line">        &lt;!--上传文件大小限制单位字节 byte 最大不超过2G--&gt;</div><div class="line">        &lt;requestLimits maxQueryString=<span class="string">"2147483647"</span>  maxAllowedContentLength=<span class="string">"2147483647"</span>/&gt;</div><div class="line">      &lt;/requestFiltering&gt;</div><div class="line">    &lt;/security&gt;</div><div class="line">  &lt;/system.webServer&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
   </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/11/15/文件上传大小限制/">ASP.Net 文件上传大小限制</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">菜儿</a></p>
+        <p><span>发布时间:</span>2016-11-15, 09:17:24</p>
+        <p><span>最后更新:</span>2016-11-15, 09:28:40</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/11/15/文件上传大小限制/" title="ASP.Net 文件上传大小限制">https://zuoluo11.github.io/2016/11/15/文件上传大小限制/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://zuoluo11.github.io/2016/11/15/文件上传大小限制/　　作者: 菜儿" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/10/14/浏览器兼容/">
+                    FireFox右键菜单兼容
+                </a>
+            </div>
+        
+    </nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-5 i,
+        .toc-level-5 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
 
     
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"ASP.Net 文件上传大小限制　| 菜儿's BLog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
 
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2016/11/15/文件上传大小限制/" data-title="ASP.Net 文件上传大小限制" data-url="https://zuoluo11.github.io/2016/11/15/文件上传大小限制/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"zuoluo11"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/10/14/浏览器兼容/" title="下一篇: FireFox右键菜单兼容">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/11/15/文件上传大小限制/">ASP.Net 文件上传大小限制</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/14/浏览器兼容/">FireFox右键菜单兼容</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/28/ZIP压缩-Net与Android相互解压/">ZIP压缩.Net与Android相互解压</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/12/c-基础-扩展方法/">c#基础-扩展方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/10/百度地图常用功能的使用/">百度地图常用功能的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/10/Log4Net生成空日志文件的解决方法/">Log4Net生成空日志文件的解决方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/10/hello-world/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
 </div>
       <footer id="footer">
     <div class="outer">

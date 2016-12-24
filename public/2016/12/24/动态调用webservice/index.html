@@ -15,19 +15,16 @@
 
 
 
-<meta name="description" content="使用.NET搭建webservice，使用JAVA在Android端接受
-.Net与JAVA互相通过ZIP压缩协议进行压缩和解压字符串，减少传输字节量，加快传输速度增加用户友好。">
+<meta name="description" content="关于webservice的调用方法 之前使用或了解的只是通过vs的操作界面直接引入web服务而调用的，现在才知道调用的方式也可以使用反射的机制来实现， 网上找到的代码本地测试可以使用，留存。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ZIP压缩.Net与Android相互解压">
-<meta property="og:url" content="https://zuoluo11.github.io/2016/09/28/ZIP压缩-Net与Android相互解压/index.html">
+<meta property="og:title" content="动态调用webservice">
+<meta property="og:url" content="https://zuoluo11.github.io/2016/12/24/动态调用webservice/index.html">
 <meta property="og:site_name" content="菜儿's BLog">
-<meta property="og:description" content="使用.NET搭建webservice，使用JAVA在Android端接受
-.Net与JAVA互相通过ZIP压缩协议进行压缩和解压字符串，减少传输字节量，加快传输速度增加用户友好。">
-<meta property="og:updated_time" content="2016-10-15T13:30:19.896Z">
+<meta property="og:description" content="关于webservice的调用方法 之前使用或了解的只是通过vs的操作界面直接引入web服务而调用的，现在才知道调用的方式也可以使用反射的机制来实现， 网上找到的代码本地测试可以使用，留存。">
+<meta property="og:updated_time" content="2016-12-24T02:43:52.121Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ZIP压缩.Net与Android相互解压">
-<meta name="twitter:description" content="使用.NET搭建webservice，使用JAVA在Android端接受
-.Net与JAVA互相通过ZIP压缩协议进行压缩和解压字符串，减少传输字节量，加快传输速度增加用户友好。">
+<meta name="twitter:title" content="动态调用webservice">
+<meta name="twitter:description" content="关于webservice的调用方法 之前使用或了解的只是通过vs的操作界面直接引入web服务而调用的，现在才知道调用的方式也可以使用反射的机制来实现， 网上找到的代码本地测试可以使用，留存。">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -59,7 +56,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>ZIP压缩.Net与Android相互解压 | 菜儿&#39;s BLog</title>
+<title>动态调用webservice | 菜儿&#39;s BLog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -270,11 +267,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-ZIP压缩-Net与Android相互解压" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-动态调用webservice" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/09/28/ZIP压缩-Net与Android相互解压/" class="article-date">
-      <time datetime="2016-09-28T13:13:14.000Z" itemprop="datePublished">2016-09-28</time>
+      <a href="/2016/12/24/动态调用webservice/" class="article-date">
+      <time datetime="2016-12-24T02:20:50.000Z" itemprop="datePublished">2016-12-24</time>
 </a>
 
 
@@ -289,7 +286,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      ZIP压缩.Net与Android相互解压
+      动态调用webservice
     </h1>
   
 
@@ -298,11 +295,15 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/c-基础/">c#基础</a>
+    <a class="article-category-link" href="/categories/插件/">插件</a>
     </div>
 
 
         
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c-基础/">c#基础</a></li></ul>
+    </div>
+
         <div class="clearfix"></div>
       </div>
       
@@ -310,9 +311,10 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>使用.NET搭建webservice，使用JAVA在Android端接受</p>
-<p>.Net与JAVA互相通过ZIP压缩协议进行压缩和解压字符串，减少传输字节量，加快传输速度<br>增加用户友好。<br><a id="more"></a><br>Android<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div></pre></td><td class="code"><pre><div class="line">package com.example.administrator.myapplication;</div><div class="line"></div><div class="line">import android.util.Base64;</div><div class="line"></div><div class="line">import java.io.ByteArrayInputStream;</div><div class="line">import java.io.ByteArrayOutputStream;</div><div class="line">import java.io.IOException;</div><div class="line">import java.nio.ByteBuffer;</div><div class="line">import java.util.zip.GZIPInputStream;</div><div class="line">import java.util.zip.GZIPOutputStream;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by Administrator on 2016/9/15.</div><div class="line"> */</div><div class="line">public class GZIP &#123;</div><div class="line">    public static byte[] compress(String string) throws IOException &#123;</div><div class="line">        ByteArrayOutputStream os = new ByteArrayOutputStream(string.length());</div><div class="line">        GZIPOutputStream gos = new GZIPOutputStream(os);</div><div class="line">        gos.write(string.getBytes());</div><div class="line">        gos.close();</div><div class="line">        byte[] compressed = os.toByteArray();</div><div class="line">        os.close();</div><div class="line">        <span class="built_in">return</span> compressed;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static String decompress(byte[] compressed) throws IOException &#123;</div><div class="line">        final int BUFFER_SIZE = 32;</div><div class="line">        ByteArrayInputStream is = new ByteArrayInputStream(compressed);</div><div class="line">        GZIPInputStream gis = new GZIPInputStream(is, BUFFER_SIZE);</div><div class="line">        StringBuilder string = new StringBuilder();</div><div class="line">        byte[] data = new byte[BUFFER_SIZE];</div><div class="line">        int bytesRead;</div><div class="line">        <span class="keyword">while</span> ((bytesRead = gis.read(data)) != -1) &#123;</div><div class="line">            string.append(new String(data, 0, bytesRead));</div><div class="line">        &#125;</div><div class="line">        gis.close();</div><div class="line">        is.close();</div><div class="line">        <span class="built_in">return</span> string.toString();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static String compress1(String str) throws IOException &#123;</div><div class="line">        byte[] data=str.getBytes(<span class="string">"UTF-8"</span>);</div><div class="line">        byte[] blockcopy = ByteBuffer</div><div class="line">                .allocate(4)</div><div class="line">                .order(java.nio.ByteOrder.LITTLE_ENDIAN)</div><div class="line">                .putInt(data.length)</div><div class="line">                .array();</div><div class="line">        ByteArrayOutputStream os = new ByteArrayOutputStream(data.length);</div><div class="line">//        os.write(new byte[]&#123;0x05, 0, 0, 0&#125;,0,4);</div><div class="line">        GZIPOutputStream gos = new GZIPOutputStream(os);</div><div class="line">        gos.write(data);</div><div class="line">        gos.close();</div><div class="line">        os.close();</div><div class="line">        byte[] compressed = new byte[4 + os.toByteArray().length];</div><div class="line">        System.arraycopy(blockcopy, 0, compressed, 0, 4);</div><div class="line">        System.arraycopy(os.toByteArray(), 0, compressed, 4,</div><div class="line">                os.toByteArray().length);</div><div class="line">        byte[] result1= Base64.encode(compressed,Base64.DEFAULT);</div><div class="line">        <span class="built_in">return</span> new String (result1);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static String decompress1(String zipText) throws IOException &#123;</div><div class="line">        byte[] compressed = Base64.decode(zipText,Base64.DEFAULT);</div><div class="line">        <span class="keyword">if</span> (compressed.length &gt; 4)</div><div class="line">        &#123;</div><div class="line">            GZIPInputStream gzipInputStream = new GZIPInputStream(</div><div class="line">                    new ByteArrayInputStream(compressed, 4,</div><div class="line">                            compressed.length - 4));</div><div class="line"></div><div class="line">            ByteArrayOutputStream baos = new ByteArrayOutputStream();</div><div class="line">            <span class="keyword">for</span> (int value = 0; value != -1;) &#123;</div><div class="line">                value = gzipInputStream.read();</div><div class="line">                <span class="keyword">if</span> (value != -1) &#123;</div><div class="line">                    baos.write(value);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            gzipInputStream.close();</div><div class="line">            baos.close();</div><div class="line">            String sReturn = new String(baos.toByteArray(), <span class="string">"UTF-8"</span>);</div><div class="line">            <span class="built_in">return</span> sReturn;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span></div><div class="line">        &#123;</div><div class="line">            <span class="built_in">return</span> <span class="string">""</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>.Net<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">using System;</div><div class="line">using System.IO;</div><div class="line">using System.IO.Compression;</div><div class="line">using System.Text;</div><div class="line"></div><div class="line"></div><div class="line">namespace GZIPService</div><div class="line">&#123;</div><div class="line">    public class ZipHelper</div><div class="line">    &#123;</div><div class="line">        public static string compress(string text)</div><div class="line">        &#123;</div><div class="line">            byte[] buffer = Encoding.UTF8.GetBytes(text);</div><div class="line">            MemoryStream ms = new MemoryStream();</div><div class="line">            using (GZipStream zip = new GZipStream(ms, CompressionMode.Compress, <span class="literal">true</span>))</div><div class="line">            &#123;</div><div class="line">                zip.Write(buffer, 0, buffer.Length);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            ms.Position = 0;</div><div class="line">            MemoryStream outStream = new MemoryStream();</div><div class="line"></div><div class="line">            byte[] compressed = new byte[ms.Length];</div><div class="line">            ms.Read(compressed, 0, compressed.Length);</div><div class="line"></div><div class="line">            byte[] gzBuffer = new byte[compressed.Length + 4];</div><div class="line">            System.Buffer.BlockCopy(compressed, 0, gzBuffer, 4, compressed.Length);</div><div class="line">            System.Buffer.BlockCopy(BitConverter.GetBytes(buffer.Length), 0, gzBuffer, 0, 4);</div><div class="line">            <span class="built_in">return</span> Convert.ToBase64String(gzBuffer);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public static string decompress(string compressedText)</div><div class="line">        &#123;</div><div class="line">            byte[] gzBuffer = Convert.FromBase64String(compressedText);</div><div class="line">            using (MemoryStream ms = new MemoryStream())</div><div class="line">            &#123;</div><div class="line">                int msgLength = BitConverter.ToInt32(gzBuffer, 0);</div><div class="line">                ms.Write(gzBuffer, 4, gzBuffer.Length - 4);</div><div class="line"></div><div class="line">                byte[] buffer = new byte[msgLength];</div><div class="line"></div><div class="line">                ms.Position = 0;</div><div class="line">                using (GZipStream zip = new GZipStream(ms, CompressionMode.Decompress))</div><div class="line">                &#123;</div><div class="line">                    zip.Read(buffer, 0, buffer.Length);</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                <span class="built_in">return</span> Encoding.UTF8.GetString(buffer);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+        <p> 关于webservice的调用方法<br> 之前使用或了解的只是通过vs的操作界面直接引入web服务而调用的，现在才知道调用的方式也可以使用反射的机制来实现，<br> 网上找到的代码本地测试可以使用，留存。</p>
+<a id="more"></a>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div></pre></td><td class="code"><pre><div class="line">using System;</div><div class="line">using System.Web.Services.Description;</div><div class="line">using System.CodeDom;</div><div class="line">using Microsoft.CSharp;</div><div class="line">using System.CodeDom.Compiler;</div><div class="line">using System.Net;</div><div class="line">using System.IO;</div><div class="line"></div><div class="line">namespace DirectInvoke</div><div class="line">&#123;</div><div class="line">    class Program</div><div class="line">    &#123;</div><div class="line">        static void Main(string[] args)</div><div class="line">        &#123;</div><div class="line">            string serviceUrl = "http://www.webxml.com.cn/WebServices/ChinaZipSearchWebService.asmx";</div><div class="line">            object o = Webservice.InvokeWebService(serviceUrl, "getSupportProvince", new object[] &#123; &#125;);</div><div class="line">        &#125;</div><div class="line">        //反射获得方法及成员</div><div class="line">        public void PrintInstanceInfor(Type t)</div><div class="line">        &#123;</div><div class="line">            //获取所有方法 </div><div class="line">            System.Reflection.MethodInfo[] methods = t.GetMethods();</div><div class="line"></div><div class="line">            //获取所有成员 </div><div class="line">            System.Reflection.MemberInfo[] members = t.GetMembers();</div><div class="line"></div><div class="line">            //获取所有属性 </div><div class="line">            System.Reflection.PropertyInfo[] properties = t.GetProperties();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    public class Webservice</div><div class="line">    &#123;</div><div class="line">        /// &lt;summary&gt;</div><div class="line">        /// 实例化WebServices</div><div class="line">        /// &lt;/summary&gt;</div><div class="line">        /// &lt;param name="url"&gt;WebServices地址&lt;/param&gt;</div><div class="line">        /// &lt;param name="methodname"&gt;调用的方法&lt;/param&gt;</div><div class="line">        /// &lt;param name="args"&gt;把webservices里需要的参数按顺序放到这个object[]里&lt;/param&gt;</div><div class="line">        public static object InvokeWebService(string url, string methodname, object[] args)</div><div class="line">        &#123;</div><div class="line"></div><div class="line">            //这里的namespace是需引用的webservices的命名空间，我没有改过，也可以使用。也可以加一个参数从外面传进来。</div><div class="line">            string @namespace = "client";</div><div class="line">            try</div><div class="line">            &#123;</div><div class="line">                //获取WSDL</div><div class="line">                WebClient wc = new WebClient();</div><div class="line">                Stream stream = wc.OpenRead(url + "?WSDL");</div><div class="line">                ServiceDescription sd = ServiceDescription.Read(stream);</div><div class="line">                string classname = sd.Services[0].Name;</div><div class="line">                ServiceDescriptionImporter sdi = new ServiceDescriptionImporter();</div><div class="line">                sdi.AddServiceDescription(sd, "", "");</div><div class="line">                CodeNamespace cn = new CodeNamespace(@namespace);</div><div class="line"></div><div class="line">                //生成客户端代理类代码</div><div class="line">                CodeCompileUnit ccu = new CodeCompileUnit();</div><div class="line">                ccu.Namespaces.Add(cn);</div><div class="line">                sdi.Import(cn, ccu);</div><div class="line">                CSharpCodeProvider csc = new CSharpCodeProvider();</div><div class="line">                //ICodeCompiler icc = csc.CreateCompiler();</div><div class="line"></div><div class="line">                //设定编译参数</div><div class="line">                CompilerParameters cplist = new CompilerParameters();</div><div class="line">                cplist.GenerateExecutable = false;</div><div class="line">                cplist.GenerateInMemory = true;</div><div class="line">                cplist.ReferencedAssemblies.Add("System.dll");</div><div class="line">                cplist.ReferencedAssemblies.Add("System.xml.dll");</div><div class="line">                cplist.ReferencedAssemblies.Add("System.Web.Services.dll");</div><div class="line">                cplist.ReferencedAssemblies.Add("System.Data.dll");</div><div class="line"></div><div class="line">                //编译代理类</div><div class="line">                CompilerResults cr = csc.CompileAssemblyFromDom(cplist, ccu);</div><div class="line">                if (true == cr.Errors.HasErrors)</div><div class="line">                &#123;</div><div class="line">                    System.Text.StringBuilder sb = new System.Text.StringBuilder();</div><div class="line">                    foreach (System.CodeDom.Compiler.CompilerError ce in cr.Errors)</div><div class="line">                    &#123;</div><div class="line">                        sb.Append(ce.ToString());</div><div class="line">                        sb.Append(System.Environment.NewLine);</div><div class="line">                    &#125;</div><div class="line">                    throw new Exception(sb.ToString());</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                //生成代理实例，并调用方法</div><div class="line">                System.Reflection.Assembly assembly = cr.CompiledAssembly;</div><div class="line">                Type t = assembly.GetType(@namespace + "." + classname, true, true);</div><div class="line">                object obj = Activator.CreateInstance(t);</div><div class="line">                System.Reflection.MethodInfo mi = t.GetMethod(methodname);</div><div class="line"></div><div class="line">                return mi.Invoke(obj, args);</div><div class="line">            &#125;</div><div class="line">            catch</div><div class="line">            &#123;</div><div class="line">                return null;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><a href="http://www.knowsky.com/898239.html" target="_blank" rel="external">核心代码转自</a></p>
 
       
     </div>
@@ -321,13 +323,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/09/28/ZIP压缩-Net与Android相互解压/">ZIP压缩.Net与Android相互解压</a></p>
+        <p><span>本文标题:</span><a href="/2016/12/24/动态调用webservice/">动态调用webservice</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">菜儿</a></p>
-        <p><span>发布时间:</span>2016-09-28, 21:13:14</p>
-        <p><span>最后更新:</span>2016-10-15, 21:30:19</p>
+        <p><span>发布时间:</span>2016-12-24, 10:20:50</p>
+        <p><span>最后更新:</span>2016-12-24, 10:43:52</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/09/28/ZIP压缩-Net与Android相互解压/" title="ZIP压缩.Net与Android相互解压">https://zuoluo11.github.io/2016/09/28/ZIP压缩-Net与Android相互解压/</a>
-            <span class="copy-path" data-clipboard-text="原文: https://zuoluo11.github.io/2016/09/28/ZIP压缩-Net与Android相互解压/　　作者: 菜儿" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/12/24/动态调用webservice/" title="动态调用webservice">https://zuoluo11.github.io/2016/12/24/动态调用webservice/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://zuoluo11.github.io/2016/12/24/动态调用webservice/　　作者: 菜儿" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -339,16 +341,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/10/14/浏览器兼容/">
-                    FireFox右键菜单兼容
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/09/12/c-基础-扩展方法/">
-                    c#基础-扩展方法
+                <a href="/2016/12/02/JS动态创建行/">
+                    JS动态创建行
                 </a>
             </div>
         
@@ -396,7 +392,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"ZIP压缩.Net与Android相互解压　| 菜儿's BLog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"动态调用webservice　| 菜儿's BLog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -412,7 +408,7 @@
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2016/09/28/ZIP压缩-Net与Android相互解压/" data-title="ZIP压缩.Net与Android相互解压" data-url="https://zuoluo11.github.io/2016/09/28/ZIP压缩-Net与Android相互解压/"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2016/12/24/动态调用webservice/" data-title="动态调用webservice" data-url="https://zuoluo11.github.io/2016/12/24/动态调用webservice/"></div>
     <script>
         var duoshuoQuery = {short_name:"zuoluo11"};
         var loadComment = function(){
@@ -435,15 +431,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/10/14/浏览器兼容/" title="上一篇: FireFox右键菜单兼容">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/09/12/c-基础-扩展方法/" title="下一篇: c#基础-扩展方法">
+            <a href="/2016/12/02/JS动态创建行/" title="下一篇: JS动态创建行">
                 <i class="fa fa-angle-right"></i>
             </a>
         

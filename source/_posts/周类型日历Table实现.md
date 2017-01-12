@@ -1,0 +1,24 @@
+---
+title: 周类型日历Table实现
+date: 2017-01-12 16:56:18
+tags:
+---
+要实现的功能：通过点击或拖动选择在日历中根据时间段列出的课程单元格。
+该Table可用的功能包括：
+1、按周来显示的日历；
+2、可拖动、点击选择表格；
+3、可用来设置日程、课程相关table原型；
+<!--more-->
+遇到的坑：
+1、js对象使用地址引用来传递，导致循环获得moment时间对象的值放到数组
+中后，全部相同且是最后一个，最后使用new moment()，重新再创建一个对象来解决。
+```
+var today=new moment();
+var array=new Array();
+for(var i=0;i<3;i++){
+	array.push(new moment(today.add(1,"days")));//添加一天 解决地址传递	
+}
+
+```
+
+<script src='http://runjs.cn/gist/g2krqzka/all'></script>

@@ -15,12 +15,16 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="菜儿's BLog">
-<meta property="og:url" content="https://zuoluo11.github.io/archives/index.html">
+<meta name="description" content="要实现的功能：通过点击或拖动选择在日历中根据时间段列出的课程单元格。该Table可用的功能包括：1、按周来显示的日历；2、可拖动、点击选择表格；3、可用来设置日程、课程相关table原型；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="周日历实现">
+<meta property="og:url" content="https://zuoluo11.github.io/2017/01/16/周日历实现/index.html">
 <meta property="og:site_name" content="菜儿's BLog">
+<meta property="og:description" content="要实现的功能：通过点击或拖动选择在日历中根据时间段列出的课程单元格。该Table可用的功能包括：1、按周来显示的日历；2、可拖动、点击选择表格；3、可用来设置日程、课程相关table原型；">
+<meta property="og:updated_time" content="2017-01-16T01:19:29.923Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="菜儿's BLog">
+<meta name="twitter:title" content="周日历实现">
+<meta name="twitter:description" content="要实现的功能：通过点击或拖动选择在日历中根据时间段列出的课程单元格。该Table可用的功能包括：1、按周来显示的日历；2、可拖动、点击选择表格；3、可用来设置日程、课程相关table原型；">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -52,7 +56,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Archives | 菜儿&#39;s BLog</title>
+<title>周日历实现 | 菜儿&#39;s BLog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -62,8 +66,8 @@
         fancybox: true,
         animate: true,
         isHome: false,
-        isPost: false,
-        isArchive: true,
+        isPost: true,
+        isArchive: false,
         isTag: false,
         isCategory: false,
         fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
@@ -263,383 +267,179 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-周日历实现" class="article article-type-post" itemscope itemprop="blogPost">
   
+    <div class="article-meta">
+      <a href="/2017/01/16/周日历实现/" class="article-date">
+      <time datetime="2017-01-16T00:55:54.000Z" itemprop="datePublished">2017-01-16</time>
+</a>
+
+
+    </div>
   
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      周日历实现
+    </h1>
+  
+
+      </header>
       
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2017/01/16/周日历实现/" class="archive-article-date">
-      <time datetime="2017-01-16T00:55:54.000Z" itemprop="datePublished">01-16</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/01/16/周日历实现/">周日历实现</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-
-          
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
+    <div class="article-entry" itemprop="articleBody">
       
-        </div></section>
+          
+        <p>要实现的功能：通过点击或拖动选择在日历中根据时间段列出的课程单元格。<br>该Table可用的功能包括：<br>1、按周来显示的日历；<br>2、可拖动、点击选择表格；<br>3、可用来设置日程、课程相关table原型；<br><a id="more"></a><br>遇到的坑：<br>1、js对象使用地址引用来传递，导致循环获得moment时间对象的值放到数组<br>中后，全部相同且是最后一个，最后使用new moment()，重新再创建一个对象来解决。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var today=new moment();</div><div class="line">var array=new Array();</div><div class="line">for(var i=0;i&lt;3;i++)&#123;</div><div class="line">	array.push(new moment(today.add(1,&quot;days&quot;)));//添加一天 解决地址传递	</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="源码及演示"><a href="#源码及演示" class="headerlink" title="源码及演示"></a><a href="http://runjs.cn/code/g2krqzka" target="_blank" rel="external">源码及演示</a></h3>
       
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
+    </div>
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2016/12/24/动态调用webservice/" class="archive-article-date">
-      <time datetime="2016-12-24T02:20:50.000Z" itemprop="datePublished">12-24</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/12/24/动态调用webservice/">动态调用webservice</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/插件/">插件</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c-基础/">c#基础</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
   </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/01/16/周日历实现/">周日历实现</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">菜儿</a></p>
+        <p><span>发布时间:</span>2017-01-16, 08:55:54</p>
+        <p><span>最后更新:</span>2017-01-16, 09:19:29</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/01/16/周日历实现/" title="周日历实现">https://zuoluo11.github.io/2017/01/16/周日历实现/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://zuoluo11.github.io/2017/01/16/周日历实现/　　作者: 菜儿" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/12/24/动态调用webservice/">
+                    动态调用webservice
+                </a>
+            </div>
+        
+    </nav>
+
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2016/12/02/JS动态创建行/" class="archive-article-date">
-      <time datetime="2016-12-02T05:56:30.000Z" itemprop="datePublished">12-02</time>
-</a>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#源码及演示"><span class="toc-number">1.</span> <span class="toc-text">源码及演示</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-5 i,
+        .toc-level-5 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
 
 
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
         </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/12/02/JS动态创建行/">JS动态创建行</a>
-    </h1>
-  
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"周日历实现　| 菜儿's BLog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
 
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/前端基础/">前端基础</a>
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/01/16/周日历实现/" data-title="周日历实现" data-url="https://zuoluo11.github.io/2017/01/16/周日历实现/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"zuoluo11"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/12/24/动态调用webservice/" title="下一篇: 动态调用webservice">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
     </div>
 
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/easyui/">easyui</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2016/11/15/文件上传大小限制/" class="archive-article-date">
-      <time datetime="2016-11-15T01:17:24.000Z" itemprop="datePublished">11-15</time>
-</a>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/01/16/周日历实现/">周日历实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/24/动态调用webservice/">动态调用webservice</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/02/JS动态创建行/">JS动态创建行</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/15/文件上传大小限制/">ASP.Net 文件上传大小限制</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/14/浏览器兼容/">FireFox右键菜单兼容</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/28/ZIP压缩-Net与Android相互解压/">ZIP压缩.Net与Android相互解压</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/12/c-基础-扩展方法/">c#基础-扩展方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/10/百度地图常用功能的使用/">百度地图常用功能的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/10/Log4Net生成空日志文件的解决方法/">Log4Net生成空日志文件的解决方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/10/hello-world/">Hello World</a></li></ul>
 
 
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/11/15/文件上传大小限制/">ASP.Net 文件上传大小限制</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/C-基础/">C#基础</a>
-    </div>
 
 
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ASP-Net/">ASP.Net</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2016/10/14/浏览器兼容/" class="archive-article-date">
-      <time datetime="2016-10-14T12:58:34.000Z" itemprop="datePublished">10-14</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/10/14/浏览器兼容/">FireFox右键菜单兼容</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/前端基础/">前端基础</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器兼容/">浏览器兼容</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2016/09/28/ZIP压缩-Net与Android相互解压/" class="archive-article-date">
-      <time datetime="2016-09-28T13:13:14.000Z" itemprop="datePublished">09-28</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/09/28/ZIP压缩-Net与Android相互解压/">ZIP压缩.Net与Android相互解压</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/c-基础/">c#基础</a>
-    </div>
-
-
-          
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2016/09/12/c-基础-扩展方法/" class="archive-article-date">
-      <time datetime="2016-09-12T14:58:48.000Z" itemprop="datePublished">09-12</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/09/12/c-基础-扩展方法/">c#基础-扩展方法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/c-基础/">c#基础</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/扩展方法/">扩展方法</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2016/09/10/百度地图常用功能的使用/" class="archive-article-date">
-      <time datetime="2016-09-10T12:56:05.000Z" itemprop="datePublished">09-10</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/09/10/百度地图常用功能的使用/">百度地图常用功能的使用</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/插件/">插件</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/地图操作/">地图操作</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/百度地图/">百度地图</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2016/09/10/Log4Net生成空日志文件的解决方法/" class="archive-article-date">
-      <time datetime="2016-09-10T12:26:04.000Z" itemprop="datePublished">09-10</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/09/10/Log4Net生成空日志文件的解决方法/">Log4Net生成空日志文件的解决方法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/插件/">插件</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ASP-NET日志/">ASP.NET日志</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Log4Net/">Log4Net</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/空日志删除/">空日志删除</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2016/08/10/hello-world/" class="archive-article-date">
-      <time datetime="2016-08-10T12:26:04.000Z" itemprop="datePublished">08-10</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/08/10/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-
-          
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-
+    <script>
+        
+    </script>
 </div>
       <footer id="footer">
     <div class="outer">

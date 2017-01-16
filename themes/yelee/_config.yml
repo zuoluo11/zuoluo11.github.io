@@ -117,7 +117,7 @@ youyan:
 ## "5": show images form bg-1.jpg to bg-5.jpg in `/yelee/source/background/`
 ## "5": 显示`/yelee/source/background/`文件夹中 bg-1.jpg 到 bg-5.jpg 这5张图片
 ## "0": white-gray background | 淳朴灰白背景
-background_image: 5
+background_image: 8
 
 # Base Font Size | 字号调节
 base_font_size: 16  #px, 16 - 24
@@ -258,7 +258,7 @@ baidu_site:
 google_site: 
 
 # Fill in Google Analytics tracking ID, #e.g. UA-XXXXX-X
-google_analytics: 
+google_analytics: UA-89372867-1
 
 # 百度统计 http://sitecenter.baidu.com/sc-web/
 # 查看代码，填入 //hm.baidu.com/hm.js? 之后的内容

@@ -15,19 +15,16 @@
 
 
 
-<meta name="description" content="1、主要有两个地方需要配置，httpRuntime节点 maxRequestLength 最大请求长度 byterequestLimits节点 maxAllowedContentLength 最大上传文件长度 byte这两个值需要设置为一致，IIS7 最大支持2GB 即2147483647B
-12345678910111213141516171819&amp;lt;?xml version=&quot;1.0&quot; e">
+<meta name="description" content="好久没有总结文字了，上周整理过一个IIS自动发布并绑定域名的demo，其中有一部分需要读取未使用的服务器端口号用来发布网站，因此整理出该方法。实现逻辑思路：.net 通过命令提示符窗口获得当前已用端口，再筛选出可用端口。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ASP.Net 文件上传大小限制">
-<meta property="og:url" content="https://zuoluo11.github.io/2016/11/15/文件上传大小限制/index.html">
+<meta property="og:title" content=".net获得本机可用端口号">
+<meta property="og:url" content="https://zuoluo11.github.io/2017/06/19/net获得本机可用端口号/index.html">
 <meta property="og:site_name" content="菜儿's BLog">
-<meta property="og:description" content="1、主要有两个地方需要配置，httpRuntime节点 maxRequestLength 最大请求长度 byterequestLimits节点 maxAllowedContentLength 最大上传文件长度 byte这两个值需要设置为一致，IIS7 最大支持2GB 即2147483647B
-12345678910111213141516171819&amp;lt;?xml version=&quot;1.0&quot; e">
-<meta property="og:updated_time" content="2017-01-12T10:01:56.276Z">
+<meta property="og:description" content="好久没有总结文字了，上周整理过一个IIS自动发布并绑定域名的demo，其中有一部分需要读取未使用的服务器端口号用来发布网站，因此整理出该方法。实现逻辑思路：.net 通过命令提示符窗口获得当前已用端口，再筛选出可用端口。">
+<meta property="og:updated_time" content="2017-06-19T02:37:56.305Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ASP.Net 文件上传大小限制">
-<meta name="twitter:description" content="1、主要有两个地方需要配置，httpRuntime节点 maxRequestLength 最大请求长度 byterequestLimits节点 maxAllowedContentLength 最大上传文件长度 byte这两个值需要设置为一致，IIS7 最大支持2GB 即2147483647B
-12345678910111213141516171819&amp;lt;?xml version=&quot;1.0&quot; e">
+<meta name="twitter:title" content=".net获得本机可用端口号">
+<meta name="twitter:description" content="好久没有总结文字了，上周整理过一个IIS自动发布并绑定域名的demo，其中有一部分需要读取未使用的服务器端口号用来发布网站，因此整理出该方法。实现逻辑思路：.net 通过命令提示符窗口获得当前已用端口，再筛选出可用端口。">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -59,7 +56,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>ASP.Net 文件上传大小限制 | 菜儿&#39;s BLog</title>
+<title>.net获得本机可用端口号 | 菜儿&#39;s BLog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -270,11 +267,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-文件上传大小限制" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-net获得本机可用端口号" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/11/15/文件上传大小限制/" class="article-date">
-      <time datetime="2016-11-15T01:17:24.000Z" itemprop="datePublished">2016-11-15</time>
+      <a href="/2017/06/19/net获得本机可用端口号/" class="article-date">
+      <time datetime="2017-06-19T02:04:06.000Z" itemprop="datePublished">2017-06-19</time>
 </a>
 
 
@@ -289,7 +286,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      ASP.Net 文件上传大小限制
+      .net获得本机可用端口号
     </h1>
   
 
@@ -297,14 +294,10 @@
       
       <div class="article-info article-info-post">
         
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/C-基础/">C#基础</a>
-    </div>
-
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ASP-Net/">ASP.Net</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c-基础/">c#基础</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -314,8 +307,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>1、主要有两个地方需要配置，<br>httpRuntime节点 maxRequestLength 最大请求长度 byte<br>requestLimits节点 maxAllowedContentLength 最大上传文件长度 byte<br>这两个值需要设置为一致，IIS7 最大支持2GB 即2147483647B</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span>?&gt;</div><div class="line">&lt;configuration&gt;</div><div class="line">  &lt;connectionStrings configSource=<span class="string">"XmlConfig\database.config"</span> /&gt;</div><div class="line">  &lt;appSettings configSource=<span class="string">"XmlConfig\system.config"</span> /&gt;</div><div class="line">  &lt;system.web&gt;</div><div class="line">    &lt;!-- 文件上传 允许请求的最大长度 单位byte 默认4096KB--&gt;</div><div class="line">    &lt;httpRuntime requestValidationMode=<span class="string">"2.0"</span> requestLengthDiskThreshold=<span class="string">"256"</span> </div><div class="line">                 maxRequestLength=<span class="string">"2147483647"</span> executionTimeout=<span class="string">"1800"</span>/&gt;</div><div class="line">  &lt;/system.web&gt;</div><div class="line">  &lt;system.webServer&gt;</div><div class="line">    &lt;modules runAllManagedModulesForAllRequests=<span class="string">"true"</span> /&gt;</div><div class="line">    &lt;security&gt;</div><div class="line">      &lt;requestFiltering&gt;</div><div class="line">        &lt;!--上传文件大小限制单位字节 byte 最大不超过2G--&gt;</div><div class="line">        &lt;requestLimits maxQueryString=<span class="string">"2147483647"</span>  maxAllowedContentLength=<span class="string">"2147483647"</span>/&gt;</div><div class="line">      &lt;/requestFiltering&gt;</div><div class="line">    &lt;/security&gt;</div><div class="line">  &lt;/system.webServer&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
+        <p>好久没有总结文字了，上周整理过一个IIS自动发布并绑定域名的demo，<br>其中有一部分需要读取未使用的服务器端口号用来发布网站，因此<br>整理出该方法。<br>实现逻辑思路：.net 通过命令提示符窗口获得当前已用端口，再筛选出可用端口。<br><a id="more"></a></p>
+<h2 id="公用方法代码"><a href="#公用方法代码" class="headerlink" title="公用方法代码"></a>公用方法代码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">public string <span class="function"><span class="title">GetFreePort</span></span>()</div><div class="line">        &#123;</div><div class="line">            string result = <span class="string">""</span>;</div><div class="line">            Process p = new Process();</div><div class="line">            p.StartInfo.FileName = <span class="string">"cmd.exe"</span>;//设置启动的应用程序    </div><div class="line">            p.StartInfo.UseShellExecute = <span class="literal">false</span>;//禁止使用操作系统外壳程序启动进程    </div><div class="line">            p.StartInfo.RedirectStandardInput = <span class="literal">true</span>;//应用程序的输入从流中读取    </div><div class="line">            p.StartInfo.RedirectStandardOutput = <span class="literal">true</span>;//应用程序的输出写入流中    </div><div class="line">            p.StartInfo.RedirectStandardError = <span class="literal">true</span>;//将错误信息写入流    </div><div class="line">            p.StartInfo.CreateNoWindow = <span class="literal">true</span>;//是否在新窗口中启动进程    </div><div class="line">            p.Start();</div><div class="line">            //p.StandardInput.WriteLine(@<span class="string">"netstat -a -n&gt;c:\port.txt"</span>);//将字符串写入文本流    </div><div class="line">            p.StandardInput.WriteLine(@<span class="string">"netstat -a -n"</span>);</div><div class="line">            p.StandardInput.WriteLine(<span class="string">"exit"</span>); //此处必须加退出命令，否则界面会卡死在cmd窗口无法继续执行</div><div class="line">            string str;</div><div class="line">            StreamReader reader=p.StandardOutput;</div><div class="line">            str = reader.ReadLine();</div><div class="line">            ArrayList ports = new ArrayList();</div><div class="line">            ////匹配出端口号</div><div class="line">            string pattern = @<span class="string">":\d+"</span>; //正则表达式字符串</div><div class="line">            Regex regex = new Regex(pattern);</div><div class="line">            <span class="keyword">while</span> (!reader.EndOfStream)</div><div class="line">            &#123;</div><div class="line">                Match match = regex.Match(str);</div><div class="line">                <span class="keyword">if</span> (match.Success)</div><div class="line">                &#123;</div><div class="line">                    string port = match.Groups[0].Value.Substring(1);</div><div class="line">                    ports.Add(port);</div><div class="line">                &#125;</div><div class="line">                Console.WriteLine(str);</div><div class="line">                str = reader.ReadLine();</div><div class="line">            &#125;</div><div class="line">            ////可用端口号范围1024－49151</div><div class="line">            <span class="keyword">for</span> (int i = 1024; i &lt; 49151; i++)</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">if</span> (!ports.Contains(i))</div><div class="line">                &#123;</div><div class="line">                    result = i.ToString();</div><div class="line">                    <span class="built_in">break</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            <span class="built_in">return</span> result;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -324,13 +317,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/11/15/文件上传大小限制/">ASP.Net 文件上传大小限制</a></p>
+        <p><span>本文标题:</span><a href="/2017/06/19/net获得本机可用端口号/">.net获得本机可用端口号</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">菜儿</a></p>
-        <p><span>发布时间:</span>2016-11-15, 09:17:24</p>
-        <p><span>最后更新:</span>2017-01-12, 18:01:56</p>
+        <p><span>发布时间:</span>2017-06-19, 10:04:06</p>
+        <p><span>最后更新:</span>2017-06-19, 10:37:56</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/11/15/文件上传大小限制/" title="ASP.Net 文件上传大小限制">https://zuoluo11.github.io/2016/11/15/文件上传大小限制/</a>
-            <span class="copy-path" data-clipboard-text="原文: https://zuoluo11.github.io/2016/11/15/文件上传大小限制/　　作者: 菜儿" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/06/19/net获得本机可用端口号/" title=".net获得本机可用端口号">https://zuoluo11.github.io/2017/06/19/net获得本机可用端口号/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://zuoluo11.github.io/2017/06/19/net获得本机可用端口号/　　作者: 菜儿" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -342,16 +335,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/12/02/JS动态创建行/">
-                    JS动态创建行
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/10/14/浏览器兼容/">
-                    FireFox右键菜单兼容
+                <a href="/2017/01/21/window服务守护外部程序/">
+                    window服务守护外部程序不被关闭
                 </a>
             </div>
         
@@ -363,7 +350,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#公用方法代码"><span class="toc-number">1.</span> <span class="toc-text">公用方法代码</span></a></li></ol>
         
     </div>
     <style>
@@ -399,7 +386,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"ASP.Net 文件上传大小限制　| 菜儿's BLog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":".net获得本机可用端口号　| 菜儿's BLog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -415,7 +402,7 @@
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2016/11/15/文件上传大小限制/" data-title="ASP.Net 文件上传大小限制" data-url="https://zuoluo11.github.io/2016/11/15/文件上传大小限制/"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/06/19/net获得本机可用端口号/" data-title=".net获得本机可用端口号" data-url="https://zuoluo11.github.io/2017/06/19/net获得本机可用端口号/"></div>
     <script>
         var duoshuoQuery = {short_name:"zuoluo11"};
         var loadComment = function(){
@@ -438,15 +425,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/12/02/JS动态创建行/" title="上一篇: JS动态创建行">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/10/14/浏览器兼容/" title="下一篇: FireFox右键菜单兼容">
+            <a href="/2017/01/21/window服务守护外部程序/" title="下一篇: window服务守护外部程序不被关闭">
                 <i class="fa fa-angle-right"></i>
             </a>
         

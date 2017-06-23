@@ -71,3 +71,11 @@ deploy:
   type: git
   repository: https://github.com/zuoluo11/zuoluo11.github.io.git
   branch: master
+
+  search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
+
+  disqus_shortname: zuoluo11-github-io

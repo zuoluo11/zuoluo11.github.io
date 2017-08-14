@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="c#基础," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -93,16 +93,12 @@
 
 
 
-<meta name="description" content="关于webservice的调用方法 之前使用或了解的只是通过vs的操作界面直接引入web服务而调用的，现在才知道调用的方式也可以使用反射的机制来实现， 网上找到的代码本地测试可以使用，留存。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="动态调用webservice">
-<meta property="og:url" content="https://zuoluo11.github.io/2016/12/24/动态调用webservice/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="菜儿's BLog">
+<meta property="og:url" content="https://zuoluo11.github.io/archives/2017/08/index.html">
 <meta property="og:site_name" content="菜儿's BLog">
-<meta property="og:description" content="关于webservice的调用方法 之前使用或了解的只是通过vs的操作界面直接引入web服务而调用的，现在才知道调用的方式也可以使用反射的机制来实现， 网上找到的代码本地测试可以使用，留存。">
-<meta property="og:updated_time" content="2017-08-14T09:17:05.761Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="动态调用webservice">
-<meta name="twitter:description" content="关于webservice的调用方法 之前使用或了解的只是通过vs的操作界面直接引入web服务而调用的，现在才知道调用的方式也可以使用反射的机制来实现， 网上找到的代码本地测试可以使用，留存。">
+<meta name="twitter:title" content="菜儿's BLog">
 
 
 
@@ -130,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="https://zuoluo11.github.io/2016/12/24/动态调用webservice/"/>
+  <link rel="canonical" href="https://zuoluo11.github.io/archives/2017/08/"/>
 
 
 
 
 
-  <title>动态调用webservice | 菜儿's BLog</title>
+  <title>归档 | 菜儿's BLog</title>
   
 
 
@@ -170,7 +166,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left  page-archive  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -308,182 +304,66 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
+  <section id="posts" class="posts-collapse">
+    <span class="archive-move-on"></span>
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://zuoluo11.github.io/2016/12/24/动态调用webservice/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="菜儿">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="菜儿's BLog">
+    <span class="archive-page-counter">
+      
+      
+      
+        
+      
+      嗯..! 目前共计 15 篇日志。 继续努力。
     </span>
 
     
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">动态调用webservice</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-24T10:20:50+08:00">
-                2016-12-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/插件/" itemprop="url" rel="index">
-                    <span itemprop="name">插件</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
-            </span>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
 
       
       
-
       
-        <p> 关于webservice的调用方法<br> 之前使用或了解的只是通过vs的操作界面直接引入web服务而调用的，现在才知道调用的方式也可以使用反射的机制来实现，<br> 网上找到的代码本地测试可以使用，留存。</p>
-<a id="more"></a>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div></pre></td><td class="code"><pre><div class="line">using System;</div><div class="line">using System.Web.Services.Description;</div><div class="line">using System.CodeDom;</div><div class="line">using Microsoft.CSharp;</div><div class="line">using System.CodeDom.Compiler;</div><div class="line">using System.Net;</div><div class="line">using System.IO;</div><div class="line"></div><div class="line">namespace DirectInvoke</div><div class="line">&#123;</div><div class="line">    class Program</div><div class="line">    &#123;</div><div class="line">        static void Main(string[] args)</div><div class="line">        &#123;</div><div class="line">            string serviceUrl = "http://www.webxml.com.cn/WebServices/ChinaZipSearchWebService.asmx";</div><div class="line">            object o = Webservice.InvokeWebService(serviceUrl, "getSupportProvince", new object[] &#123; &#125;);</div><div class="line">        &#125;</div><div class="line">        //反射获得方法及成员</div><div class="line">        public void PrintInstanceInfor(Type t)</div><div class="line">        &#123;</div><div class="line">            //获取所有方法 </div><div class="line">            System.Reflection.MethodInfo[] methods = t.GetMethods();</div><div class="line"></div><div class="line">            //获取所有成员 </div><div class="line">            System.Reflection.MemberInfo[] members = t.GetMembers();</div><div class="line"></div><div class="line">            //获取所有属性 </div><div class="line">            System.Reflection.PropertyInfo[] properties = t.GetProperties();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    public class Webservice</div><div class="line">    &#123;</div><div class="line">        /// &lt;summary&gt;</div><div class="line">        /// 实例化WebServices</div><div class="line">        /// &lt;/summary&gt;</div><div class="line">        /// &lt;param name="url"&gt;WebServices地址&lt;/param&gt;</div><div class="line">        /// &lt;param name="methodname"&gt;调用的方法&lt;/param&gt;</div><div class="line">        /// &lt;param name="args"&gt;把webservices里需要的参数按顺序放到这个object[]里&lt;/param&gt;</div><div class="line">        public static object InvokeWebService(string url, string methodname, object[] args)</div><div class="line">        &#123;</div><div class="line"></div><div class="line">            //这里的namespace是需引用的webservices的命名空间，我没有改过，也可以使用。也可以加一个参数从外面传进来。</div><div class="line">            string @namespace = "client";</div><div class="line">            try</div><div class="line">            &#123;</div><div class="line">                //获取WSDL</div><div class="line">                WebClient wc = new WebClient();</div><div class="line">                Stream stream = wc.OpenRead(url + "?WSDL");</div><div class="line">                ServiceDescription sd = ServiceDescription.Read(stream);</div><div class="line">                string classname = sd.Services[0].Name;</div><div class="line">                ServiceDescriptionImporter sdi = new ServiceDescriptionImporter();</div><div class="line">                sdi.AddServiceDescription(sd, "", "");</div><div class="line">                CodeNamespace cn = new CodeNamespace(@namespace);</div><div class="line"></div><div class="line">                //生成客户端代理类代码</div><div class="line">                CodeCompileUnit ccu = new CodeCompileUnit();</div><div class="line">                ccu.Namespaces.Add(cn);</div><div class="line">                sdi.Import(cn, ccu);</div><div class="line">                CSharpCodeProvider csc = new CSharpCodeProvider();</div><div class="line">                //ICodeCompiler icc = csc.CreateCompiler();</div><div class="line"></div><div class="line">                //设定编译参数</div><div class="line">                CompilerParameters cplist = new CompilerParameters();</div><div class="line">                cplist.GenerateExecutable = false;</div><div class="line">                cplist.GenerateInMemory = true;</div><div class="line">                cplist.ReferencedAssemblies.Add("System.dll");</div><div class="line">                cplist.ReferencedAssemblies.Add("System.xml.dll");</div><div class="line">                cplist.ReferencedAssemblies.Add("System.Web.Services.dll");</div><div class="line">                cplist.ReferencedAssemblies.Add("System.Data.dll");</div><div class="line"></div><div class="line">                //编译代理类</div><div class="line">                CompilerResults cr = csc.CompileAssemblyFromDom(cplist, ccu);</div><div class="line">                if (true == cr.Errors.HasErrors)</div><div class="line">                &#123;</div><div class="line">                    System.Text.StringBuilder sb = new System.Text.StringBuilder();</div><div class="line">                    foreach (System.CodeDom.Compiler.CompilerError ce in cr.Errors)</div><div class="line">                    &#123;</div><div class="line">                        sb.Append(ce.ToString());</div><div class="line">                        sb.Append(System.Environment.NewLine);</div><div class="line">                    &#125;</div><div class="line">                    throw new Exception(sb.ToString());</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                //生成代理实例，并调用方法</div><div class="line">                System.Reflection.Assembly assembly = cr.CompiledAssembly;</div><div class="line">                Type t = assembly.GetType(@namespace + "." + classname, true, true);</div><div class="line">                object obj = Activator.CreateInstance(t);</div><div class="line">                System.Reflection.MethodInfo mi = t.GetMethod(methodname);</div><div class="line"></div><div class="line">                return mi.Invoke(obj, args);</div><div class="line">            &#125;</div><div class="line">            catch</div><div class="line">            &#123;</div><div class="line">                return null;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><a href="http://www.knowsky.com/898239.html" target="_blank" rel="external">核心代码转自</a></p>
 
-      
-    </div>
-
-    <div>
       
         
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/c-基础/" rel="tag"># c#基础</a>
-          
+        <div class="collection-title">
+          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
         </div>
       
-
-      
-      
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/12/02/JS动态创建行/" rel="next" title="JS动态创建行">
-                <i class="fa fa-chevron-left"></i> JS动态创建行
-              </a>
-            
-          </div>
 
-          <span class="post-nav-divider"></span>
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/01/16/周日历实现/" rel="prev" title="周日历实现">
-                周日历实现 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2017/08/14/xml序列化/" itemprop="url">
+              
+                <span itemprop="name">xml序列化</span>
+              
+            </a>
+        
+      </h2>
 
-      
-      
-    </footer>
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2017-08-14T17:51:17+08:00"
+              content="2017-08-14" >
+          08-14
+        </time>
+      </div>
+
+    </header>
   </article>
 
 
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+    
+
+  </section>
+
+  
+
 
 
           </div>
@@ -491,17 +371,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    
-  </div>
-
 
         </div>
         
@@ -733,9 +602,11 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
-
+  
+    <script type="text/javascript" id="motion.page.archive">
+      $('.archive-year').velocity('transition.slideLeftIn');
+    </script>
+  
 
 
   
@@ -752,18 +623,6 @@
 
     
 
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'https://zuoluo11.github.io/2016/12/24/动态调用webservice/';
-          this.page.identifier = '2016/12/24/动态调用webservice/';
-          this.page.title = '动态调用webservice';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://zuoluo11-github-io.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
     
 
   

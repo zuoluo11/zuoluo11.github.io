@@ -93,13 +93,31 @@
 
 
 
+<meta name="description" content="可能目前系统之间接口多数以JSON或者XML形式进行数据的传输，项目中用到了XML，但是没有使用下面介绍的以序列化的形式将XML与对象进行互转，当时为了多个实现方案所以做了一些准备，先总结XML序列化与反序列化的使用基础，备用吧。
+
+
+基础类及基础方法
+代码实现
+总结及出现的问题">
 <meta property="og:type" content="article">
 <meta property="og:title" content="xml序列化">
-<meta property="og:url" content="https://zuoluo11.github.io/2017/08/14/xml序列化/index.html">
+<meta property="og:url" content="https://zuoluo11.github.io/2017/08/16/xml序列化/index.html">
 <meta property="og:site_name" content="菜儿's BLog">
-<meta property="og:updated_time" content="2017-08-14T09:51:17.758Z">
+<meta property="og:description" content="可能目前系统之间接口多数以JSON或者XML形式进行数据的传输，项目中用到了XML，但是没有使用下面介绍的以序列化的形式将XML与对象进行互转，当时为了多个实现方案所以做了一些准备，先总结XML序列化与反序列化的使用基础，备用吧。
+
+
+基础类及基础方法
+代码实现
+总结及出现的问题">
+<meta property="og:updated_time" content="2017-08-16T01:47:52.176Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="xml序列化">
+<meta name="twitter:description" content="可能目前系统之间接口多数以JSON或者XML形式进行数据的传输，项目中用到了XML，但是没有使用下面介绍的以序列化的形式将XML与对象进行互转，当时为了多个实现方案所以做了一些准备，先总结XML序列化与反序列化的使用基础，备用吧。
+
+
+基础类及基础方法
+代码实现
+总结及出现的问题">
 
 
 
@@ -127,7 +145,7 @@
 
 
 
-  <link rel="canonical" href="https://zuoluo11.github.io/2017/08/14/xml序列化/"/>
+  <link rel="canonical" href="https://zuoluo11.github.io/2017/08/16/xml序列化/"/>
 
 
 
@@ -315,7 +333,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://zuoluo11.github.io/2017/08/14/xml序列化/">
+    <link itemprop="mainEntityOfPage" href="https://zuoluo11.github.io/2017/08/16/xml序列化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="菜儿">
@@ -344,8 +362,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-14T17:51:17+08:00">
-                2017-08-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-16T20:51:17+08:00">
+                2017-08-16
               </time>
             
 
@@ -384,7 +402,25 @@
       
 
       
-        
+        <p>  可能目前系统之间接口多数以JSON或者XML形式进行数据的传输，<br>项目中用到了XML，但是没有使用下面介绍的以序列化的形式将XML与对象<br>进行互转，当时为了多个实现方案所以做了一些准备，<br>先总结XML序列化与反序列化的使用基础，备用吧。</p>
+<blockquote>
+<ul>
+<li>基础类及基础方法</li>
+<li>代码实现</li>
+<li>总结及出现的问题</li>
+</ul>
+</blockquote>
+<a id="more"></a>
+<h3 id="基础类及基础方法"><a href="#基础类及基础方法" class="headerlink" title="基础类及基础方法"></a>基础类及基础方法</h3><p>   基础类主要是：<a href="https://msdn.microsoft.com/zh-cn/library/system.xml.serialization.xmlserializer(v=vs.110).aspx" target="_blank" rel="external">System.Xml.Serialization.XmlSerializer</a><br>XmlSerializer类主要功能是将对象和XML文档之间进行序列化和发序列化。<br>XmlSerializer可以方便将对象编码为XML。</p>
+<p>1、构造器创建XmlSerializer对象<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//创建新实例并指定改实例可以用来序列化和反序列化的类的类型</div><div class="line">XmlSerializer xmlSerializer=new XmlSerializer(Type);</div></pre></td></tr></table></figure></p>
+<p>2、XmlSerializer对象序列化对象<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//将对象Object序列化到TextWriter中</div><div class="line">xmlSerializer.Serialize(TextWriter,Object);</div></pre></td></tr></table></figure></p>
+<p>TextWriter是一个有序序列字符的编写器，它是一个抽象类，常用的有<br>两个子类即：StreamWriter（写入流） 和 StringWriter（写入字符串）.<br>因此在实际使用时，这里选择<a href="https://msdn.microsoft.com/zh-cn/library/system.io.stringwriter(v=vs.110).aspx" target="_blank" rel="external">System.IO.StringWriter</a>。</p>
+<p>这里需要注意，如果要指定序列化后XML的编码类型，StringWriter有一个属性<a href="https://msdn.microsoft.com/zh-cn/library/system.io.stringwriter.encoding(v=vs.110).aspx" target="_blank" rel="external">Encoding</a>,<br>但是该属性只读，无法进行设置，因此需要写一个子类来覆盖Encoding的属性。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public sealed class Utf8StringWriter : StringWriter</div><div class="line">   &#123;</div><div class="line">   	//指定编码类型是UTF-8</div><div class="line">       public override Encoding Encoding &#123; get &#123; <span class="built_in">return</span> Encoding.UTF8; &#125; &#125;</div><div class="line">   &#125;</div><div class="line"></div><div class="line"></div><div class="line">   //将对象Object序列化到TextWriter的子类Utf8StringWriter中</div><div class="line">xmlSerializer.Serialize(Utf8StringWriter,Object);</div></pre></td></tr></table></figure>
+<p>3、获得序列化后的结果<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">string XMLResult=Utf8StringWriter.ToString();</div></pre></td></tr></table></figure></p>
+<p>4、通过特性Attritube设置自定义类的序列化结果<br><a href="https://msdn.microsoft.com/zh-cn/library/system.xml.serialization(v=vs.110).aspx" target="_blank" rel="external">System.Xml.Serialization</a>命名空间中有一系列的特性类，用来控制复杂类型序列化的控制。例如XmlElementAttribute、XmlAttributeAttribute、XmlArrayAttribute、XmlArrayItemAttribute、XmlRootAttribute等等。<br><a href="https://msdn.microsoft.com/zh-cn/library/2baksw0z(v=vs.110).aspx" target="_blank" rel="external">序列化帮助</a></p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>完整代码如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div></pre></td><td class="code"><pre><div class="line">using System;</div><div class="line">using System.IO;</div><div class="line">using System.Reflection;</div><div class="line">using System.Text;</div><div class="line">using System.Xml;</div><div class="line">using System.Xml.Serialization;</div><div class="line"></div><div class="line">namespace Test</div><div class="line">&#123;</div><div class="line">    class Program</div><div class="line">    &#123;</div><div class="line">       </div><div class="line"></div><div class="line">        static void Main(string[] args)</div><div class="line">        &#123;</div><div class="line">            SERVICE service = new SERVICE();</div><div class="line">            HEAD head = service.HEAD;</div><div class="line">            head.nsrsbh = <span class="string">"140115728183815"</span>;</div><div class="line">            head.serviceversion = <span class="string">"1.3"</span>;</div><div class="line">            head.serviceid = <span class="string">"jy.dzptfpkj"</span>;</div><div class="line">            head.iszip = <span class="string">"N"</span>;</div><div class="line">            head.encryptcode = <span class="string">"0"</span>;</div><div class="line">            head.issyn = <span class="string">"Y"</span>;</div><div class="line">            service.Cmd = new Cmd[] &#123;new Cmd(),new Cmd() &#125;;</div><div class="line"></div><div class="line">            //序列化这个对象</div><div class="line">            XmlSerializer serializer = new XmlSerializer(service.GetType());</div><div class="line">            </div><div class="line">            using (Utf8StringWriter writer = new Utf8StringWriter())</div><div class="line">            &#123;</div><div class="line">                serializer.Serialize(writer, service);</div><div class="line">                Console.WriteLine(writer.ToString());</div><div class="line">            &#125;  </div><div class="line"></div><div class="line">            Console.Read();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    public class BaseObject</div><div class="line">    &#123;</div><div class="line">        public <span class="function"><span class="title">BaseObject</span></span>()</div><div class="line">        &#123;</div><div class="line">            Type t = this.GetType();//构造器获得当前类型</div><div class="line">            PropertyInfo[] list=t.GetProperties();//获得所有属性</div><div class="line"></div><div class="line">            foreach (PropertyInfo item <span class="keyword">in</span> list)</div><div class="line">            &#123;</div><div class="line">                object[] objAttrs = item.GetCustomAttributes(typeof(XmlElementAttribute), <span class="literal">true</span>);//获得所有XmlElement特性</div><div class="line">                <span class="keyword">if</span> (objAttrs != null &amp;&amp; objAttrs.Length &gt; 0)</div><div class="line">                &#123;</div><div class="line">                    XmlElementAttribute attr = objAttrs[0] as XmlElementAttribute;</div><div class="line">                    //Console.WriteLine(attr.ElementName);</div><div class="line">                    attr.IsNullable = <span class="literal">true</span>;//将特性设置为可空</div><div class="line">                    </div><div class="line">                &#125;</div><div class="line"></div><div class="line">                <span class="keyword">if</span> (IsType(item.PropertyType, <span class="string">"System.String"</span>))</div><div class="line">                &#123;</div><div class="line">                    item.SetValue(this, string.Empty, null);//将字符串类型属性的值设置为空字符串</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        /// &lt;summary&gt;</div><div class="line">        /// 类型匹配</div><div class="line">        /// &lt;/summary&gt;</div><div class="line">        /// &lt;param name=<span class="string">"type"</span>&gt;&lt;/param&gt;</div><div class="line">        /// &lt;param name=<span class="string">"typeName"</span>&gt;&lt;/param&gt;</div><div class="line">        /// &lt;returns&gt;&lt;/returns&gt;</div><div class="line">        public static bool IsType(Type <span class="built_in">type</span>, string <span class="built_in">type</span>Name)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">if</span> (type.ToString() == <span class="built_in">type</span>Name)</div><div class="line">                <span class="built_in">return</span> <span class="literal">true</span>;</div><div class="line">            <span class="keyword">if</span> (type.ToString() == <span class="string">"System.Object"</span>)</div><div class="line">                <span class="built_in">return</span> <span class="literal">false</span>;</div><div class="line"></div><div class="line">            <span class="built_in">return</span> IsType(type.BaseType, <span class="built_in">type</span>Name);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    [XmlRoot(<span class="string">"SERVICE"</span>)]</div><div class="line">    public class SERVICE: BaseObject</div><div class="line">    &#123;</div><div class="line">        public <span class="function"><span class="title">SERVICE</span></span>() &#123;</div><div class="line">            this.HEAD = new HEAD();</div><div class="line">        &#125;</div><div class="line">        [XmlElement(<span class="string">"HEAD"</span>)]</div><div class="line">        public HEAD HEAD &#123; get; <span class="built_in">set</span>; &#125;</div><div class="line"></div><div class="line">        [XmlArray(<span class="string">"BODY"</span>)]</div><div class="line">        [XmlArrayItem(<span class="string">"cmd"</span>)]</div><div class="line">        public Cmd[] Cmd &#123; get; <span class="built_in">set</span>; &#125;</div><div class="line"></div><div class="line">       </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public class HEAD : BaseObject</div><div class="line">    &#123;</div><div class="line">        public <span class="function"><span class="title">HEAD</span></span>()</div><div class="line">        &#123;</div><div class="line">            this.RTNINF = new RTNINF();</div><div class="line">        &#125;</div><div class="line">        [XmlElement(<span class="string">"nsrsbh"</span>)]</div><div class="line">        public string nsrsbh &#123; get; <span class="built_in">set</span>; &#125;</div><div class="line">        [XmlElement(<span class="string">"serviceversion"</span>)]</div><div class="line">        public string serviceversion &#123; get; <span class="built_in">set</span>; &#125;</div><div class="line">        [XmlElement(<span class="string">"serviceid"</span>)]</div><div class="line">        public string serviceid &#123; get; <span class="built_in">set</span>; &#125;</div><div class="line">        [XmlElement(<span class="string">"iszip"</span>)]</div><div class="line">        public string iszip &#123; get; <span class="built_in">set</span>; &#125;</div><div class="line">        [XmlElement(<span class="string">"encryptcode"</span>)]</div><div class="line">        public string encryptcode &#123; get; <span class="built_in">set</span>; &#125;</div><div class="line">        [XmlElement(<span class="string">"issyn"</span>)]</div><div class="line">        public string issyn &#123; get; <span class="built_in">set</span>; &#125;</div><div class="line">        [XmlElement(<span class="string">"RTNINF"</span>)]</div><div class="line">        public RTNINF RTNINF &#123; get; <span class="built_in">set</span>; &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public class RTNINF : BaseObject</div><div class="line">    &#123;</div><div class="line">        [XmlElement(<span class="string">"rtn_code"</span>)]</div><div class="line">        public string rtn_code &#123; get; <span class="built_in">set</span>; &#125;</div><div class="line">        [XmlElement(<span class="string">"rtn_reason"</span>)]</div><div class="line">        public string rtn_reason &#123; get; <span class="built_in">set</span>; &#125;</div><div class="line">    &#125;</div><div class="line">    public sealed class Utf8StringWriter : StringWriter</div><div class="line">    &#123;</div><div class="line">        public override Encoding Encoding &#123; get &#123; <span class="built_in">return</span> Encoding.UTF8; &#125; &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public class Cmd : BaseObject</div><div class="line">    &#123;</div><div class="line">        [XmlElement(<span class="string">"productid"</span>)]</div><div class="line">        public string ProductId &#123; get; <span class="built_in">set</span>; &#125;</div><div class="line"></div><div class="line">        [XmlElement(<span class="string">"price"</span>)]</div><div class="line">        public string Price &#123; get; <span class="built_in">set</span>; &#125;</div><div class="line"></div><div class="line">        [XmlElement(<span class="string">"date"</span>)]</div><div class="line">        public string Date &#123; get; <span class="built_in">set</span>; &#125;</div><div class="line"></div><div class="line">        [XmlElement(<span class="string">"state"</span>)]</div><div class="line">        public string State &#123; get; <span class="built_in">set</span>; &#125;</div><div class="line"></div><div class="line">        [XmlElement(<span class="string">"type"</span>)]</div><div class="line">        public string Type &#123; get; <span class="built_in">set</span>; &#125;</div><div class="line">    &#125;</div><div class="line">   </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="总结问题"><a href="#总结问题" class="headerlink" title="总结问题"></a>总结问题</h3>
       
     </div>
 
@@ -482,8 +518,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -556,6 +601,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础类及基础方法"><span class="nav-number">1.</span> <span class="nav-text">基础类及基础方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">2.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结问题"><span class="nav-number">3.</span> <span class="nav-text">总结问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -716,8 +777,8 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://zuoluo11.github.io/2017/08/14/xml序列化/';
-          this.page.identifier = '2017/08/14/xml序列化/';
+          this.page.url = 'https://zuoluo11.github.io/2017/08/16/xml序列化/';
+          this.page.identifier = '2017/08/16/xml序列化/';
           this.page.title = 'xml序列化';
         };
         var d = document, s = d.createElement('script');

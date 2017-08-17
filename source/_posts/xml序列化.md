@@ -1,7 +1,8 @@
 ---
 title: xml序列化
 date: 2017-08-16 20:51:17
-tags:
+categories:
+- C#基础
 ---
 
   可能目前系统之间接口多数以JSON或者XML形式进行数据的传输，
@@ -214,9 +215,78 @@ namespace Test
 ```
 
 ### 总结问题
+1、项目需要，所有的对象属性都要生成XML，即如果属性是空值，默认序列化XML后
+不会显示，所以把所有对象都继承自BaseObject类下，再使用BaseObject类的构造器
+通过反射子类中特性的方法，在初始化子类时，将空字符串写入，这样最后生成XML
+文件时，空字符串的属性也会显示了。
+
+反射时使用了的类及方法包括Object.GetType()根据对象获得类型,Type.GetProperties()根据类型获得说有属性,
+PropertyInfo.GetCustomAttributes根据属性获得所有特性，
+父类BaseObject 代码如下：
+
+``` bash
+	    public class BaseObject
+    {
+        public BaseObject()
+        {
+            Type t = this.GetType();//构造器获得当前类型
+            PropertyInfo[] list=t.GetProperties();//反射获得所有属性
+
+            foreach (PropertyInfo item in list)
+            {
+                object[] objAttrs = item.GetCustomAttributes(typeof(XmlElementAttribute), true);//获得所有XmlElement特性
+                if (objAttrs != null && objAttrs.Length > 0)
+                {
+                    XmlElementAttribute attr = objAttrs[0] as XmlElementAttribute;
+                    //Console.WriteLine(attr.ElementName);
+                    attr.IsNullable = true;//将特性设置为可空
+                    
+                }
+
+                if (IsType(item.PropertyType, "System.String"))
+                {
+                    item.SetValue(this, string.Empty, null);//将字符串类型属性的值设置为空字符串
+                }
+            }
+        }
+        /// <summary>
+        /// 类型匹配
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="typeName"></param>
+        /// <returns></returns>
+        public static bool IsType(Type type, string typeName)
+        {
+            if (type.ToString() == typeName)
+                return true;
+            if (type.ToString() == "System.Object")
+                return false;
+
+            return IsType(type.BaseType, typeName);
+        }
+    }
+
+
+```
+ 2、SERVICE类下的Cmd属性比较特殊，它是一个数组，通过XmlArray特性和XmlArrayItem特性配合使用后，如下：
+    	 [XmlArray("BODY")]
+        [XmlArrayItem("cmd")]
+        public Cmd[] Cmd { get; set; }
+        序列化XML后生成的效果如下：
+
+
+``` bash
+	<BODY>
+		<cmd></cmd>
+		<cmd></cmd>
+		<cmd></cmd>
+		<cmd></cmd>
+	</BODY>
+```
 
 [XmlSerializer]:https://msdn.microsoft.com/zh-cn/library/system.xml.serialization.xmlserializer(v=vs.110).aspx
 [StringWriter]:https://msdn.microsoft.com/zh-cn/library/system.io.stringwriter(v=vs.110).aspx
 [Encoding]:https://msdn.microsoft.com/zh-cn/library/system.io.stringwriter.encoding(v=vs.110).aspx
 [Serialization]:https://msdn.microsoft.com/zh-cn/library/system.xml.serialization(v=vs.110).aspx
 [序列化帮助]:https://msdn.microsoft.com/zh-cn/library/2baksw0z(v=vs.110).aspx
+

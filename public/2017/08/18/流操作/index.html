@@ -93,12 +93,19 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="菜儿's BLog">
-<meta property="og:url" content="https://zuoluo11.github.io/tags/地图操作/index.html">
+<meta name="description" content="C#常用流操作
+文件流 FileStream流读取器 StreamReader流写入器 StreamWriter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="流操作">
+<meta property="og:url" content="https://zuoluo11.github.io/2017/08/18/流操作/index.html">
 <meta property="og:site_name" content="菜儿's BLog">
+<meta property="og:description" content="C#常用流操作
+文件流 FileStream流读取器 StreamReader流写入器 StreamWriter">
+<meta property="og:updated_time" content="2017-08-18T01:46:52.336Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="菜儿's BLog">
+<meta name="twitter:title" content="流操作">
+<meta name="twitter:description" content="C#常用流操作
+文件流 FileStream流读取器 StreamReader流写入器 StreamWriter">
 
 
 
@@ -126,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="https://zuoluo11.github.io/tags/地图操作/"/>
+  <link rel="canonical" href="https://zuoluo11.github.io/2017/08/18/流操作/"/>
 
 
 
 
 
-  <title>标签: 地图操作 | 菜儿's BLog</title>
+  <title>流操作 | 菜儿's BLog</title>
   
 
 
@@ -166,7 +173,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -304,44 +311,172 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h1>地图操作<small>标签</small>
-      </h1>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zuoluo11.github.io/2017/08/18/流操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="菜儿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜儿's BLog">
+    </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">流操作</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-18T09:38:39+08:00">
+                2017-08-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C-基础/" itemprop="url" rel="index">
+                    <span itemprop="name">C#基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <p>  C#常用流操作</p>
+<p>文件流 <a href="https://msdn.microsoft.com/query/dev12.query?appId=Dev12IDEF1&amp;l=ZH-CN&amp;k=k(System.IO.FileStream);k(TargetFrameworkMoniker-.NETFramework,Version%3Dv4.5);k(DevLang-csharp)&amp;rd=true" target="_blank" rel="external">FileStream</a><br>流读取器 <a href="https://msdn.microsoft.com/query/dev12.query?appId=Dev12IDEF1&amp;l=ZH-CN&amp;k=k(System.IO.StreamReader);k(TargetFrameworkMoniker-.NETFramework,Version%3Dv4.5);k(DevLang-csharp)&amp;rd=true" target="_blank" rel="external">StreamReader</a><br>流写入器 <a href="https://msdn.microsoft.com/query/dev12.query?appId=Dev12IDEF1&amp;l=ZH-CN&amp;k=k(System.IO.StreamWriter);k(TargetFrameworkMoniker-.NETFramework,Version%3Dv4.5);k(DevLang-csharp)&amp;rd=true" target="_blank" rel="external">StreamWriter</a></p>
+<a id="more"></a>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">using System;</div><div class="line">using System.Collections.Generic;</div><div class="line">using System.Linq;</div><div class="line">using System.Text;</div><div class="line">using System.Threading.Tasks;</div><div class="line">using System.IO;</div><div class="line"></div><div class="line">namespace FileStreamStudy</div><div class="line">&#123;</div><div class="line">    class Program</div><div class="line">    &#123;</div><div class="line">        static void Main(string[] args)</div><div class="line">        &#123;</div><div class="line">            // 文件流和读取写入器操作完后，需要调用close()方法进行关闭</div><div class="line">            //读文件流</div><div class="line">            using (FileStream stream = new FileStream(<span class="string">"D:\\license.xml"</span>, FileMode.OpenOrCreate))//文件地址，文件读取模式FileMode枚举类</div><div class="line">            &#123;</div><div class="line">                //流读取器</div><div class="line">                using (StreamReader reader = new StreamReader(stream))</div><div class="line">                &#123;</div><div class="line">                    string currentLine = reader.ReadLine();//读取一行</div><div class="line">                    <span class="keyword">while</span> (!string.IsNullOrEmpty(currentLine))</div><div class="line">                    &#123;</div><div class="line">                        Console.WriteLine(currentLine);</div><div class="line">                        currentLine = reader.ReadLine();</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            //写文件流</div><div class="line">            using (FileStream stream = new FileStream(<span class="string">"d:\\1.txt"</span>, FileMode.Append))</div><div class="line">            &#123;</div><div class="line">                //流写入器</div><div class="line">                using (StreamWriter writer = new StreamWriter(stream))</div><div class="line">                &#123;</div><div class="line">                    string s = <span class="string">"12345"</span>;</div><div class="line">                    writer.WriteLine(s);</div><div class="line">                    writer.Flush();//清空缓存</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            Console.Read();</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
-      <h2 class="post-title">
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2016/09/10/百度地图常用功能的使用/" itemprop="url">
-              
-                <span itemprop="name">百度地图常用功能的使用</span>
-              
-            </a>
+
+      
+    </div>
+
+    <div>
+      
         
-      </h2>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-09-10T20:56:05+08:00"
-              content="2016-09-10" >
-          09-10
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/16/xml序列化/" rel="next" title="xml序列化">
+                <i class="fa fa-chevron-left"></i> xml序列化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -349,6 +484,17 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -580,10 +726,10 @@
   
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
-  
+
 
   
 
@@ -599,6 +745,18 @@
 
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://zuoluo11.github.io/2017/08/18/流操作/';
+          this.page.identifier = '2017/08/18/流操作/';
+          this.page.title = '流操作';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://zuoluo11-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   

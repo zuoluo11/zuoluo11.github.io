@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[去除微信昵称中emoji字符]]></title>
     <url>%2F2017%2F12%2F18%2F%E5%8E%BB%E9%99%A4%E5%BE%AE%E4%BF%A1%E6%98%B5%E7%A7%B0%E4%B8%ADemoji%E5%AD%97%E7%AC%A6%2F</url>
-    <content type="text"><![CDATA[#问题描述微信公众号获得用户基础信息时，用户的昵称nickname中可能包含emoji表情，而该表情在保存数据库之后在前台页面中使用（导出excel）会导致异常，因此需要该emoji表情去掉。解决方法：替换所有表情字符。参考地址：http://www.howtobuildsoftware.com/index.php/how-do/bouX/c-mysql-unicode-emoji-how-do-i-remove-emoji-characters-from-a-string1234567891011class Program &#123; static void Main(string[] args) &#123; string nickName = &quot;特殊字符串&quot;; nickName = Regex.Replace(nickName, @&quot;\p&#123;Cs&#125;&quot;, &quot;*&quot;); Console.WriteLine(nickName); Console.ReadKey(); &#125; &#125;]]></content>
+    <content type="text"><![CDATA[问题描述1、微信公众号获得用户基础信息时，用户的昵称nickname中可能包含emoji表情，而该表情在保存数据库之后在前台页面中使用（导出excel）会导致异常，因此需要该emoji表情去掉。解决方法：替换所有表情字符。参考地址：http://www.howtobuildsoftware.com/index.php/how-do/bouX/c-mysql-unicode-emoji-how-do-i-remove-emoji-characters-from-a-string 1234567891011class Program &#123; static void Main(string[] args) &#123; string nickName = &quot;特殊字符串&quot;; nickName = Regex.Replace(nickName, @&quot;\p&#123;Cs&#125;&quot;, &quot;*&quot;); Console.WriteLine(nickName); Console.ReadKey(); &#125; &#125;]]></content>
       <categories>
         <category>微信公众号</category>
       </categories>

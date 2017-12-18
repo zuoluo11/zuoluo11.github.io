@@ -93,16 +93,18 @@
 
 
 
-<meta name="description" content="#问题描述微信公众号获得用户基础信息时，用户的昵称nickname中可能包含emoji表情，而该表情在保存数据库之后在前台页面中使用（导出excel）会导致异常，因此需要该emoji表情去掉。解决方法：替换所有表情字符。参考地址：http://www.howtobuildsoftware.com/index.php/how-do/bouX/c-mysql-unicode-emoji-how-do-">
+<meta name="description" content="问题描述1、微信公众号获得用户基础信息时，用户的昵称nickname中可能包含emoji表情，而该表情在保存数据库之后在前台页面中使用（导出excel）会导致异常，因此需要该emoji表情去掉。解决方法：替换所有表情字符。参考地址：http://www.howtobuildsoftware.com/index.php/how-do/bouX/c-mysql-unicode-emoji-how-do">
 <meta property="og:type" content="article">
 <meta property="og:title" content="去除微信昵称中emoji字符">
 <meta property="og:url" content="https://zuoluo11.github.io/2017/12/18/去除微信昵称中emoji字符/index.html">
 <meta property="og:site_name" content="菜儿's BLog">
-<meta property="og:description" content="#问题描述微信公众号获得用户基础信息时，用户的昵称nickname中可能包含emoji表情，而该表情在保存数据库之后在前台页面中使用（导出excel）会导致异常，因此需要该emoji表情去掉。解决方法：替换所有表情字符。参考地址：http://www.howtobuildsoftware.com/index.php/how-do/bouX/c-mysql-unicode-emoji-how-do-">
-<meta property="og:updated_time" content="2017-12-18T09:39:33.683Z">
+<meta property="og:description" content="问题描述1、微信公众号获得用户基础信息时，用户的昵称nickname中可能包含emoji表情，而该表情在保存数据库之后在前台页面中使用（导出excel）会导致异常，因此需要该emoji表情去掉。解决方法：替换所有表情字符。参考地址：http://www.howtobuildsoftware.com/index.php/how-do/bouX/c-mysql-unicode-emoji-how-do">
+<meta property="og:image" content="https://zuoluo11.github.io/2017/12/18/去除微信昵称中emoji字符/20171218174151.png">
+<meta property="og:updated_time" content="2017-12-18T09:43:11.611Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="去除微信昵称中emoji字符">
-<meta name="twitter:description" content="#问题描述微信公众号获得用户基础信息时，用户的昵称nickname中可能包含emoji表情，而该表情在保存数据库之后在前台页面中使用（导出excel）会导致异常，因此需要该emoji表情去掉。解决方法：替换所有表情字符。参考地址：http://www.howtobuildsoftware.com/index.php/how-do/bouX/c-mysql-unicode-emoji-how-do-">
+<meta name="twitter:description" content="问题描述1、微信公众号获得用户基础信息时，用户的昵称nickname中可能包含emoji表情，而该表情在保存数据库之后在前台页面中使用（导出excel）会导致异常，因此需要该emoji表情去掉。解决方法：替换所有表情字符。参考地址：http://www.howtobuildsoftware.com/index.php/how-do/bouX/c-mysql-unicode-emoji-how-do">
+<meta name="twitter:image" content="https://zuoluo11.github.io/2017/12/18/去除微信昵称中emoji字符/20171218174151.png">
 
 
 
@@ -409,8 +411,9 @@
       
 
       
-        <p>#问题描述<br>微信公众号获得用户基础信息时，用户的昵称nickname中可能包含emoji表情，而该表情在保存数据库之后在前台页面中<br>使用（导出excel）会导致异常，因此需要该emoji表情去掉。<br>解决方法：替换所有表情字符。<br>参考地址：<a href="http://www.howtobuildsoftware.com/index.php/how-do/bouX/c-mysql-unicode-emoji-how-do-i-remove-emoji-characters-from-a-string" target="_blank" rel="external">http://www.howtobuildsoftware.com/index.php/how-do/bouX/c-mysql-unicode-emoji-how-do-i-remove-emoji-characters-from-a-string</a><br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">class Program</div><div class="line">    &#123;</div><div class="line">        static void Main(string[] args)</div><div class="line">        &#123;</div><div class="line"></div><div class="line">             string nickName = &quot;特殊字符串&quot;;</div><div class="line">             nickName = Regex.Replace(nickName, @&quot;\p&#123;Cs&#125;&quot;, &quot;*&quot;);</div><div class="line">             Console.WriteLine(nickName);</div><div class="line">             Console.ReadKey();</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
-
+        <p>问题描述<br>1、微信公众号获得用户基础信息时，用户的昵称nickname中可能包含emoji表情，而该表情在保存数据库之后在前台页面中<br>使用（导出excel）会导致异常，因此需要该emoji表情去掉。<br>解决方法：替换所有表情字符。<br>参考地址：<a href="http://www.howtobuildsoftware.com/index.php/how-do/bouX/c-mysql-unicode-emoji-how-do-i-remove-emoji-characters-from-a-string" target="_blank" rel="external">http://www.howtobuildsoftware.com/index.php/how-do/bouX/c-mysql-unicode-emoji-how-do-i-remove-emoji-characters-from-a-string</a></p>
+<img src="/2017/12/18/去除微信昵称中emoji字符/20171218174151.png" alt="来源" title="来源">
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">class Program</div><div class="line">    &#123;</div><div class="line">        static void Main(string[] args)</div><div class="line">        &#123;</div><div class="line"></div><div class="line">             string nickName = &quot;特殊字符串&quot;;</div><div class="line">             nickName = Regex.Replace(nickName, @&quot;\p&#123;Cs&#125;&quot;, &quot;*&quot;);</div><div class="line">             Console.WriteLine(nickName);</div><div class="line">             Console.ReadKey();</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
       
     </div>
 

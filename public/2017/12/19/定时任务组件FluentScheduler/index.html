@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="ASP.NET," />
 
 
 
@@ -93,12 +93,36 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="菜儿's BLog">
-<meta property="og:url" content="https://zuoluo11.github.io/archives/2017/01/index.html">
+<meta name="description" content="定时任务组件FluentScheduler的基础使用方法
+动态修改任务调用的间隔时间
+
+
+FluentScheduler Github地址一般常用的方法，在它的github上面就可以找到api，这篇文章的demo主要实现的功能是通过修改appconfig文件内的配置信息，达到修改正在运行的任务时间，当然也可以增加自己的配置代码，如启动，暂停等等。
+
+有一处要注意，修改appconfig文件后，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="定时任务组件FluentScheduler">
+<meta property="og:url" content="https://zuoluo11.github.io/2017/12/19/定时任务组件FluentScheduler/index.html">
 <meta property="og:site_name" content="菜儿's BLog">
+<meta property="og:description" content="定时任务组件FluentScheduler的基础使用方法
+动态修改任务调用的间隔时间
+
+
+FluentScheduler Github地址一般常用的方法，在它的github上面就可以找到api，这篇文章的demo主要实现的功能是通过修改appconfig文件内的配置信息，达到修改正在运行的任务时间，当然也可以增加自己的配置代码，如启动，暂停等等。
+
+有一处要注意，修改appconfig文件后，">
+<meta property="og:image" content="https://zuoluo11.github.io/2017/12/19/定时任务组件FluentScheduler/20171219164453.png">
+<meta property="og:updated_time" content="2017-12-19T09:08:17.567Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="菜儿's BLog">
+<meta name="twitter:title" content="定时任务组件FluentScheduler">
+<meta name="twitter:description" content="定时任务组件FluentScheduler的基础使用方法
+动态修改任务调用的间隔时间
+
+
+FluentScheduler Github地址一般常用的方法，在它的github上面就可以找到api，这篇文章的demo主要实现的功能是通过修改appconfig文件内的配置信息，达到修改正在运行的任务时间，当然也可以增加自己的配置代码，如启动，暂停等等。
+
+有一处要注意，修改appconfig文件后，">
+<meta name="twitter:image" content="https://zuoluo11.github.io/2017/12/19/定时任务组件FluentScheduler/20171219164453.png">
 
 
 
@@ -126,13 +150,13 @@
 
 
 
-  <link rel="canonical" href="https://zuoluo11.github.io/archives/2017/01/"/>
+  <link rel="canonical" href="https://zuoluo11.github.io/2017/12/19/定时任务组件FluentScheduler/"/>
 
 
 
 
 
-  <title>归档 | 菜儿's BLog</title>
+  <title>定时任务组件FluentScheduler | 菜儿's BLog</title>
   
 
 
@@ -166,7 +190,7 @@
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -304,103 +328,189 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 21 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
-
-      
-      
-      
-
-      
-        
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
-        </div>
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/01/21/window服务守护外部程序/" itemprop="url">
-              
-                <span itemprop="name">window服务守护外部程序不被关闭</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-01-21T14:34:11+08:00"
-              content="2017-01-21" >
-          01-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/01/16/周日历实现/" itemprop="url">
-              
-                <span itemprop="name">周日历实现</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-01-16T08:55:54+08:00"
-              content="2017-01-16" >
-          01-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
 
   
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zuoluo11.github.io/2017/12/19/定时任务组件FluentScheduler/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="菜儿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜儿's BLog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">定时任务组件FluentScheduler</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-19T16:38:52+08:00">
+                2017-12-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/插件/" itemprop="url" rel="index">
+                    <span itemprop="name">插件</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<ul>
+<li>定时任务组件FluentScheduler的基础使用方法</li>
+<li>动态修改任务调用的间隔时间</li>
+</ul>
+</blockquote>
+<h3 id="FluentScheduler-Github地址"><a href="#FluentScheduler-Github地址" class="headerlink" title="FluentScheduler Github地址"></a><a href="https://github.com/fluentscheduler/FluentScheduler" target="_blank" rel="external">FluentScheduler Github地址</a></h3><p>一般常用的方法，在它的github上面就可以找到api，这篇文章的demo主要实现的功能是通过修改appconfig文件内的配置信息，达到修改正在运行的任务时间，当然也可以增加自己的配置代码，如启动，暂停等等。</p>
+<blockquote>
+<p>有一处要注意，修改appconfig文件后，读取时必须调用<br>ConfigurationManager.RefreshSection(“appSettings”);<br>否则会出现读取的值是缓存的情况，导致出错。</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="AppConfig文件如下"><a href="#AppConfig文件如下" class="headerlink" title="AppConfig文件如下"></a>AppConfig文件如下</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span> ?&gt;</div><div class="line">&lt;configuration&gt;</div><div class="line">  &lt;startup&gt;</div><div class="line">    &lt;supportedRuntime version=<span class="string">"v4.0"</span> sku=<span class="string">".NETFramework,Version=v4.5.2"</span> /&gt;</div><div class="line">  &lt;/startup&gt;</div><div class="line">  &lt;appSettings&gt;   </div><div class="line">    &lt;add key=<span class="string">"ChangeStatus"</span> value=<span class="string">"1"</span>/&gt;  &lt;!--修改状态--&gt;</div><div class="line">    &lt;add key=<span class="string">"Interval"</span> value=<span class="string">"5"</span>/&gt;  &lt;!--间隔值--&gt;</div><div class="line">    &lt;add key=<span class="string">"IntervalType"</span> value=<span class="string">"Seconds"</span>/&gt;  &lt;!--间隔类型年、月、日、时、分、秒--&gt;</div><div class="line">    &lt;add key=<span class="string">"HoursOfDay"</span> value=<span class="string">"23"</span>/&gt;  &lt;!--间隔类型是天时的小时 取值0-23--&gt;</div><div class="line">    &lt;add key=<span class="string">"MinutesOfDay"</span> value=<span class="string">"59"</span>/&gt;  &lt;!--间隔类型是天时的分钟 取值0-59--&gt;</div><div class="line">  &lt;/appSettings&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
+<h3 id="控制台应用程序源码"><a href="#控制台应用程序源码" class="headerlink" title="控制台应用程序源码"></a>控制台应用程序源码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div></pre></td><td class="code"><pre><div class="line">using System;</div><div class="line">using FluentScheduler;</div><div class="line">using System.Configuration;</div><div class="line"></div><div class="line">namespace FluentSchedulerDemo</div><div class="line">&#123;</div><div class="line">    class Program</div><div class="line">    &#123;</div><div class="line"></div><div class="line">        static void Main(string[] args)</div><div class="line">        &#123;</div><div class="line">            //首次允许业务逻辑</div><div class="line">            JobManager.AddJob(ServiceLogic, t =&gt;</div><div class="line">            &#123;</div><div class="line">                t.WithName(<span class="string">"ServiceLogic"</span>).ToRunEvery(1).Seconds();</div><div class="line">            &#125;);</div><div class="line">            //允许检查</div><div class="line">            JobManager.AddJob(CheckSchedule, t =&gt;</div><div class="line">            &#123;</div><div class="line">                t.WithName(<span class="string">"CheckSchedule"</span>).ToRunEvery(10).Seconds();</div><div class="line">            &#125;);</div><div class="line">            Console.ReadLine();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        /// &lt;summary&gt;</div><div class="line">        /// 定时检查配置文件，动态修改当前工作安排</div><div class="line">        /// &lt;/summary&gt;</div><div class="line">        static void <span class="function"><span class="title">CheckSchedule</span></span>()</div><div class="line">        &#123;</div><div class="line">            <span class="comment">#region 读取appconfig配置文件</span></div><div class="line">            ConfigurationManager.RefreshSection(<span class="string">"appSettings"</span>);//非常重要！！！刷新后才能读取到更改后的配置信息</div><div class="line">            int changeStatus = Convert.ToInt32(ConfigurationManager.AppSettings[<span class="string">"ChangeStatus"</span>]);</div><div class="line">            int interval = Convert.ToInt32(ConfigurationManager.AppSettings[<span class="string">"Interval"</span>]);</div><div class="line">            int hoursOfDay = Convert.ToInt32(ConfigurationManager.AppSettings[<span class="string">"HoursOfDay"</span>]);</div><div class="line">            int minutesOfDay = Convert.ToInt32(ConfigurationManager.AppSettings[<span class="string">"MinutesOfDay"</span>]);</div><div class="line">            string intervalType = ConfigurationManager.AppSettings[<span class="string">"IntervalType"</span>]; </div><div class="line">            <span class="comment">#endregion</span></div><div class="line"></div><div class="line">            <span class="keyword">if</span> (changeStatus == 1)</div><div class="line">            &#123;</div><div class="line">                //修改业务逻辑定时任务</div><div class="line">                JobManager.RemoveJob(<span class="string">"ServiceLogic"</span>);</div><div class="line">                Console.WriteLine(<span class="string">"CheckSchedule："</span> + DateTime.Now);</div><div class="line">                <span class="comment">#region 根据间隔的类型，修改任务计划时间</span></div><div class="line">                switch (intervalType)</div><div class="line">                &#123;</div><div class="line">                    <span class="keyword">case</span> <span class="string">"Seconds"</span>:</div><div class="line">                        JobManager.AddJob(ServiceLogic, t =&gt;</div><div class="line">                        &#123;</div><div class="line">                            t.WithName(<span class="string">"ServiceLogic"</span>).ToRunEvery(interval).Seconds();</div><div class="line">                        &#125;);</div><div class="line">                        <span class="built_in">break</span>;</div><div class="line">                    <span class="keyword">case</span> <span class="string">"Minutes"</span>:</div><div class="line">                        JobManager.AddJob(ServiceLogic, t =&gt;</div><div class="line">                        &#123;</div><div class="line">                            t.WithName(<span class="string">"ServiceLogic"</span>).ToRunEvery(interval).Minutes();</div><div class="line">                        &#125;);</div><div class="line">                        <span class="built_in">break</span>;</div><div class="line">                    <span class="keyword">case</span> <span class="string">"Hours"</span>:</div><div class="line">                        JobManager.AddJob(ServiceLogic, t =&gt;</div><div class="line">                        &#123;</div><div class="line">                            t.WithName(<span class="string">"ServiceLogic"</span>).ToRunEvery(interval).Hours();</div><div class="line">                        &#125;);</div><div class="line">                        <span class="built_in">break</span>;</div><div class="line">                    <span class="keyword">case</span> <span class="string">"Days"</span>:</div><div class="line">                        JobManager.AddJob(ServiceLogic, t =&gt;</div><div class="line">                        &#123;</div><div class="line">                            t.WithName(<span class="string">"ServiceLogic"</span>).ToRunEvery(interval).Days().At(hoursOfDay, minutesOfDay);</div><div class="line">                        &#125;);</div><div class="line">                        <span class="built_in">break</span>;</div><div class="line">                    <span class="keyword">case</span> <span class="string">"Months"</span>:</div><div class="line">                        JobManager.AddJob(ServiceLogic, t =&gt;</div><div class="line">                        &#123;</div><div class="line">                            t.WithName(<span class="string">"ServiceLogic"</span>).ToRunEvery(interval).Months();</div><div class="line">                        &#125;);</div><div class="line">                        <span class="built_in">break</span>;</div><div class="line">                    <span class="keyword">case</span> <span class="string">"Years"</span>:</div><div class="line">                        JobManager.AddJob(ServiceLogic, t =&gt;</div><div class="line">                        &#123;</div><div class="line">                            t.WithName(<span class="string">"ServiceLogic"</span>).ToRunEvery(interval).Years();</div><div class="line">                        &#125;);</div><div class="line">                        <span class="built_in">break</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="comment">#endregion</span></div><div class="line"></div><div class="line">                //更新修改状态</div><div class="line">                Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);</div><div class="line">                configuration.AppSettings.Settings[<span class="string">"ChangeStatus"</span>].Value = <span class="string">"0"</span>;</div><div class="line">                configuration.Save();</div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        /// &lt;summary&gt;</div><div class="line">        /// 业务逻辑</div><div class="line">        /// &lt;/summary&gt;</div><div class="line">        static void <span class="function"><span class="title">ServiceLogic</span></span>()</div><div class="line">        &#123;</div><div class="line">            Console.WriteLine(<span class="string">"ServiceLogic："</span> + DateTime.Now);</div><div class="line">            //TODO: 实际的业务逻辑</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="程序运行截图"><a href="#程序运行截图" class="headerlink" title="程序运行截图"></a>程序运行截图</h3><img src="/2017/12/19/定时任务组件FluentScheduler/20171219164453.png" alt="demo运行图" title="demo运行图">
+<p>总的来说一句话：使用两个任务计划，一个用来检查配置文件的状态，随时进行更改另一个业务任务计划的运行状态。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ASP-NET/" rel="tag"># ASP.NET</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/18/去除微信昵称中emoji字符/" rel="next" title="去除微信昵称中emoji字符">
+                <i class="fa fa-chevron-left"></i> 去除微信昵称中emoji字符
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -408,6 +518,17 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -427,8 +548,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -501,6 +631,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#FluentScheduler-Github地址"><span class="nav-number">1.</span> <span class="nav-text">FluentScheduler Github地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AppConfig文件如下"><span class="nav-number">2.</span> <span class="nav-text">AppConfig文件如下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制台应用程序源码"><span class="nav-number">3.</span> <span class="nav-text">控制台应用程序源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#程序运行截图"><span class="nav-number">4.</span> <span class="nav-text">程序运行截图</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -639,11 +785,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
 
 
   
@@ -660,6 +804,18 @@
 
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://zuoluo11.github.io/2017/12/19/定时任务组件FluentScheduler/';
+          this.page.identifier = '2017/12/19/定时任务组件FluentScheduler/';
+          this.page.title = '定时任务组件FluentScheduler';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://zuoluo11-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   

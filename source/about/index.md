@@ -1,10 +1,10 @@
 ---
 title: 关于我
 date: 2016-09-10 10:57:28
-comments: false
+comments: true
 socail: false
 share:
- on: false
+ on: true
  baidu: 
 ---
 在这里记录、等待未来的自己

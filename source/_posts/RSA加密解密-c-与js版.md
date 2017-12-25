@@ -23,6 +23,20 @@ categories:
 3、网页版的加密解密demo以固定的秘钥形式来实现，实际案例中可以考虑更改为使用session保存针对单个
 用户来生成的公钥和秘钥。
 
+参考地址：
+http://www.sufeinet.com/forum.php?mod=viewthread&tid=5484&highlight=RSA
+https://www.cnblogs.com/Leo_wl/p/5763243.html
+
+> 未能解决问题：在使用过程中偶尔会出现无法解密的异常，
+用户
+a8176a4c-5b7e-4f1d-94d8-04e744332f76
+进行分数
+/H544nYvvBRPZQAIQfDGHMySy/svCbS8/uUwwv5Fc6hKlTed9XvwuEYeAKv22cdPXDV%2B6/
+tmduEuVJDCP7G8Jb2TxJdN9A%2Bwou%2BGnOTO7%2BTo6yA2KX4Uvriof5yCt1ONmkLbsPRVh0/cnjnogJwLk2U/FVggjIhcOP6Rq%2BzLOw==
+的提交操作,发生异常不正确的数据。
+本地直接使用测试demo可以解密，所以无法找到出问题的原因。！！！！
+------
+
 
 <!--more-->
 1、控制台应用程序

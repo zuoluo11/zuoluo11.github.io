@@ -148,6 +148,16 @@
 </script>
 
 
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?2Q35P9VG30";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
 
 
 
@@ -970,6 +980,10 @@
 <p>问题描述：<br>1、C#自有类RSACryptoServiceProvider生成RSA的秘钥与公钥的方法ToXmlString(true)秘钥，ToXmlString(false)公钥，结果是XML形式的，js无法直接使用，js所使用的是PEM形式的秘钥。<br>解决方法：使用工具类bouncycastle直接生成PEM版的秘钥和公钥，后台使用时，再将秘钥转换为XML版的。<br>引用地址：<a href="https://www.bouncycastle.org/">https://www.bouncycastle.org/</a><br>插件下载地址：<a href="https://downloads.bouncycastle.org/csharp/bccrypto-csharp-1.8.1-bin.zip">https://downloads.bouncycastle.org/csharp/bccrypto-csharp-1.8.1-bin.zip</a></p>
 <p>2、js加密数据后base64位的数据在传输中“+”号会变为空格，导致后台C#解密出错。<br>解决方法：js先加号转后，然后后台再将加号转回。</p>
 <p>3、网页版的加密解密demo以固定的秘钥形式来实现，实际案例中可以考虑更改为使用session保存针对单个<br>用户来生成的公钥和秘钥。</p>
+<p>参考地址：<br><a href="http://www.sufeinet.com/forum.php?mod=viewthread&amp;tid=5484&amp;highlight=RSA">http://www.sufeinet.com/forum.php?mod=viewthread&amp;tid=5484&amp;highlight=RSA</a><br><a href="https://www.cnblogs.com/Leo_wl/p/5763243.html">https://www.cnblogs.com/Leo_wl/p/5763243.html</a></p>
+<blockquote>
+<p>未能解决问题：在使用过程中偶尔会出现无法解密的异常，<br>用户<br>a8176a4c-5b7e-4f1d-94d8-04e744332f76<br>进行分数<br>/H544nYvvBRPZQAIQfDGHMySy/svCbS8/uUwwv5Fc6hKlTed9XvwuEYeAKv22cdPXDV%2B6/<br>tmduEuVJDCP7G8Jb2TxJdN9A%2Bwou%2BGnOTO7%2BTo6yA2KX4Uvriof5yCt1ONmkLbsPRVh0/cnjnogJwLk2U/FVggjIhcOP6Rq%2BzLOw==<br>的提交操作,发生异常不正确的数据。</p>
+<h2 id="本地直接使用测试demo可以解密，所以无法找到出问题的原因。！！！！"><a href="#本地直接使用测试demo可以解密，所以无法找到出问题的原因。！！！！" class="headerlink" title="本地直接使用测试demo可以解密，所以无法找到出问题的原因。！！！！"></a>本地直接使用测试demo可以解密，所以无法找到出问题的原因。！！！！</h2></blockquote>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/11/29/RSA加密解密-c-与js版/#more" rel="contents">

@@ -101,7 +101,7 @@
 <meta property="og:site_name" content="菜儿's BLog">
 <meta property="og:description" content="业务描述：前端js使用私有秘钥将数据进行加密，后端C#在一般处理程序中使用公钥对加密数据进行解密。
 问题描述：1、C#自有类RSACryptoServiceProvider生成RSA的秘钥与公钥的方法ToXmlString(true)秘钥，ToXmlString(false)公钥，结果是XML形式的，js无法直接使用，js所使用的是PEM形式的秘钥。解决方法：使用工具类bouncycastle直接">
-<meta property="og:updated_time" content="2017-12-06T02:47:23.497Z">
+<meta property="og:updated_time" content="2017-12-25T07:46:52.726Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RSA加密解密(c#与js版)">
 <meta name="twitter:description" content="业务描述：前端js使用私有秘钥将数据进行加密，后端C#在一般处理程序中使用公钥对加密数据进行解密。
@@ -154,6 +154,16 @@
   ga('send', 'pageview');
 </script>
 
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?2Q35P9VG30";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -416,6 +426,10 @@
 <p>问题描述：<br>1、C#自有类RSACryptoServiceProvider生成RSA的秘钥与公钥的方法ToXmlString(true)秘钥，ToXmlString(false)公钥，结果是XML形式的，js无法直接使用，js所使用的是PEM形式的秘钥。<br>解决方法：使用工具类bouncycastle直接生成PEM版的秘钥和公钥，后台使用时，再将秘钥转换为XML版的。<br>引用地址：<a href="https://www.bouncycastle.org/" target="_blank" rel="external">https://www.bouncycastle.org/</a><br>插件下载地址：<a href="https://downloads.bouncycastle.org/csharp/bccrypto-csharp-1.8.1-bin.zip" target="_blank" rel="external">https://downloads.bouncycastle.org/csharp/bccrypto-csharp-1.8.1-bin.zip</a></p>
 <p>2、js加密数据后base64位的数据在传输中“+”号会变为空格，导致后台C#解密出错。<br>解决方法：js先加号转后，然后后台再将加号转回。</p>
 <p>3、网页版的加密解密demo以固定的秘钥形式来实现，实际案例中可以考虑更改为使用session保存针对单个<br>用户来生成的公钥和秘钥。</p>
+<p>参考地址：<br><a href="http://www.sufeinet.com/forum.php?mod=viewthread&amp;tid=5484&amp;highlight=RSA" target="_blank" rel="external">http://www.sufeinet.com/forum.php?mod=viewthread&amp;tid=5484&amp;highlight=RSA</a><br><a href="https://www.cnblogs.com/Leo_wl/p/5763243.html" target="_blank" rel="external">https://www.cnblogs.com/Leo_wl/p/5763243.html</a></p>
+<blockquote>
+<p>未能解决问题：在使用过程中偶尔会出现无法解密的异常，<br>用户<br>a8176a4c-5b7e-4f1d-94d8-04e744332f76<br>进行分数<br>/H544nYvvBRPZQAIQfDGHMySy/svCbS8/uUwwv5Fc6hKlTed9XvwuEYeAKv22cdPXDV%2B6/<br>tmduEuVJDCP7G8Jb2TxJdN9A%2Bwou%2BGnOTO7%2BTo6yA2KX4Uvriof5yCt1ONmkLbsPRVh0/cnjnogJwLk2U/FVggjIhcOP6Rq%2BzLOw==<br>的提交操作,发生异常不正确的数据。</p>
+<h2 id="本地直接使用测试demo可以解密，所以无法找到出问题的原因。！！！！"><a href="#本地直接使用测试demo可以解密，所以无法找到出问题的原因。！！！！" class="headerlink" title="本地直接使用测试demo可以解密，所以无法找到出问题的原因。！！！！"></a>本地直接使用测试demo可以解密，所以无法找到出问题的原因。！！！！</h2></blockquote>
 <a id="more"></a>
 <p>1、控制台应用程序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div></pre></td><td class="code"><pre><div class="line">using Org.BouncyCastle.Asn1.Pkcs;</div><div class="line">using Org.BouncyCastle.Asn1.X509;</div><div class="line">using Org.BouncyCastle.Crypto;</div><div class="line">using Org.BouncyCastle.Crypto.Generators;</div><div class="line">using Org.BouncyCastle.Crypto.Parameters;</div><div class="line">using Org.BouncyCastle.Pkcs;</div><div class="line">using Org.BouncyCastle.Security;</div><div class="line">using Org.BouncyCastle.X509;</div><div class="line">using System;</div><div class="line">using System.Security.Cryptography;</div><div class="line">using System.Text;</div><div class="line"></div><div class="line">namespace RSAGenerateKey</div><div class="line">&#123;</div><div class="line">    class Program</div><div class="line">    &#123;</div><div class="line">        static void Main(string[] args)</div><div class="line">        &#123;</div><div class="line">            RsaKeyPairGenerator g = new RsaKeyPairGenerator();</div><div class="line">            g.Init(new KeyGenerationParameters(new SecureRandom(), 1024));</div><div class="line">            var pair = g.GenerateKeyPair();</div><div class="line">            PrivateKeyInfo privateKeyInfo = PrivateKeyInfoFactory.CreatePrivateKeyInfo(pair.Private);</div><div class="line">            byte[] serializedPrivateBytes = privateKeyInfo.ToAsn1Object().GetDerEncoded();</div><div class="line">            string serializedPrivate = Convert.ToBase64String(serializedPrivateBytes);//PEM秘钥</div><div class="line"></div><div class="line">            SubjectPublicKeyInfo publicKeyInfo = SubjectPublicKeyInfoFactory.CreateSubjectPublicKeyInfo(pair.Public);</div><div class="line">            byte[] serializedPublicBytes = publicKeyInfo.ToAsn1Object().GetDerEncoded();</div><div class="line">            string serializedPublic = Convert.ToBase64String(serializedPublicBytes);//PEM公钥</div><div class="line"></div><div class="line">            RsaPrivateCrtKeyParameters privateKey = (RsaPrivateCrtKeyParameters)PrivateKeyFactory.CreateKey(Convert.FromBase64String(serializedPrivate));</div><div class="line">            RsaKeyParameters publicKey = (RsaKeyParameters)PublicKeyFactory.CreateKey(Convert.FromBase64String(serializedPublic));</div><div class="line"></div><div class="line"></div><div class="line">            RSACryptoServiceProvider rcsp = new RSACryptoServiceProvider();</div><div class="line">            RSAParameters parms = new RSAParameters();</div><div class="line"></div><div class="line">            //So the thing changed is offcourse the ToByteArrayUnsigned() instead of</div><div class="line">            //ToByteArray()</div><div class="line">            parms.Modulus = privateKey.Modulus.ToByteArrayUnsigned();</div><div class="line">            parms.P = privateKey.P.ToByteArrayUnsigned();</div><div class="line">            parms.Q = privateKey.Q.ToByteArrayUnsigned();</div><div class="line">            parms.DP = privateKey.DP.ToByteArrayUnsigned();</div><div class="line">            parms.DQ = privateKey.DQ.ToByteArrayUnsigned();</div><div class="line">            parms.InverseQ = privateKey.QInv.ToByteArrayUnsigned();</div><div class="line">            parms.D = privateKey.Exponent.ToByteArrayUnsigned();</div><div class="line">            parms.Exponent = privateKey.PublicExponent.ToByteArrayUnsigned();</div><div class="line"></div><div class="line">            //So now this now appears to work.</div><div class="line">            rcsp.ImportParameters(parms);</div><div class="line"></div><div class="line"></div><div class="line">            string s = rcsp.ToXmlString(true);</div><div class="line"></div><div class="line">            string privateKeyXmlText = rcsp.ToXmlString(true);//XML秘钥</div><div class="line">            string publicKeyXmlText = rcsp.ToXmlString(false);//XML公钥</div><div class="line"></div><div class="line">            //加密解密</div><div class="line">            string texta1 = &quot;abc&quot;,texta2=&quot;&quot;,textb1=&quot;&quot;;</div><div class="line">            byte[] cipherbytes;</div><div class="line"></div><div class="line">            cipherbytes = rcsp.Encrypt(Encoding.UTF8.GetBytes(texta1), false);</div><div class="line"></div><div class="line">            texta2 = Convert.ToBase64String(cipherbytes);</div><div class="line"></div><div class="line">            cipherbytes = rcsp.Decrypt(Convert.FromBase64String(texta2), false);</div><div class="line"></div><div class="line">            textb1= Encoding.UTF8.GetString(cipherbytes);</div><div class="line"></div><div class="line">            Console.Read();</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>2、网页版本webform</p>
@@ -529,8 +543,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -603,6 +626,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#本地直接使用测试demo可以解密，所以无法找到出问题的原因。！！！！"><span class="nav-number">1.</span> <span class="nav-text">本地直接使用测试demo可以解密，所以无法找到出问题的原因。！！！！</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

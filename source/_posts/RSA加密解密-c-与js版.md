@@ -27,19 +27,12 @@ categories:
 http://www.sufeinet.com/forum.php?mod=viewthread&tid=5484&highlight=RSA
 https://www.cnblogs.com/Leo_wl/p/5763243.html
 
-> 未能解决问题：在使用过程中偶尔会出现无法解密的异常，
-用户
-a8176a4c-5b7e-4f1d-94d8-04e744332f76
-进行分数
-/H544nYvvBRPZQAIQfDGHMySy/svCbS8/uUwwv5Fc6hKlTed9XvwuEYeAKv22cdPXDV%2B6/
-tmduEuVJDCP7G8Jb2TxJdN9A%2Bwou%2BGnOTO7%2BTo6yA2KX4Uvriof5yCt1ONmkLbsPRVh0/cnjnogJwLk2U/FVggjIhcOP6Rq%2BzLOw==
-的提交操作,发生异常不正确的数据。
-本地直接使用测试demo可以解密，所以无法找到出问题的原因。！！！！
+
 ------
 
-
 <!--more-->
-1、控制台应用程序
+
+### 控制台应用程序
 ``` 
 using Org.BouncyCastle.Asn1.Pkcs;
 using Org.BouncyCastle.Asn1.X509;
@@ -118,10 +111,18 @@ namespace RSAGenerateKey
 
 
 ```
-
+### 版本一
+> 版本一： 未能解决问题：在使用过程中偶尔会出现无法解密的异常，
+用户
+a8176a4c-5b7e-4f1d-94d8-04e744332f76
+进行分数
+/H544nYvvBRPZQAIQfDGHMySy/svCbS8/uUwwv5Fc6hKlTed9XvwuEYeAKv22cdPXDV%2B6/
+tmduEuVJDCP7G8Jb2TxJdN9A%2Bwou%2BGnOTO7%2BTo6yA2KX4Uvriof5yCt1ONmkLbsPRVh0/cnjnogJwLk2U/FVggjIhcOP6Rq%2BzLOw==
+的提交操作,发生异常不正确的数据。
+本地直接使用测试demo可以解密，所以无法找到出问题的原因。！！！！
 2、网页版本webform
 
-前台网页
+#### 前台网页
 ```
 <%@ Page Language="C#" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="RSADemo.login" %>
 
@@ -176,7 +177,7 @@ namespace RSAGenerateKey
 
 ```
 
-后台ashx一般处理程序
+#### 后台ashx一般处理程序
 
 ```
 using System;
@@ -232,4 +233,166 @@ namespace RSADemo
     }
 }
 
+```
+
+### 版本二
+> 版本二： 直接使用RSACryptoServiceProvider类生成xml的公钥和秘钥，放入session中
+该版本用到了四个js。下载地址：https://pan.baidu.com/s/1boQox8V
+```html
+<script src="Scripts/jquery-1.4.1.js"></script>
+<script src="Scripts/Barrett.js"></script>
+<script src="Scripts/BigInt.js"></script>
+<script src="Scripts/RSA.js"></script>
+```
+
+#### 前台代码
+```html
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="RSAWeb.Login" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>登录页RSA加密解密demo</title>
+    <script src="Scripts/jquery-1.4.1.js"></script>
+    <script src="Scripts/Barrett.js"></script>
+    <script src="Scripts/BigInt.js"></script>
+    <script src="Scripts/RSA.js"></script>
+     <script type="text/javascript">
+        function cmdEncrypt() {
+        	//关键步骤
+            setMaxDigits(129);
+            var key = new RSAKeyPair("<%=strPublicKeyExponent%>", "", "<%=strPublicKeyModulus%>");
+            var pwdMD5Twice = $("#txtPassword").attr("value");
+            var pwdRtn = encryptedString(key, pwdMD5Twice);
+            //关键步骤
+            $("#encrypted_pwd").attr("value", pwdRtn);
+            $("#formLogin").submit();
+            return;
+        }
+    </script>
+</head>
+<body>
+    <form action="Login.aspx" id="formLogin" method="post">
+    <div>
+        <div>
+            User Name:
+        </div>
+        <div>
+            <input id="txtUserName" name="txtUserName" value="<%=postbackUserName%>" type="text" maxlength="16" />
+        </div>
+        <div>
+            Password:
+        </div>
+        <div>
+            <input id="txtPassword" type="password" maxlength="16" />
+        </div>
+        <div>
+            <input id="btnLogin" type="button" value="Login" onclick="return cmdEncrypt()" />
+        </div>
+    </div>
+    <div>
+        <input type="hidden" name="encrypted_pwd" id="encrypted_pwd" />
+    </div>
+    </form>
+    <div>
+        <%=LoginResult%>
+    </div>
+</body>
+</html>
+
+```
+
+#### 后台代码
+```C#
+using System;
+using System.Security.Cryptography;
+using System.Text;
+
+namespace RSAWeb
+{
+    public partial class Login : System.Web.UI.Page
+    {
+        protected string strPublicKeyExponent = "";
+        protected string strPublicKeyModulus = "";
+        protected string LoginResult = "";
+        protected string postbackUserName = "";
+
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            LoginResult = "";
+            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+            if (string.Compare(Request.RequestType, "get", true) == 0)
+            {
+                //将私钥存Session中
+                Session["private_key"] = rsa.ToXmlString(true);
+                CYQ.Data.Log.WriteLogToTxt(Convert.ToString(Session["private_key"]), CYQ.Data.LogType.Debug);
+            }
+            else
+            {
+                bool bLoginSucceed = false;
+                try
+                {
+                    string strUserName = Request.Form["txtUserName"];
+                    postbackUserName = strUserName;
+                    string strPwdToDecrypt = Request.Form["encrypted_pwd"];
+                    rsa.FromXmlString((string)Session["private_key"]);
+
+                    byte[] result = rsa.Decrypt(HexStringToBytes(strPwdToDecrypt), false);
+                    System.Text.ASCIIEncoding enc = new ASCIIEncoding();
+                    string strPwdMD5 = enc.GetString(result);
+                    if (string.Compare(strUserName, "admin", true) == 0 && string.Compare(strPwdMD5, "admin", true) == 0)//14e1b600b1fd579f47433b88e8d85291
+                        bLoginSucceed = true;
+                }
+                catch (Exception)
+                {
+
+                }
+                if (bLoginSucceed)
+                    LoginResult = "登录成功";
+                else
+                    LoginResult = "登录失败";
+            }
+
+            //把公钥适当转换，准备发往客户端
+            RSAParameters parameter = rsa.ExportParameters(true);
+            strPublicKeyExponent = BytesToHexString(parameter.Exponent);
+            strPublicKeyModulus = BytesToHexString(parameter.Modulus);
+        }
+        private string BytesToHexString(byte[] input)
+        {
+            StringBuilder hexString = new StringBuilder(64);
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                hexString.Append(String.Format("{0:X2}", input[i]));
+            }
+            return hexString.ToString();
+        }
+
+        public static byte[] HexStringToBytes(string hex)
+        {
+            if (hex.Length == 0)
+            {
+                return new byte[] { 0 };
+            }
+
+            if (hex.Length % 2 == 1)
+            {
+                hex = "0" + hex;
+            }
+
+            byte[] result = new byte[hex.Length / 2];
+
+            for (int i = 0; i < hex.Length / 2; i++)
+            {
+                result[i] = byte.Parse(hex.Substring(2 * i, 2), System.Globalization.NumberStyles.AllowHexSpecifier);
+            }
+
+            return result;
+        }
+
+    }
+}
 ```

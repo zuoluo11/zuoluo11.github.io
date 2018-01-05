@@ -14,7 +14,7 @@ keywords: "Hexo, NexT"
 rss:
 
 # Specify the date when the site was setup
-#since: 2015
+since: 2016
 
 # icon between year and author @Footer
 authoricon: heart
@@ -162,7 +162,7 @@ social_icons:
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.jpg
 # in site  directory(source/uploads): /uploads/avatar.jpg
-#avatar:
+avatar: /images/avatar.jpg
 
 
 # Table Of Contents in the Sidebar
@@ -303,14 +303,14 @@ han: false
 #swiftype_key:
 
 # Baidu Analytics ID
-baidu_analytics: 2Q35P9VG30
+baidu_analytics: 44133fc659a5df81af97508f6de6baeb
 
 # Duoshuo ShortName
 #duoshuo_shortname:
 
 # Disqus
 disqus:
-  enable: true
+  enable: false
   shortname: zuoluo11-github-io
   count: false
 
@@ -332,7 +332,7 @@ changyan:
 
 # Support for LiveRe comments system.
 # You can get your uid from https://livere.com/insight/myCode (General web site)
-#livere_uid: your uid
+livere_uid: MTAyMC8zMjkxOC85NDc5
 
 # Baidu Share
 # Available value:

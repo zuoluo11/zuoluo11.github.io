@@ -1,7 +1,7 @@
 ---
 title: 关于我
 date: 2016-09-10 10:57:28
-comments: true
+comments: false
 socail: false
 share:
  on: true

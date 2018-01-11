@@ -14,7 +14,7 @@ categories:
 <!--more-->
 服务定时访问代码
 
-```C#
+```C
 
 public partial class Service1 : ServiceBase
     {

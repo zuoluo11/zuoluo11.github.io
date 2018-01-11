@@ -19,7 +19,7 @@ C#扩展方法，爱你在心口难开
 
    
 	
-	``` bash
+```C
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -51,8 +51,8 @@ namespace ExtendMethod
 	
 使用扩展方法
 	
-	``` bash
-	using System;
+```C
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -78,7 +78,7 @@ namespace wuFengTingHai.Person.Extend
 引入system.linq后,扩展方法的智能提示
  从上面的例子中我们可以学到扩展方法的使用方法。那么扩展方法是怎么定义的呢？查看一下Where扩展方法的定义  
 
-``` bash
+```C
  #region Assembly System.Core.dll, v2.0.50727
 // C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.5\System.Core.dll
 #endregion
@@ -102,8 +102,8 @@ namespace System.Linq
   虽然扩展方法通过实例方法语法进行调用的，但是他们却被定义为静态方法。从定义中我们可以看到，它们的第一个参数指定该方法作用于哪个类型，并且该参数以 this 修饰符为前缀。
 
     下面我们自己定义一个Person类和PersonExtend类来扩展方法，来看看编译器究竟做了什么！
-	``` bash
-	using System;
+```C
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -154,8 +154,8 @@ namespace wuFengTingHai.Person
 	 
 	 
 	 
-	 ``` bash
-	 using System;
+```C
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -175,7 +175,7 @@ namespace wuFengTingHai.Person.Extend
 	 客户端调用结果
 	 
 	 让我们看一下客户端main方法的IL代码，我们就知道编译器到底干什么了！
-	 ``` bash 
+```C
 	 .method private hidebysig static void  Main(string[] args) cil managed
 {
   .entrypoint
@@ -218,8 +218,8 @@ namespace wuFengTingHai.Person.Extend
 
       如果扩展方法和被扩展类中的方法相同，会怎么样？
 	  
-	  ``` bash
-	  using System;
+```C
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -244,8 +244,8 @@ namespace wuFengTingHai.Person.Extend
 	  ```
 	  客户端调用代码
 	  
-	  ``` bash
-	  using System;
+```C
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

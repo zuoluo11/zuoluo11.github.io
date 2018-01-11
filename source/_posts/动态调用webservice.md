@@ -12,7 +12,7 @@ categories:
  网上找到的代码本地测试可以使用，留存。
 
 <!--more-->
-``` csharp
+```C
 using System;
 using System.Web.Services.Description;
 using System.CodeDom;

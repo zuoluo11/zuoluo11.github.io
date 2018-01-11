@@ -19,7 +19,7 @@ categories:
 2、DirFileHelper 文件及文件夹操作类
 <!--more-->
 ## 代码详情
-``` bash
+```C
 using CommonTools;
 using System;
 using System.Collections;
@@ -62,7 +62,7 @@ namespace IIS
 }
 
 ```
-``` bash
+```C
 using Microsoft.Web.Administration;
 using System;
 using System.Collections;
@@ -391,7 +391,7 @@ namespace CommonTools
 
 ```
 
-``` bash
+```C
 using System;
 using System.Text;
 using System.IO;

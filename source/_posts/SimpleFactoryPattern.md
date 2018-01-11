@@ -12,7 +12,7 @@ categories:
 > 本篇内容只针对简单工厂模式。
 
 一般情况下，如果需要实例化一个对象，那么就要new一个对象如下：
-```JAVA
+```C
 using System;
 
 namespace SettingPattern4
@@ -62,7 +62,7 @@ a.抽象水果类，所有的水果都继承该类;
 b.工厂类，静态方法生成对应的水果对象；
 c.顾客想要什么水果，给工厂类的方法传入水果名称就好；
 
-```javascript
+```C
 using System;
 
 namespace SettingPattern4
@@ -153,4 +153,4 @@ b.产品类别比较少的情况下;
 **缺点**
 不方便扩展，增加新的产品时，需要修改工厂类增加if-else产品分支，可能导致工厂类逻辑特别复杂。
 
-针对此缺点引入设计模式-工厂方法模式。
+针对此缺点引入{% post_link FactoryMethodPattern 设计模式-工厂方法模式 %}。

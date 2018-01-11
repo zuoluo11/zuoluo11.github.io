@@ -11,7 +11,7 @@ categories:
 
 ### [参考地址](http://www.howtobuildsoftware.com/index.php/how-do/bouX/c-mysql-unicode-emoji-how-do-i-remove-emoji-characters-from-a-string)
 {% asset_img 20171218174151.png 来源 %}
-```C#
+```C
 class Program
     {
         static void Main(string[] args)

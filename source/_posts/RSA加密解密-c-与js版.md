@@ -9,8 +9,14 @@ categories:
 ---
 
 业务描述：前端js使用私有秘钥将数据进行加密，后端C#在一般处理程序中使用公钥对加密数据进行解密。
+两个版本的实现，版本一可直接使用，版本二可用来参考如何将XML秘钥与PEM秘钥的转换。
 
-问题描述：
+版本一描述：
+1、该版本实现用户登录过程中RSA加密验证的过程。
+2、前台JS进行加密，后台从session中获得私钥进行解密。
+3、RSA秘钥保存在session中，刷新登录页面后自动更新。
+
+版本二描述：
 1、C#自有类RSACryptoServiceProvider生成RSA的秘钥与公钥的方法ToXmlString(true)秘钥，ToXmlString(false)公钥，结果是XML形式的，js无法直接使用，js所使用的是PEM形式的秘钥。
 解决方法：使用工具类bouncycastle直接生成PEM版的秘钥和公钥，后台使用时，再将秘钥转换为XML版的。
 引用地址：https://www.bouncycastle.org/
@@ -32,8 +38,8 @@ https://www.cnblogs.com/Leo_wl/p/5763243.html
 
 <!--more-->
 
-### 控制台应用程序
-``` 
+### 控制台应用程序RSA基础代码演示
+```C 
 using Org.BouncyCastle.Asn1.Pkcs;
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Crypto;
@@ -109,134 +115,8 @@ namespace RSAGenerateKey
 }
 
 
-
-```
 ### 版本一
-> 版本一： 未能解决问题：在使用过程中偶尔会出现无法解密的异常，
-用户
-a8176a4c-5b7e-4f1d-94d8-04e744332f76
-进行分数
-/H544nYvvBRPZQAIQfDGHMySy/svCbS8/uUwwv5Fc6hKlTed9XvwuEYeAKv22cdPXDV%2B6/
-tmduEuVJDCP7G8Jb2TxJdN9A%2Bwou%2BGnOTO7%2BTo6yA2KX4Uvriof5yCt1ONmkLbsPRVh0/cnjnogJwLk2U/FVggjIhcOP6Rq%2BzLOw==
-的提交操作,发生异常不正确的数据。
-本地直接使用测试demo可以解密，所以无法找到出问题的原因。！！！！
-2、网页版本webform
-
-#### 前台网页
-```
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="RSADemo.login" %>
-
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-    <script src="js/jquery.js"></script>
-    <script src="http://passport.cnblogs.com/scripts/jsencrypt.min.js"></script>
-    <script src="https://unpkg.com/node-forge@0.7.0/dist/forge.min.js"></script>
-    <script type="text/javascript">
-        $(function () {
-             //pem公钥
-            var pemPublicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDHCkaSCVy6sHB/5rAKS/1EEtyzWuy30gLyrpNbFI3GtpsdFGdsqQ/uwiscGD+pZ7Mxj1ZumPs4jHvPpcAeCb8gKsqP/f5+pputTMuTkhTQqlDT1plHR7w3REQI8MaJ8KTA/pJiPo6iWToFynQeJNWjicxXxNURSZQ7nmC2rl4uPQIDAQAB";
-            $("#tra").val(pemPublicKey);
-
-
-            var encrypt = new JSEncrypt();
-            encrypt.setPublicKey($("#tra").val());
-            var data = encrypt.encrypt("123456789");
-            alert(data);
-            $("#btn").click(function () {
-                $.ajax({
-                    url: 'Handler1.ashx',
-                    data: "pwd=" +encodeURI(data).replace(/\+/g, '%2B'),  //+号的处理：因为数据在网络上传输时，非字母数字字符都将被替换成百分号（%）后跟两位十六进制数，而base64编码在传输到后端的时候，+会变成空格，因此先替换掉。后端再替换回来
-                    type: 'post',
-                    success: function (msg) {
-                        alert(msg);
-                    }
-                });
-            });
-
-        });
-
-
-    </script>
-</head>
-<body>
-    <form id="form1" runat="server">
-        <div>
-            <input type="button" id="btn" value="点我" />
-            <textarea id="tra" rows="15" cols="65">
-                
-        </textarea>
-            <hr />
-            注意+好的处理
-        </div>
-    </form>
-</body>
-</html>
-
-```
-
-#### 后台ashx一般处理程序
-
-```
-using System;
-using System.Security.Cryptography;
-using System.Text;
-using System.Web;
-
-namespace RSADemo
-{
-    /// <summary>
-    /// Summary description for Handler1
-    /// </summary>
-    public class Handler1 : IHttpHandler
-    {
-
-        public void ProcessRequest(HttpContext context)
-        {
-            string result = "";
-            //XML密钥
-            string privateKey = @"<RSAKeyValue><Modulus>xwpGkglcurBwf+awCkv9RBLcs1rst9IC8q6TWxSNxrabHRRnbKkP7sIrHBg/qWezMY9Wbpj7OIx7z6XAHgm/ICrKj/3+fqabrUzLk5IU0KpQ09aZR0e8N0RECPDGifCkwP6SYj6Oolk6Bcp0HiTVo4nMV8TVEUmUO55gtq5eLj0=</Modulus><Exponent>AQAB</Exponent><P>/LnrFrusoNklOl6d0zSWZ1aCdQC2l3XXU8SSgYNLuSmgVwl7wQ2w0Jn9SQqyiVRmbcp1SX28/bH6TaA2v9ejHQ==</P><Q>yZ5TTtLOfTqrikYjy/fyktTk977y2GG2R9sgNPHtnH5EIIC9CoJETDwfSu40YUlHeUUXHQ1nG1WmWbEOC76toQ==</Q><DP>5UfC+YfgkLkQJklqxA+EmFIK3x17iiO16+B9zhQQ4fba6bvH05iZHldmTBrxaNfyaY7xI3B4wmzymfRNV3TKHQ==</DP><DQ>k7EvRaaXLJU14+zNfDT9tSHPOMzgCDJL3Qdf6GjwrpqwPT8RPAmBDndcVP95z2pmuScrb1TKGvP7D+jraR8dAQ==</DQ><InverseQ>4gbDpW7ca3dn0XXPkYsVmIl7SBqU8lq9X2xji/Nyg1M0pjDcpdQm0bqOm+/5usQl+kRotpIoK+Yf6J++zbmNjg==</InverseQ><D>Ccxfc356/mTDsQQv+93ISsLb8wdhml4AD6bY8bWmEhd4tNqFieObuW79FM27ypDkkSbDhD/LNDo0OSFpfwEPU8VxnEMzFnVw7MIWGSVKWocZHIhsclkHtHNtHaKS0LNEie2q0PGMiIYty/QG5k3bJeA8R42teXv3nARYEgzuNmE=</D></RSAKeyValue>";
-
-       
-            try
-            {
-                string pwd = context.Request["pwd"];
-
-                RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
-                byte[] cipherbytes;
-                rsa.FromXmlString(privateKey);
-                //把+号，再替换回来
-                cipherbytes = rsa.Decrypt(Convert.FromBase64String(pwd.Replace("%2B", "+")), false);
-
-                result = Encoding.UTF8.GetString(cipherbytes);
-            }
-            catch (Exception exception)
-            {
-
-
-            }
-
-         
-
-            context.Response.Write(result);
-        }
-     
-        public bool IsReusable
-        {
-            get
-            {
-                return false;
-            }
-        }
-    }
-}
-
-```
-
-### 版本二
-> 版本二： 直接使用RSACryptoServiceProvider类生成xml的公钥和秘钥，放入session中
+> 版本一： 直接使用RSACryptoServiceProvider类生成xml的公钥和秘钥，放入session中
 该版本用到了四个js。下载地址：https://pan.baidu.com/s/1boQox8V
 ```html
 <script src="Scripts/jquery-1.4.1.js"></script>
@@ -260,7 +140,7 @@ namespace RSADemo
     <script src="Scripts/RSA.js"></script>
      <script type="text/javascript">
         function cmdEncrypt() {
-        	//关键步骤
+            //关键步骤
             setMaxDigits(129);
             var key = new RSAKeyPair("<%=strPublicKeyExponent%>", "", "<%=strPublicKeyModulus%>");
             var pwdMD5Twice = $("#txtPassword").attr("value");
@@ -304,7 +184,7 @@ namespace RSADemo
 ```
 
 #### 后台代码
-```C#
+```C
 using System;
 using System.Security.Cryptography;
 using System.Text;
@@ -396,3 +276,131 @@ namespace RSAWeb
     }
 }
 ```
+
+
+
+### 版本二
+> 版本二： 未能解决问题：在使用过程中偶尔会出现无法解密的异常，
+用户
+a8176a4c-5b7e-4f1d-94d8-04e744332f76
+进行分数
+/H544nYvvBRPZQAIQfDGHMySy/svCbS8/uUwwv5Fc6hKlTed9XvwuEYeAKv22cdPXDV%2B6/
+tmduEuVJDCP7G8Jb2TxJdN9A%2Bwou%2BGnOTO7%2BTo6yA2KX4Uvriof5yCt1ONmkLbsPRVh0/cnjnogJwLk2U/FVggjIhcOP6Rq%2BzLOw==
+的提交操作,发生异常不正确的数据。
+本地直接使用测试demo可以解密，所以无法找到出问题的原因。！！！！
+
+2、网页版本webform
+
+#### 前台网页
+```html
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="RSADemo.login" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <script src="js/jquery.js"></script>
+    <script src="http://passport.cnblogs.com/scripts/jsencrypt.min.js"></script>
+    <script src="https://unpkg.com/node-forge@0.7.0/dist/forge.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+             //pem公钥
+            var pemPublicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDHCkaSCVy6sHB/5rAKS/1EEtyzWuy30gLyrpNbFI3GtpsdFGdsqQ/uwiscGD+pZ7Mxj1ZumPs4jHvPpcAeCb8gKsqP/f5+pputTMuTkhTQqlDT1plHR7w3REQI8MaJ8KTA/pJiPo6iWToFynQeJNWjicxXxNURSZQ7nmC2rl4uPQIDAQAB";
+            $("#tra").val(pemPublicKey);
+
+
+            var encrypt = new JSEncrypt();
+            encrypt.setPublicKey($("#tra").val());
+            var data = encrypt.encrypt("123456789");
+            alert(data);
+            $("#btn").click(function () {
+                $.ajax({
+                    url: 'Handler1.ashx',
+                    data: "pwd=" +encodeURI(data).replace(/\+/g, '%2B'),  //+号的处理：因为数据在网络上传输时，非字母数字字符都将被替换成百分号（%）后跟两位十六进制数，而base64编码在传输到后端的时候，+会变成空格，因此先替换掉。后端再替换回来
+                    type: 'post',
+                    success: function (msg) {
+                        alert(msg);
+                    }
+                });
+            });
+
+        });
+
+
+    </script>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <input type="button" id="btn" value="点我" />
+            <textarea id="tra" rows="15" cols="65">
+                
+        </textarea>
+            <hr />
+            注意+好的处理
+        </div>
+    </form>
+</body>
+</html>
+
+```
+
+#### 后台ashx一般处理程序
+
+```C
+using System;
+using System.Security.Cryptography;
+using System.Text;
+using System.Web;
+
+namespace RSADemo
+{
+    /// <summary>
+    /// Summary description for Handler1
+    /// </summary>
+    public class Handler1 : IHttpHandler
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            string result = "";
+            //XML密钥
+            string privateKey = @"<RSAKeyValue><Modulus>xwpGkglcurBwf+awCkv9RBLcs1rst9IC8q6TWxSNxrabHRRnbKkP7sIrHBg/qWezMY9Wbpj7OIx7z6XAHgm/ICrKj/3+fqabrUzLk5IU0KpQ09aZR0e8N0RECPDGifCkwP6SYj6Oolk6Bcp0HiTVo4nMV8TVEUmUO55gtq5eLj0=</Modulus><Exponent>AQAB</Exponent><P>/LnrFrusoNklOl6d0zSWZ1aCdQC2l3XXU8SSgYNLuSmgVwl7wQ2w0Jn9SQqyiVRmbcp1SX28/bH6TaA2v9ejHQ==</P><Q>yZ5TTtLOfTqrikYjy/fyktTk977y2GG2R9sgNPHtnH5EIIC9CoJETDwfSu40YUlHeUUXHQ1nG1WmWbEOC76toQ==</Q><DP>5UfC+YfgkLkQJklqxA+EmFIK3x17iiO16+B9zhQQ4fba6bvH05iZHldmTBrxaNfyaY7xI3B4wmzymfRNV3TKHQ==</DP><DQ>k7EvRaaXLJU14+zNfDT9tSHPOMzgCDJL3Qdf6GjwrpqwPT8RPAmBDndcVP95z2pmuScrb1TKGvP7D+jraR8dAQ==</DQ><InverseQ>4gbDpW7ca3dn0XXPkYsVmIl7SBqU8lq9X2xji/Nyg1M0pjDcpdQm0bqOm+/5usQl+kRotpIoK+Yf6J++zbmNjg==</InverseQ><D>Ccxfc356/mTDsQQv+93ISsLb8wdhml4AD6bY8bWmEhd4tNqFieObuW79FM27ypDkkSbDhD/LNDo0OSFpfwEPU8VxnEMzFnVw7MIWGSVKWocZHIhsclkHtHNtHaKS0LNEie2q0PGMiIYty/QG5k3bJeA8R42teXv3nARYEgzuNmE=</D></RSAKeyValue>";
+
+       
+            try
+            {
+                string pwd = context.Request["pwd"];
+
+                RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+                byte[] cipherbytes;
+                rsa.FromXmlString(privateKey);
+                //把+号，再替换回来
+                cipherbytes = rsa.Decrypt(Convert.FromBase64String(pwd.Replace("%2B", "+")), false);
+
+                result = Encoding.UTF8.GetString(cipherbytes);
+            }
+            catch (Exception exception)
+            {
+
+
+            }
+
+         
+
+            context.Response.Write(result);
+        }
+     
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}
+
+```
+

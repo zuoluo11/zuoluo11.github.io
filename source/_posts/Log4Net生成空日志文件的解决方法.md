@@ -54,7 +54,7 @@ categories:
 创建一个定时器，每隔一天检查一下对应的日志文件是否有空，有则删除；
 4、google搜索到国外的网站，发现可以继承**FileAppender.MinimalLock**类 重写**ReleaseLock** 方法 来实现写日志完成后检查空文件并删除的功能。
 [引用地址](http://stackoverflow.com/questions/2533403/how-to-disable-creation-of-empty-log-file-on-app-start)
-``` bash
+```C
 using log4net.Appender;
 using System;
 using System.Collections.Generic;
@@ -80,7 +80,7 @@ namespace 命名空间
 }
 ```
 5、最后在配置文件中将类插入完成调用
-``` bash
+```C
 <lockingModel type="命名空间.MinimalLockDeleteEmpty" />
 ```
 

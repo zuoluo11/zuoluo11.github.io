@@ -12,7 +12,7 @@ tags:
 增加用户友好。
 <!--more-->
 Android
-``` bash
+```JAVA
 package com.example.administrator.myapplication;
 
 import android.util.Base64;
@@ -104,7 +104,7 @@ public class GZIP {
 ```
 
 .Net 
-``` bash
+```C
 using System;
 using System.IO;
 using System.IO.Compression;

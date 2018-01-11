@@ -61,7 +61,7 @@ TextWriter是一个有序序列字符的编写器，它是一个抽象类，常�
 
 ### 代码实现
 完整代码如下：
-``` bash
+```C
 using System;
 using System.IO;
 using System.Reflection;
@@ -224,7 +224,7 @@ namespace Test
 PropertyInfo.GetCustomAttributes根据属性获得所有特性，
 父类BaseObject 代码如下：
 
-``` bash
+```C
 	    public class BaseObject
     {
         public BaseObject()

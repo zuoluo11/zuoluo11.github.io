@@ -19,7 +19,7 @@ categories:
 <!--more-->
 
 1、Global.asax
-```
+```C
 using MxWeiXinPF.Common;
 using System;
 
@@ -108,7 +108,7 @@ namespace MxWeiXinPF.Web
 ```
 
 2、SafeHelper.cs
-```
+```C
 using System.Text.RegularExpressions;
 using System.Web;
 

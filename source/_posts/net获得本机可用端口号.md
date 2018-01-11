@@ -12,7 +12,7 @@ categories:
 实现逻辑思路：.net 通过命令提示符窗口获得当前已用端口，再筛选出可用端口。
 <!--more-->
 ## 公用方法代码
-``` bash
+```C
 public string GetFreePort()
         {
             string result = "";

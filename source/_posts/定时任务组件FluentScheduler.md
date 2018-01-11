@@ -26,7 +26,7 @@ ConfigurationManager.RefreshSection("appSettings");
 
 ### AppConfig文件如下
 
-``` bash
+```
 <?xml version="1.0" encoding="utf-8" ?>
 <configuration>
   <startup>
@@ -42,7 +42,7 @@ ConfigurationManager.RefreshSection("appSettings");
 </configuration>
 ```
 ### 控制台应用程序源码
-``` bash
+```C
 using System;
 using FluentScheduler;
 using System.Configuration;

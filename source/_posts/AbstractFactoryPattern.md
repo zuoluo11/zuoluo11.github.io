@@ -1,5 +1,5 @@
 ---
-title: 抽象工厂模式
+title: 设计模式-抽象工厂模式
 date: 2018-01-11 09:31:49
 tags:
 categories:
@@ -7,7 +7,7 @@ categories:
 ---
 抽象工厂模式一句话：一个工厂抽象类，多个产品抽象类，一个工厂生产一个产品族（多个有关系的产品组合）。
 <!--more-->
-> {% post_link SampleFactoryPattern 简单工厂模式： %}一个工厂生产多个产品
+> {% post_link SimpleFactoryPattern 简单工厂模式： %}一个工厂生产多个产品
 > {% post_link FactoryMethodPattern 工厂方法模式： %}一个工厂生产一个产品
 > 抽象工厂模式：一个工厂生产一个产品族
 

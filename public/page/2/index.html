@@ -326,6 +326,150 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zuoluo11.github.io/2017/11/29/RSA加密解密-c-与js版/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="菜儿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜儿's BLog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/29/RSA加密解密-c-与js版/" itemprop="url">RSA加密解密(c#与js版)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-29T10:41:20+08:00">
+                2017-11-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C-基础/" itemprop="url" rel="index">
+                    <span itemprop="name">C#基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>业务描述：前端js使用私有秘钥将数据进行加密，后端C#在一般处理程序中使用公钥对加密数据进行解密。<br>两个版本的实现，版本一可直接使用，版本二可用来参考如何将XML秘钥与PEM秘钥的转换。</p>
+<p>版本一描述：<br>1、该版本实现用户登录过程中RSA加密验证的过程。<br>2、前台JS进行加密，后台从session中获得私钥进行解密。<br>3、RSA秘钥保存在session中，刷新登录页面后自动更新。</p>
+<p>版本二描述：<br>1、C#自有类RSACryptoServiceProvider生成RSA的秘钥与公钥的方法ToXmlString(true)秘钥，ToXmlString(false)公钥，结果是XML形式的，js无法直接使用，js所使用的是PEM形式的秘钥。<br>解决方法：使用工具类bouncycastle直接生成PEM版的秘钥和公钥，后台使用时，再将秘钥转换为XML版的。<br>引用地址：<a href="https://www.bouncycastle.org/">https://www.bouncycastle.org/</a><br>插件下载地址：<a href="https://downloads.bouncycastle.org/csharp/bccrypto-csharp-1.8.1-bin.zip">https://downloads.bouncycastle.org/csharp/bccrypto-csharp-1.8.1-bin.zip</a></p>
+<p>2、js加密数据后base64位的数据在传输中“+”号会变为空格，导致后台C#解密出错。<br>解决方法：js先加号转后，然后后台再将加号转回。</p>
+<p>3、网页版的加密解密demo以固定的秘钥形式来实现，实际案例中可以考虑更改为使用session保存针对单个<br>用户来生成的公钥和秘钥。</p>
+<p>参考地址：<br><a href="http://www.sufeinet.com/forum.php?mod=viewthread&amp;tid=5484&amp;highlight=RSA">http://www.sufeinet.com/forum.php?mod=viewthread&amp;tid=5484&amp;highlight=RSA</a><br><a href="https://www.cnblogs.com/Leo_wl/p/5763243.html">https://www.cnblogs.com/Leo_wl/p/5763243.html</a></p>
+<hr>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/11/29/RSA加密解密-c-与js版/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://zuoluo11.github.io/2017/08/18/流操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1556,141 +1700,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://zuoluo11.github.io/2016/11/15/文件上传大小限制/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="菜儿">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="菜儿's BLog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/11/15/文件上传大小限制/" itemprop="url">ASP.Net 文件上传大小限制</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-15T09:17:24+08:00">
-                2016-11-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C-基础/" itemprop="url" rel="index">
-                    <span itemprop="name">C#基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>1、主要有两个地方需要配置，<br>httpRuntime节点 maxRequestLength 最大请求长度 byte<br>requestLimits节点 maxAllowedContentLength 最大上传文件长度 byte<br>这两个值需要设置为一致，IIS7 最大支持2GB 即2147483647B</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span>?&gt;</div><div class="line">&lt;configuration&gt;</div><div class="line">  &lt;connectionStrings configSource=<span class="string">"XmlConfig\database.config"</span> /&gt;</div><div class="line">  &lt;appSettings configSource=<span class="string">"XmlConfig\system.config"</span> /&gt;</div><div class="line">  &lt;system.web&gt;</div><div class="line">    &lt;!-- 文件上传 允许请求的最大长度 单位byte 默认4096KB--&gt;</div><div class="line">    &lt;httpRuntime requestValidationMode=<span class="string">"2.0"</span> requestLengthDiskThreshold=<span class="string">"256"</span> </div><div class="line">                 maxRequestLength=<span class="string">"2147483647"</span> executionTimeout=<span class="string">"1800"</span>/&gt;</div><div class="line">  &lt;/system.web&gt;</div><div class="line">  &lt;system.webServer&gt;</div><div class="line">    &lt;modules runAllManagedModulesForAllRequests=<span class="string">"true"</span> /&gt;</div><div class="line">    &lt;security&gt;</div><div class="line">      &lt;requestFiltering&gt;</div><div class="line">        &lt;!--上传文件大小限制单位字节 byte 最大不超过2G--&gt;</div><div class="line">        &lt;requestLimits maxQueryString=<span class="string">"2147483647"</span>  maxAllowedContentLength=<span class="string">"2147483647"</span>/&gt;</div><div class="line">      &lt;/requestFiltering&gt;</div><div class="line">    &lt;/security&gt;</div><div class="line">  &lt;/system.webServer&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1740,7 +1749,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

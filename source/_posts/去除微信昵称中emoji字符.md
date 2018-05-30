@@ -18,7 +18,7 @@ class Program
         {
 
              string nickName = "特殊字符串";
-             nickName = Regex.Replace(nickName, @"\p{Cs}", "*");
+             nickName = Regex.Replace(nickName, @"\p{Cs}", "*").Replace("\"", "*");
              Console.WriteLine(nickName);
              Console.ReadKey();
         }

@@ -397,3 +397,4 @@ iText 7 is a complete re-write of iText 5, allowing you to choose your adventure
 3、 [How to convert pdfstamper to byte array](http://www.it1352.com/245699.html)
 4、 [PdfStamper获得字节数组](http://stackoverflow.org.cn/front/ask/view?ask_id=236528)
 5、 [pt,px,em](http://www.runoob.com/w3cnote/px-pt-em-convert-table.html)
+6、 [使用itext直接替换PDF中的文本](https://blog.csdn.net/sishenkankan/article/details/53107195)

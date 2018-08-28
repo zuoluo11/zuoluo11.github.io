@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[同一服务器安装多个redis实例]]></title>
+    <url>%2F2018%2F08%2F28%2Fredismultiplyservices%2F</url>
+    <content type="text"><![CDATA[Redis用来做缓存的key-value数据库，当相同的系统发布到同一台服务器后，会导致缓存中的内容相互影响，因此需要为每个系统单独设置一个redis的实例，各个实例通过端口号来进行数据的相互隔离。 将redis作为windows服务安装单实例安装参考地址 1、下载redis并解压到一个目录下，然后切换到该目录下，也就是redis-server.exe文件所在的目录 2、在cmd下执行 redis-server –service-install redis-windows-conf 3、服务安装成功后启动服务 redis-server –service-start 同一台服务器安装多个不同端口号的redis服务1、将redis-windows-conf拷贝一份并重命名为redis_6380.conf。 2、将redis_6380.conf文件中的三处位置进行修改，包括：端口号，日志文件名，数据快照文件名12345678910111213&gt; *# Accept connections on the specified port, default is 6379 (IANA #815344).# If port 0 is specified Redis will not listen on a TCP socket.port 6380&gt; *# Specify the log file name. Also &apos;stdout&apos; can be used to force# Redis to log on the standard output.logfile &quot;redis-server-6380.log&quot;&gt; *# The filename where to dump the DBdbfilename dump_6380.rdb 3、按照配置文件的端口号将redis新建为windows服务redis-server –service-install 配置文件名 –loglevel verbose –service-name redis服务名称 –port 端口redis-server –service-install redis_6380.conf –loglevel verbose –service-name redisService1 –port 6380 4、启动服务redis-server –service-start –service-name redisService1 5、windows删除服务sc delete redis服务名称sc delete redisService1]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[进度检查201807]]></title>
     <url>%2F2018%2F07%2F04%2F%E8%BF%9B%E5%BA%A6%E6%A3%80%E6%9F%A5201807%2F</url>
-    <content type="text"><![CDATA[]]></content>
+    <content type="text"><![CDATA[增加语法学习内容并调整计划。]]></content>
       <categories>
         <category>生活</category>
       </categories>

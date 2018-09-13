@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[泛域名解析]]></title>
+    <url>%2F2018%2F09%2F13%2F%E6%B3%9B%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%2F</url>
+    <content type="text"><![CDATA[简介问题描述：在构建多用户应用系统时，免不了有一些个性化的需求，其中一项需求就是泛域名解析。所谓的泛域名解析，即类似于Github这样的站点，当用户注册完账户之后，会分配一个类似于harrypotter.github.com的网址，方便用户记忆及访问。 那么这样的系统在阿里云服务器和该服务器上的IIS该如何设置？即如何使用户使用自己的个性化二级域名来访问网站？ 阿里云配置主要是修改服务器的解析设置，使用通配符*号，将所有二级域名请求匹配到服务器。 IIS配置修改网站绑定，注意此处不需要填写主机名。 系统代码实现此部分需要根据具体需求进行实现，但是业务逻辑一般为首先在访问页控制器中找到二级域名与数据库进行匹配，其次在登录页中依据数据库查询内容进行个性化设置（更换logo等）。 测试任意使用二级域名的网址对服务器访问来测试能否正常工作。]]></content>
+      <categories>
+        <category>C#基础</category>
+      </categories>
+      <tags>
+        <tag>ASP.NET</tag>
+        <tag>IIS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[同一服务器安装多个redis实例]]></title>
     <url>%2F2018%2F08%2F28%2Fredismultiplyservices%2F</url>
     <content type="text"><![CDATA[Redis用来做缓存的key-value数据库，当相同的系统发布到同一台服务器后，会导致缓存中的内容相互影响，因此需要为每个系统单独设置一个redis的实例，各个实例通过端口号来进行数据的相互隔离。 将redis作为windows服务安装单实例安装参考地址 1、下载redis并解压到一个目录下，然后切换到该目录下，也就是redis-server.exe文件所在的目录 2、在cmd下执行 redis-server –service-install redis-windows-conf 3、服务安装成功后启动服务 redis-server –service-start 同一台服务器安装多个不同端口号的redis服务1、将redis-windows-conf拷贝一份并重命名为redis_6380.conf。 2、将redis_6380.conf文件中的三处位置进行修改，包括：端口号，日志文件名，数据快照文件名12345678910111213&gt; *# Accept connections on the specified port, default is 6379 (IANA #815344).# If port 0 is specified Redis will not listen on a TCP socket.port 6380&gt; *# Specify the log file name. Also &apos;stdout&apos; can be used to force# Redis to log on the standard output.logfile &quot;redis-server-6380.log&quot;&gt; *# The filename where to dump the DBdbfilename dump_6380.rdb 3、按照配置文件的端口号将redis新建为windows服务redis-server –service-install 配置文件名 –loglevel verbose –service-name redis服务名称 –port 端口redis-server –service-install redis_6380.conf –loglevel verbose –service-name redisService1 –port 6380 4、启动服务redis-server –service-start –service-name redisService1 5、windows删除服务sc delete redis服务名称sc delete redisService1]]></content>

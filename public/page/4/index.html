@@ -326,6 +326,142 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zuoluo11.github.io/2016/10/14/浏览器兼容/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="菜儿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜儿's BLog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/10/14/浏览器兼容/" itemprop="url">FireFox右键菜单兼容</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-14T20:58:34+08:00">
+                2016-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端基础/" itemprop="url" rel="index">
+                    <span itemprop="name">前端基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Firefox-Event与-IE-window-Event兼容"><a href="#Firefox-Event与-IE-window-Event兼容" class="headerlink" title="Firefox Event与 IE window Event兼容"></a>Firefox Event与 IE window Event兼容</h1><hr>
+<p>在系统开发中，需要用户操作鼠标右键打开菜单时，IE直接通过使用window.event来获得对象的事件而火狐浏览器则使用触发方法中的event来获得，为了同时兼容，最后需要标准化事件对象。即：var evt=evt || event<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">   $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        $(element).bind(<span class="string">"contextmenu"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">evt</span>) </span>&#123;</div><div class="line">           <span class="comment">//设置弹出框对象高度宽度</span></div><div class="line">           <span class="comment">//获取的这个ID为obj的DIV对象就是个实例引起鼠标事件的元素</span></div><div class="line">           <span class="comment">//evt代表事件对象（W3C DOM标准下）</span></div><div class="line">           <span class="keyword">var</span> evt=evt || event; <span class="comment">//标准化事件对象（W3C DOM 和IE DOM ）</span></div><div class="line">           evt.Target=evt.Target || evt.srcElement;<span class="comment">//标准化事件对象属性&lt;引起事件的元素&gt;</span></div><div class="line">           <span class="comment">//（W3C DOM 和IE DOM ）</span></div><div class="line">           evt.layerX=evt.layerX || evt.offsetX;<span class="comment">//鼠标相对于引起事件的元素的父元素的X坐标(标准化IE)</span></div><div class="line">           evt.layerY=evt.layerY || evt.offsetY;<span class="comment">//鼠标相对于引起事件的元素的父元素的Y坐标(标准化IE)</span></div><div class="line">           alert(<span class="string">"相对这个DIV的X方向的坐标"</span>+evt.layerX+<span class="string">"\n相对这个DIV的Y方向的坐标"</span>+evt.layerY)</div><div class="line">       &#125;</div><div class="line">   &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">//自定义右键菜单</div><div class="line">               jQuery(tabControl_tab_ul).bind("contextmenu", function (e) &#123;</div><div class="line">                   var event = e || window.event;//e表示火狐事件，window.event表示chrome或IE事件</div><div class="line">	    var oMenu = jQuery('.rightMenu');//右键要显示的菜单</div><div class="line">                   oMenu.show();</div><div class="line">                   oMenu.css('top', event.clientY + "px");</div><div class="line">                   oMenu.css('left', event.clientX + "px");</div><div class="line">                   window.setTimeout(function () &#123;</div><div class="line">                       oMenu.hide();//延时2秒后自动关闭</div><div class="line">                   &#125;, 10000);</div><div class="line"></div><div class="line">                   return false;</div><div class="line">               &#125;).bind("click", function () &#123;</div><div class="line">                   oMenu.hide();//单击后关闭</div><div class="line">               &#125;);</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://zuoluo11.github.io/2016/09/28/ZIP压缩-Net与Android相互解压/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1039,7 +1175,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

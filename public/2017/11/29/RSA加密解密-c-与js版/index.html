@@ -93,20 +93,20 @@
 
 
 
-<meta name="description" content="业务描述：前端js使用私有秘钥将数据进行加密，后端C#在一般处理程序中使用公钥对加密数据进行解密。两个版本的实现，版本一可直接使用，版本二可用来参考如何将XML秘钥与PEM秘钥的转换。
+<meta name="description" content="业务描述：前端js使用公有秘钥将数据进行加密，后端C#在一般处理程序中使用私钥对加密数据进行解密。两个版本的实现，版本一可直接使用，版本二可用来参考如何将XML秘钥与PEM秘钥的转换。
 版本一描述：1、该版本实现用户登录过程中RSA加密验证的过程。2、前台JS进行加密，后台从session中获得私钥进行解密。3、RSA秘钥保存在session中，刷新登录页面后自动更新。
 版本二描述：1、C#自有类">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RSA加密解密(c#与js版)">
 <meta property="og:url" content="https://zuoluo11.github.io/2017/11/29/RSA加密解密-c-与js版/index.html">
 <meta property="og:site_name" content="菜儿's BLog">
-<meta property="og:description" content="业务描述：前端js使用私有秘钥将数据进行加密，后端C#在一般处理程序中使用公钥对加密数据进行解密。两个版本的实现，版本一可直接使用，版本二可用来参考如何将XML秘钥与PEM秘钥的转换。
+<meta property="og:description" content="业务描述：前端js使用公有秘钥将数据进行加密，后端C#在一般处理程序中使用私钥对加密数据进行解密。两个版本的实现，版本一可直接使用，版本二可用来参考如何将XML秘钥与PEM秘钥的转换。
 版本一描述：1、该版本实现用户登录过程中RSA加密验证的过程。2、前台JS进行加密，后台从session中获得私钥进行解密。3、RSA秘钥保存在session中，刷新登录页面后自动更新。
 版本二描述：1、C#自有类">
-<meta property="og:updated_time" content="2018-01-16T09:35:34.154Z">
+<meta property="og:updated_time" content="2019-04-29T09:13:45.977Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RSA加密解密(c#与js版)">
-<meta name="twitter:description" content="业务描述：前端js使用私有秘钥将数据进行加密，后端C#在一般处理程序中使用公钥对加密数据进行解密。两个版本的实现，版本一可直接使用，版本二可用来参考如何将XML秘钥与PEM秘钥的转换。
+<meta name="twitter:description" content="业务描述：前端js使用公有秘钥将数据进行加密，后端C#在一般处理程序中使用私钥对加密数据进行解密。两个版本的实现，版本一可直接使用，版本二可用来参考如何将XML秘钥与PEM秘钥的转换。
 版本一描述：1、该版本实现用户登录过程中RSA加密验证的过程。2、前台JS进行加密，后台从session中获得私钥进行解密。3、RSA秘钥保存在session中，刷新登录页面后自动更新。
 版本二描述：1、C#自有类">
 
@@ -425,7 +425,7 @@
       
 
       
-        <p>业务描述：前端js使用私有秘钥将数据进行加密，后端C#在一般处理程序中使用公钥对加密数据进行解密。<br>两个版本的实现，版本一可直接使用，版本二可用来参考如何将XML秘钥与PEM秘钥的转换。</p>
+        <p>业务描述：前端js使用公有秘钥将数据进行加密，后端C#在一般处理程序中使用私钥对加密数据进行解密。<br>两个版本的实现，版本一可直接使用，版本二可用来参考如何将XML秘钥与PEM秘钥的转换。</p>
 <p>版本一描述：<br>1、该版本实现用户登录过程中RSA加密验证的过程。<br>2、前台JS进行加密，后台从session中获得私钥进行解密。<br>3、RSA秘钥保存在session中，刷新登录页面后自动更新。</p>
 <p>版本二描述：<br>1、C#自有类RSACryptoServiceProvider生成RSA的秘钥与公钥的方法ToXmlString(true)秘钥，ToXmlString(false)公钥，结果是XML形式的，js无法直接使用，js所使用的是PEM形式的秘钥。<br>解决方法：使用工具类bouncycastle直接生成PEM版的秘钥和公钥，后台使用时，再将秘钥转换为XML版的。<br>引用地址：<a href="https://www.bouncycastle.org/" target="_blank" rel="external">https://www.bouncycastle.org/</a><br>插件下载地址：<a href="https://downloads.bouncycastle.org/csharp/bccrypto-csharp-1.8.1-bin.zip" target="_blank" rel="external">https://downloads.bouncycastle.org/csharp/bccrypto-csharp-1.8.1-bin.zip</a></p>
 <p>2、js加密数据后base64位的数据在传输中“+”号会变为空格，导致后台C#解密出错。<br>解决方法：js先加号转后，然后后台再将加号转回。</p>

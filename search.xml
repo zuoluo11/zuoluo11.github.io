@@ -3,12 +3,10 @@
   <entry>
     <title><![CDATA[更换电脑恢复hexo环境]]></title>
     <url>%2F2020%2F03%2F28%2F%E6%9B%B4%E6%8D%A2%E7%94%B5%E8%84%91%E6%81%A2%E5%A4%8Dhexo%E7%8E%AF%E5%A2%83%2F</url>
-    <content type="text"><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title><![CDATA[2018阅读书单]]></title>
-    <url>%2F2020%2F03%2F28%2F2018%E9%98%85%E8%AF%BB%E4%B9%A6%E5%8D%95%2F</url>
-    <content type="text"><![CDATA[一月：《大话设计模式》]]></content>
+    <content type="text"><![CDATA[换了电脑环境，重新将blog从git配置到本地 安装node和git1Node.js安装包及源码下载地址：https://nodejs.org/en/download/ 1下载Git 官方地址为：https://git-scm.com/download/win 配置git关联Github12git config --global user.name &quot;用户名&quot; git config --global user.email &quot;邮箱地址&quot; 生成ssh秘钥 1ssh-keygen -t rsa -C &quot;邮箱地址&quot; 将ssh秘钥添加到Github上 登录github，打开setting-&gt;SSH keys，点击右上角 New SSH key，把生成好的公钥id_rsa.pub放进 key输入框中，再为当前的key起一个title来区分每个key。 检出hexo1git clone 远程仓库地址 使用进入文件夹，然后使用hexo的命令使用发布文章 注意：本地的markdown编辑器使用图片时，设置typora图片保存路径为图片名文件夹下，建议语法如下 1&#123;% asset_img image-20200328104323471.png 图片名称%&#125;]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
   </entry>
   <entry>
     <title><![CDATA[20美元的价值]]></title>

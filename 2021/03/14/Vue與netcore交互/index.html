@@ -1,0 +1,1271 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="vue前後端分離開發時， NetCore WebAPI按如下寫法提交和接收參數 
+參考文章地址：
+https://www.cnblogs.com/yaopengfei/p/11558525.html
+https://blog.csdn.net/lycz_tpself/article/details/108663443
+.NET Core WEB API 中接口參數的模型綁定方式
+
+
+特性
+绑定源">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Axios与Asp.Net Core WebAPI参数交互">
+<meta property="og:url" content="https://zuoluo11.github.io/2021/03/14/Vue與netcore交互/index.html">
+<meta property="og:site_name" content="菜儿's BLog">
+<meta property="og:description" content="vue前後端分離開發時， NetCore WebAPI按如下寫法提交和接收參數 
+參考文章地址：
+https://www.cnblogs.com/yaopengfei/p/11558525.html
+https://blog.csdn.net/lycz_tpself/article/details/108663443
+.NET Core WEB API 中接口參數的模型綁定方式
+
+
+特性
+绑定源">
+<meta property="og:updated_time" content="2021-03-14T09:55:46.191Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Axios与Asp.Net Core WebAPI参数交互">
+<meta name="twitter:description" content="vue前後端分離開發時， NetCore WebAPI按如下寫法提交和接收參數 
+參考文章地址：
+https://www.cnblogs.com/yaopengfei/p/11558525.html
+https://blog.csdn.net/lycz_tpself/article/details/108663443
+.NET Core WEB API 中接口參數的模型綁定方式
+
+
+特性
+绑定源">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zuoluo11.github.io/2021/03/14/Vue與netcore交互/"/>
+
+
+
+
+
+  <title>Axios与Asp.Net Core WebAPI参数交互 | 菜儿's BLog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-89372867-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?44133fc659a5df81af97508f6de6baeb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">菜儿's BLog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Remember Yourself.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zuoluo11.github.io/2021/03/14/Vue與netcore交互/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="菜儿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜儿's BLog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Axios与Asp.Net Core WebAPI参数交互</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-14T17:51:31+08:00">
+                2021-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C-基础/" itemprop="url" rel="index">
+                    <span itemprop="name">C#基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>vue前後端分離開發時， NetCore WebAPI按如下寫法提交和接收參數 </p>
+<p>參考文章地址：</p>
+<p><a href="https://www.cnblogs.com/yaopengfei/p/11558525.html" target="_blank" rel="external">https://www.cnblogs.com/yaopengfei/p/11558525.html</a></p>
+<p><a href="https://blog.csdn.net/lycz_tpself/article/details/108663443" target="_blank" rel="external">https://blog.csdn.net/lycz_tpself/article/details/108663443</a></p>
+<h1 id="NET-Core-WEB-API-中接口參數的模型綁定方式"><a href="#NET-Core-WEB-API-中接口參數的模型綁定方式" class="headerlink" title=".NET Core WEB API 中接口參數的模型綁定方式"></a>.NET Core WEB API 中接口參數的模型綁定方式</h1><table>
+<thead>
+<tr>
+<th><strong>特性</strong></th>
+<th><strong>绑定源</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[FromHeader]</td>
+<td>请求标头</td>
+</tr>
+<tr>
+<td>[FromQuery]</td>
+<td>请求查询字符串参数</td>
+</tr>
+<tr>
+<td>[FromForm]</td>
+<td>请求正文中的表单数据</td>
+</tr>
+<tr>
+<td>[FromBody]</td>
+<td>请求正文</td>
+</tr>
+<tr>
+<td>[FromRoute]</td>
+<td>当前请求中的路由</td>
+</tr>
+<tr>
+<td>[FromServices]</td>
+<td>作为操作参数插入的请求服务</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<h2 id="Get請求"><a href="#Get請求" class="headerlink" title="Get請求"></a>Get請求</h2><ol>
+<li><p>通過給axios的config的屬性params賦值向後台傳值</p>
+</li>
+<li><p>前端代碼</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//axios.get(url[, config])</span></div><div class="line"><span class="comment">//通過修改config中params參數的值，將實參傳到後台</span></div><div class="line">axios.get(<span class="string">"http://localhost:8081/api/Demo1/GetDemo1"</span>, &#123;</div><div class="line">    <span class="attr">params</span>: &#123;</div><div class="line">        <span class="attr">name</span>: <span class="string">"lucky"</span>,</div><div class="line">        <span class="attr">age</span>: <span class="number">14</span>,</div><div class="line">        <span class="attr">grade</span>: <span class="number">99</span>,</div><div class="line">    &#125;,</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>​    後端代碼</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">[Route(&quot;/api/[controller]/[action]&quot;)]</div><div class="line">[Produces(&quot;application/json&quot;)]</div><div class="line">[ApiController]</div><div class="line">public class Demo1Controller : ControllerBase</div><div class="line">&#123;</div><div class="line">   </div><div class="line">    #region get提交的方法</div><div class="line">    [HttpGet]</div><div class="line">    public MessageModel&lt;string&gt; GetDemo1(string name, int age)</div><div class="line">    &#123;</div><div class="line">    	//參數數量可以不一致</div><div class="line">    	//還可以手工從Rquest.Query中提取到傳入的參數</div><div class="line">        int grade = Convert.ToInt32(Request.Query[&quot;grade&quot;]);</div><div class="line">        return new MessageModel&lt;string&gt;()</div><div class="line">        &#123;</div><div class="line">            msg = &quot;获取成功&quot;,</div><div class="line">            success = true,</div><div class="line">            response =$&quot;&#123;name&#125;    &#123;age&#125;    &#123;grade&#125;&quot;</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line">   </div><div class="line">    #endregion</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>可以直接在URL中加入參數實現，後端接受action不變</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//2.通過URL地址後加入參數來傳值</span></div><div class="line">axios</div><div class="line">.get(</div><div class="line"><span class="string">"http://localhost:8081/api/Demo1/GetDemo1?name=lucky&amp;age=14&amp;grade=99"</span></div><div class="line">)</div><div class="line">.then(<span class="function">(<span class="params">response</span>) =&gt;</span> <span class="built_in">console</span>.log(response.data));</div></pre></td></tr></table></figure>
+</li>
+<li><p>複雜類型的傳值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">	  <span class="comment">//3.通過params傳入實體</span></div><div class="line">axios</div><div class="line">  .get(<span class="string">"http://localhost:8081/api/Demo1/GetDemo2"</span>, &#123;</div><div class="line">    <span class="attr">params</span>: &#123;</div><div class="line">      <span class="attr">name</span>: <span class="string">"lucky"</span>,</div><div class="line">      <span class="attr">age</span>: <span class="number">14</span>,</div><div class="line">      <span class="attr">grade</span>: <span class="number">99</span>,</div><div class="line">    &#125;,</div><div class="line">  &#125;)</div><div class="line">  .then(<span class="function">(<span class="params">response</span>) =&gt;</span> <span class="built_in">console</span>.log(response.data));</div></pre></td></tr></table></figure>
+<p>後端必須使用<strong>[FromQuery]</strong></p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">/// &lt;summary&gt;</div><div class="line">      /// Get複雜類型的獲得</div><div class="line">      /// &lt;/summary&gt;</div><div class="line">      /// &lt;param name=&quot;userInfo&quot;&gt;&lt;/param&gt;</div><div class="line">      /// &lt;returns&gt;&lt;/returns&gt;</div><div class="line">      [HttpGet]</div><div class="line">      public MessageModel&lt;string&gt; GetDemo2([FromQuery] UserInfo userInfo)</div><div class="line">      &#123;</div><div class="line">          return new MessageModel&lt;string&gt;()</div><div class="line">          &#123;</div><div class="line">              msg = &quot;获取成功&quot;,</div><div class="line">              success = true,</div><div class="line">              response = $&quot;&#123;userInfo.name&#125;    &#123;userInfo.age&#125;    &#123;userInfo.grade&#125;&quot;</div><div class="line">          &#125;;</div><div class="line">      &#125;</div><div class="line">   </div><div class="line">public class UserInfo</div><div class="line">  &#123;</div><div class="line">      public string name &#123; get; set; &#125;</div><div class="line">      public int age &#123; get; set; &#125;</div><div class="line">      public int grade &#123; get; set; &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>簡單列表類型的參數進行傳值 </p>
+<p>由於數組參數默認名字會加[]符號，導致無法接收，所以前端修改axios的攔截器</p>
+   <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">"axios"</span>;</div><div class="line"></div><div class="line"><span class="keyword">import</span> qs <span class="keyword">from</span> <span class="string">"qs"</span>;</div><div class="line"></div><div class="line">axios.interceptors.request.use(<span class="function">(<span class="params">config</span>) =&gt;</span> &#123;</div><div class="line">  <span class="comment">// ......其他逻辑代码</span></div><div class="line">  <span class="keyword">if</span> (config.method === <span class="string">"get"</span>) &#123;</div><div class="line">    config.paramsSerializer = <span class="function"><span class="keyword">function</span> (<span class="params">params</span>) </span>&#123;</div><div class="line">      <span class="keyword">return</span> qs.stringify(params, &#123; <span class="attr">arrayFormat</span>: <span class="string">"repeat"</span> &#125;);</div><div class="line">    &#125;;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> config;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<pre><code><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//4.通過params傳送簡單數組</span></div><div class="line">    axios</div><div class="line">      .get(<span class="string">"http://localhost:8081/api/Demo1/GetDemo3"</span>, &#123;</div><div class="line">        <span class="attr">params</span>: &#123;</div><div class="line">          <span class="attr">tmpArray1</span>: [<span class="string">"aa"</span>, <span class="string">"bb"</span>, <span class="string">"cc"</span>],</div><div class="line">          <span class="attr">tmpArray2</span>: [<span class="string">"aaa"</span>, <span class="string">"bbb"</span>, <span class="string">"ccc"</span>],</div><div class="line">        &#125;,</div><div class="line">      &#125;)</div><div class="line">      .then(<span class="function">(<span class="params">response</span>) =&gt;</span> <span class="built_in">console</span>.log(response.data));</div></pre></td></tr></table></figure>
+</code></pre><p>   後端接收，使用[FromQuery]修飾</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">/// &lt;summary&gt;</div><div class="line">     /// get傳列表</div><div class="line">     /// &lt;/summary&gt;</div><div class="line">     /// &lt;param name=&quot;tmpArray1&quot;&gt;&lt;/param&gt;</div><div class="line">     /// &lt;param name=&quot;tmpArray2&quot;&gt;&lt;/param&gt;</div><div class="line">     /// &lt;returns&gt;&lt;/returns&gt;</div><div class="line">     [HttpGet]</div><div class="line">     public MessageModel&lt;string&gt; GetDemo3([FromQuery] List&lt;string&gt;  tmpArray1, [FromQuery] List&lt;string&gt; tmpArray2)</div><div class="line">     &#123;</div><div class="line">         return new MessageModel&lt;string&gt;()</div><div class="line">         &#123;</div><div class="line">             msg = &quot;获取成功&quot;,</div><div class="line">             success = true,</div><div class="line">             response = $&quot;&#123;tmpArray1[0]&#125;    &#123;tmpArray1[1]&#125;    &#123;tmpArray1[2]&#125;  &quot;</div><div class="line">         &#125;;</div><div class="line">     &#125;</div></pre></td></tr></table></figure>
+</code></pre><ol>
+<li><p>複雜的實體列表（不知道best practice是什麼）</p>
+<p>前端代碼，把實體數組轉為字符串後，傳到後端</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//4.通過params傳送實體數組</span></div><div class="line">    <span class="keyword">let</span> tmpUserInfo = [</div><div class="line">      &#123; <span class="attr">name</span>: <span class="string">"lucky1"</span>, <span class="attr">age</span>: <span class="number">14</span>, <span class="attr">grade</span>: <span class="number">99</span> &#125;,</div><div class="line">      &#123; <span class="attr">name</span>: <span class="string">"lucky2"</span>, <span class="attr">age</span>: <span class="number">14</span>, <span class="attr">grade</span>: <span class="number">99</span> &#125;,</div><div class="line">    ];</div><div class="line">    axios</div><div class="line">      .get(<span class="string">"http://localhost:8081/api/Demo1/GetDemo4"</span>, &#123;</div><div class="line">        <span class="attr">params</span>: &#123;</div><div class="line">          <span class="attr">tmpUserInfo</span>: <span class="built_in">JSON</span>.stringify(tmpUserInfo),<span class="comment">//將json數組轉為字符串</span></div><div class="line">        &#125;,</div><div class="line">      &#125;)</div><div class="line">      .then(<span class="function">(<span class="params">response</span>) =&gt;</span> <span class="built_in">console</span>.log(response.data));</div></pre></td></tr></table></figure>
+<p>後端代碼，將接收到額字符串反序列為c#對象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"> 	/// &lt;summary&gt;</div><div class="line">     /// get傳列表</div><div class="line">     /// &lt;/summary&gt;</div><div class="line">     /// &lt;param name=&quot;tmpUserInfo&quot;&gt;&lt;/param&gt;</div><div class="line">     /// &lt;returns&gt;&lt;/returns&gt;</div><div class="line">     [HttpGet]</div><div class="line">     public MessageModel&lt;string&gt; GetDemo4([FromQuery] string tmpUserInfo)</div><div class="line">     &#123;</div><div class="line">//反序列json字符串</div><div class="line">         List&lt;UserInfo&gt; list = JsonConvert.DeserializeObject&lt;List&lt;UserInfo&gt;&gt;(tmpUserInfo);</div><div class="line">   </div><div class="line">   </div><div class="line">         return new MessageModel&lt;string&gt;()</div><div class="line">         &#123;</div><div class="line">             msg = &quot;获取成功&quot;,</div><div class="line">             success = true,</div><div class="line">             response = $&quot;&#123;tmpUserInfo&#125;   &#123;list.Count&#125;&quot;</div><div class="line">      </div><div class="line">         &#125;;</div><div class="line">     &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>文件類型，使用post提交</p>
+</li>
+</ol>
+<h2 id="POST請求"><a href="#POST請求" class="headerlink" title="POST請求"></a>POST請求</h2><ol>
+<li><p>簡單類型的傳送</p>
+<p>前端傳值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//axios.post(url[, data[, config]])</span></div><div class="line">  <span class="comment">// 1.简单类型参数不能通过[FromBody]获取到,通過params以Url方式傳值</span></div><div class="line">  axios</div><div class="line">    .post(</div><div class="line">      <span class="string">"http://localhost:8081/api/Demo1/PostDemo1"</span>,</div><div class="line">      &#123;&#125;,</div><div class="line">      &#123;</div><div class="line">        <span class="attr">params</span>: &#123;</div><div class="line">          <span class="attr">name</span>: <span class="string">"lucky"</span>,</div><div class="line">          <span class="attr">age</span>: <span class="number">14</span>,</div><div class="line">          <span class="attr">grade</span>: <span class="number">99</span>,</div><div class="line">        &#125;,</div><div class="line">      &#125;</div><div class="line">    )</div><div class="line">    .then(<span class="function">(<span class="params">response</span>) =&gt;</span> <span class="built_in">console</span>.log(response.data));</div></pre></td></tr></table></figure>
+<p>後端接收</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">/// &lt;summary&gt;</div><div class="line">     /// Post簡單類型的獲得</div><div class="line">     /// &lt;/summary&gt;</div><div class="line">     /// &lt;param name=&quot;name&quot;&gt;&lt;/param&gt;</div><div class="line">     /// &lt;param name=&quot;age&quot;&gt;&lt;/param&gt;</div><div class="line">     /// &lt;returns&gt;&lt;/returns&gt;</div><div class="line">     [HttpPost]</div><div class="line">     public MessageModel&lt;string&gt; PostDemo1(string name, int age)</div><div class="line">     &#123;</div><div class="line">         int grade = Convert.ToInt32(Request.Query[&quot;grade&quot;]);</div><div class="line">         return new MessageModel&lt;string&gt;()</div><div class="line">         &#123;</div><div class="line">             msg = &quot;获取成功&quot;,</div><div class="line">             success = true,</div><div class="line">             response = $&quot;&#123;name&#125;    &#123;age&#125;    &#123;grade&#125;&quot;</div><div class="line">         &#125;;</div><div class="line">     &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>實體類型</p>
+<p>前端代碼</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//3.傳入實體</span></div><div class="line">     axios</div><div class="line">       .post(<span class="string">"http://localhost:8081/api/Demo1/PostDemo3"</span>, &#123;</div><div class="line">         <span class="attr">name</span>: <span class="string">"lucky"</span>,</div><div class="line">         <span class="attr">age</span>: <span class="number">14</span>,</div><div class="line">         <span class="attr">grade</span>: <span class="number">99</span>,</div><div class="line">       &#125;)</div><div class="line">       .then(<span class="function">(<span class="params">response</span>) =&gt;</span> <span class="built_in">console</span>.log(response.data));</div></pre></td></tr></table></figure>
+<p>後端代碼</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">/// &lt;summary&gt;</div><div class="line">   /// Post接收實體類型，實體的屬性與前端json保持一致</div><div class="line">   /// &lt;/summary&gt;</div><div class="line">   /// &lt;param name=&quot;userInfo&quot;&gt;&lt;/param&gt;</div><div class="line">   /// &lt;returns&gt;&lt;/returns&gt;</div><div class="line">    [HttpPost]</div><div class="line">    public MessageModel&lt;string&gt; PostDemo3([FromBody] UserInfo userInfo)</div><div class="line">    &#123;</div><div class="line">        return new MessageModel&lt;string&gt;()</div><div class="line">        &#123;</div><div class="line">            msg = &quot;获取成功&quot;,</div><div class="line">            success = true,</div><div class="line">            response = $&quot;&#123;userInfo.name&#125;    &#123;userInfo.age&#125;    &#123;userInfo.grade&#125;&quot;</div><div class="line">        &#125;;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>傳入實體的列表</p>
+<p>前端代碼</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//3.傳入實體列表 </span></div><div class="line">     <span class="keyword">let</span> tmpUserInfo1 = [</div><div class="line">       &#123; <span class="attr">name</span>: <span class="string">"lucky1"</span>, <span class="attr">age</span>: <span class="number">14</span>, <span class="attr">grade</span>: <span class="number">99</span> &#125;,</div><div class="line">       &#123; <span class="attr">name</span>: <span class="string">"lucky2"</span>, <span class="attr">age</span>: <span class="number">14</span>, <span class="attr">grade</span>: <span class="number">99</span> &#125;,</div><div class="line">     ];</div><div class="line">     axios</div><div class="line">       .post(</div><div class="line">         <span class="string">"http://localhost:8081/api/Demo1/PostDemo4"</span>,</div><div class="line">         <span class="built_in">JSON</span>.stringify(tmpUserInfo1),</div><div class="line">         &#123;</div><div class="line">           <span class="attr">headers</span>: &#123;</div><div class="line">             <span class="string">"Content-Type"</span>: <span class="string">"application/json;charset=UTF-8"</span>,</div><div class="line">           &#125;,</div><div class="line">         &#125;</div><div class="line">       )</div><div class="line">       .then(<span class="function">(<span class="params">response</span>) =&gt;</span> <span class="built_in">console</span>.log(response.data));</div></pre></td></tr></table></figure>
+<p>後端代碼</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">/// &lt;summary&gt;</div><div class="line">      /// Post接收列表</div><div class="line">      /// &lt;/summary&gt;</div><div class="line">      /// &lt;param name=&quot;userInfo&quot;&gt;&lt;/param&gt;</div><div class="line">      /// &lt;returns&gt;&lt;/returns&gt;</div><div class="line">      [HttpPost]</div><div class="line">      public MessageModel&lt;string&gt; PostDemo4([FromBody] List&lt;UserInfo&gt; userInfo)</div><div class="line">      &#123;</div><div class="line">          return new MessageModel&lt;string&gt;()</div><div class="line">          &#123;</div><div class="line">              msg = &quot;获取成功&quot;,</div><div class="line">              success = true,</div><div class="line">              response = $&quot;&#123;userInfo.Count&#125;&quot;</div><div class="line">   </div><div class="line">          &#125;;</div><div class="line">       &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>上傳文件</p>
+<p>前端代碼</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;el-form ref=<span class="string">"uploadFileForm"</span>&gt;</div><div class="line">     &lt;el-upload</div><div class="line">       action="http://localhost:8081/api/Demo1/PostDemo5"</div><div class="line">       :data="&#123; aaa: 'aaa', listVal: ['aaa', 'bbb'] &#125;"</div><div class="line">       :limit="1"</div><div class="line">     &gt;</div><div class="line">       &lt;el-button size="small" type="primary"&gt;点击上传&lt;/el-button&gt;</div><div class="line">     &lt;/el-upload&gt;</div><div class="line">   &lt;/el-form&gt;</div></pre></td></tr></table></figure>
+<p>後端代碼</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">/// &lt;summary&gt;</div><div class="line">      /// 接收上傳文件</div><div class="line">      /// &lt;/summary&gt;</div><div class="line">      /// &lt;param name=&quot;formInfo&quot;&gt;&lt;/param&gt;</div><div class="line">      /// &lt;param name=&quot;listVal&quot;&gt;&lt;/param&gt;</div><div class="line">      /// &lt;param name=&quot;aaa&quot;&gt;&lt;/param&gt;</div><div class="line">      /// &lt;returns&gt;&lt;/returns&gt;</div><div class="line">      [HttpPost]</div><div class="line">      public MessageModel&lt;string&gt; PostDemo5([FromForm] IFormCollection formInfo</div><div class="line">          ,[FromForm] List&lt;string&gt; listVal, [FromForm] string aaa)</div><div class="line">      &#123;</div><div class="line">          IFormFileCollection files = formInfo.Files;</div><div class="line">          var file = files[0]; // 得到文件</div><div class="line">        </div><div class="line">          // 可以使用此方法获取其它参数，也可以通过[FromForm]从方法入参接收</div><div class="line">          formInfo.TryGetValue(&quot;aaa&quot;, out StringValues aaa2);</div><div class="line">   </div><div class="line">          return new MessageModel&lt;string&gt;()</div><div class="line">          &#123;</div><div class="line">              msg = &quot;获取成功&quot;,</div><div class="line">              success = true,</div><div class="line">              response = &quot;&quot;</div><div class="line">   </div><div class="line">          &#125;;</div><div class="line">      &#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/28/更换电脑恢复hexo环境/" rel="next" title="更换电脑恢复hexo环境">
+                <i class="fa fa-chevron-left"></i> 更换电脑恢复hexo环境
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMjkxOC85NDc5"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="菜儿" />
+          <p class="site-author-name" itemprop="name">菜儿</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/zuoluo11" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NET-Core-WEB-API-中接口參數的模型綁定方式"><span class="nav-number">1.</span> <span class="nav-text">.NET Core WEB API 中接口參數的模型綁定方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Get請求"><span class="nav-number">1.1.</span> <span class="nav-text">Get請求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POST請求"><span class="nav-number">1.2.</span> <span class="nav-text">POST請求</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">菜儿</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

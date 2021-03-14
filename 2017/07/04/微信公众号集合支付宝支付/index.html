@@ -1,0 +1,1211 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="支付宝," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="微信公众号集合支付宝支付
+支付宝支付有多种方式，其中手机网站支付满足微信公众号内集成的要求，所以这篇文章即同时描述支付宝手机网站支付。
+
+
+配置基础信息
+API及业务逻辑
+代码实现
+总结及出现的问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信公众号集合支付宝支付">
+<meta property="og:url" content="https://zuoluo11.github.io/2017/07/04/微信公众号集合支付宝支付/index.html">
+<meta property="og:site_name" content="菜儿's BLog">
+<meta property="og:description" content="微信公众号集合支付宝支付
+支付宝支付有多种方式，其中手机网站支付满足微信公众号内集成的要求，所以这篇文章即同时描述支付宝手机网站支付。
+
+
+配置基础信息
+API及业务逻辑
+代码实现
+总结及出现的问题">
+<meta property="og:image" content="https://user-images.githubusercontent.com/20961472/27821257-357d8c52-60d4-11e7-8e79-927b910370d3.png">
+<meta property="og:updated_time" content="2020-03-28T01:38:14.618Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微信公众号集合支付宝支付">
+<meta name="twitter:description" content="微信公众号集合支付宝支付
+支付宝支付有多种方式，其中手机网站支付满足微信公众号内集成的要求，所以这篇文章即同时描述支付宝手机网站支付。
+
+
+配置基础信息
+API及业务逻辑
+代码实现
+总结及出现的问题">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/20961472/27821257-357d8c52-60d4-11e7-8e79-927b910370d3.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zuoluo11.github.io/2017/07/04/微信公众号集合支付宝支付/"/>
+
+
+
+
+
+  <title>微信公众号集合支付宝支付 | 菜儿's BLog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-89372867-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?44133fc659a5df81af97508f6de6baeb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">菜儿's BLog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Remember Yourself.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zuoluo11.github.io/2017/07/04/微信公众号集合支付宝支付/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="菜儿">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜儿's BLog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">微信公众号集合支付宝支付</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-04T20:21:41+08:00">
+                2017-07-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/微信公众号/" itemprop="url" rel="index">
+                    <span itemprop="name">微信公众号</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="微信公众号集合支付宝支付"><a href="#微信公众号集合支付宝支付" class="headerlink" title="微信公众号集合支付宝支付"></a>微信公众号集合支付宝支付</h1><hr>
+<p>支付宝支付有多种方式，其中手机网站支付满足微信公众号内集成的要求，所以这篇文章即同时描述支付宝手机网站支付。</p>
+<blockquote>
+<ul>
+<li>配置基础信息</li>
+<li>API及业务逻辑</li>
+<li>代码实现</li>
+<li>总结及出现的问题</li>
+</ul>
+</blockquote>
+<a id="more"></a>
+<h2 id="配置基础信息"><a href="#配置基础信息" class="headerlink" title="配置基础信息"></a>配置基础信息</h2><ul>
+<li>[x] 给企业注册支付宝账号</li>
+<li>[x] 创建自用型应用</li>
+<li>[x] 添加并签约手机网站支付<br>需要首先在网站内签约开通手机网站支付的权限。<br><img src="https://user-images.githubusercontent.com/20961472/27821257-357d8c52-60d4-11e7-8e79-927b910370d3.png" alt="cmd-markdown-logo"></li>
+</ul>
+<h2 id="API及业务逻辑"><a href="#API及业务逻辑" class="headerlink" title="API及业务逻辑"></a>API及业务逻辑</h2><p>手机网站支付API可以前往以下网址查看及下载sdk：<br>目前手机网站支付demo有： JAVA和PHP版本<br>SDK则有：JAVA、.NET和PHP版本</p>
+<h3 id="手机支付API"><a href="#手机支付API" class="headerlink" title="手机支付API"></a><a href="https://docs.open.alipay.com/203/" target="_blank" rel="external">手机支付API</a></h3><h3 id="SDK下载"><a href="#SDK下载" class="headerlink" title="SDK下载"></a><a href="https://docs.open.alipay.com/54/103419" target="_blank" rel="external">SDK下载</a></h3><h3 id="微信公众号集成帮助包"><a href="#微信公众号集成帮助包" class="headerlink" title="微信公众号集成帮助包"></a><a href="http://p.tb.cn/rmsportal_6680_alipay_in_weixin_demo.zip?spm=a219a.7629140.0.0.XfIWmS&amp;file=rmsportal_6680_alipay_in_weixin_demo.zip" target="_blank" rel="external">微信公众号集成帮助包</a></h3><h3 id="签名sign生成规则"><a href="#签名sign生成规则" class="headerlink" title="签名sign生成规则"></a><a href="https://doc.open.alipay.com/docs/doc.htm?docType=1&amp;articleId=106118" target="_blank" rel="external">签名sign生成规则</a></h3><h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>###普通手机网站用户进行确认下单页面</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">namespace</span> AliPayDemo</div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> partial <span class="keyword">class</span> Pay : System.Web.UI.Page</div><div class="line">    &#123;</div><div class="line">        <span class="comment">//不是真实数据</span></div><div class="line">        <span class="built_in">string</span> APPID = <span class="string">"2017090907474487"</span>;<span class="comment">//应用ID</span></div><div class="line">       <span class="comment">//应用私钥</span></div><div class="line">        <span class="built_in">string</span> APP_PRIVATE_KEY = @<span class="string">"****JEwKBgQCIFY+12QuI3gI478vsixJiYOWJb2T7MRr0Zlg2n3fnQWnVB2gOkSgls/CHM3y+d/GQRJRE5aFWa2Xt"</span>;</div><div class="line">        <span class="comment">//支付宝公钥</span></div><div class="line">        <span class="built_in">string</span> ALIPAY_PUBLIC_KEY = @<span class="string">"***PXZOf8eQx+qWGky6LJZWie4IF2oqY7El1nps2qVg1IbQkDdIMNSr2a2nQF5GwSpVcF7bRZeNG2qgs3EjHu4hGqXMWbg6Fvs1iigiBYfkzQIDAQAB"</span>;</div><div class="line">        <span class="built_in">string</span> CHARSET = <span class="string">"utf-8"</span>;<span class="comment">//编码格式</span></div><div class="line">        </div><div class="line">        </div><div class="line">        </div><div class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">Page_Load</span><span class="params">(object sender, EventArgs e)</span></span></div><div class="line">        &#123;</div><div class="line">            <span class="comment">//SDK已经封装掉了公共参数，只需要初始化一次</span></div><div class="line">            IAopClient client = <span class="keyword">new</span> DefaultAopClient(<span class="string">"https://openapi.alipay.com/gateway.do"</span>, APPID, APP_PRIVATE_KEY, <span class="string">"json"</span>, <span class="string">"1.0"</span>, <span class="string">"RSA2"</span>, ALIPAY_PUBLIC_KEY, CHARSET, <span class="literal">false</span>);</div><div class="line">            </div><div class="line">            </div><div class="line">            <span class="comment">//实例化具体API对应的request类,类名称和接口名称对应,当前调用接口名称如：alipay.trade.wap.pay.request </span></div><div class="line">            AlipayTradeWapPayRequest request = <span class="keyword">new</span> AlipayTradeWapPayRequest();</div><div class="line">          </div><div class="line">            <span class="comment">//SDK已经封装掉了公共参数，这里只需要传入业务参数</span></div><div class="line">            <span class="comment">//此次只是参数展示，未进行字符串转义，实际情况下请转义</span></div><div class="line">            <span class="comment">//注意value类型，如金额没有引号，</span></div><div class="line">            request.BizContent = <span class="string">"&#123;"</span> +</div><div class="line">            <span class="string">"    \"subject\":\"大乐透\","</span> +</div><div class="line">            <span class="string">"    \"out_trade_no\":\"70501111111S0011111191\","</span> +</div><div class="line">            <span class="string">"    \"total_amount\":0.01,"</span> +</div><div class="line">            <span class="string">"    \"product_code\":\"QUICK_WAP_WAY\""</span> +</div><div class="line">            <span class="string">"  &#125;"</span>;</div><div class="line">            </div><div class="line">            AlipayTradeWapPayResponse response = client.pageExecute(request);</div><div class="line">            divBody.InnerHtml = response.Body;</div><div class="line">            <span class="comment">////调用成功，则处理业务逻辑</span></div><div class="line">            <span class="comment">//if (response.IsError)</span></div><div class="line">            <span class="comment">//&#123;</span></div><div class="line">            <span class="comment">//    //.....</span></div><div class="line">            <span class="comment">//&#125;</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>###微信公众号内用户进行确认下单页面<br>1、下载集成微信公众号的帮助包并将文件放入项目文件夹中<br>    ap.js  跳转到自带浏览器js<br>    pay.htm 提示用户跳转htm页面<br>1、使用<strong>pageExecute</strong>方法，以GET方式获得url字符串；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">AlipayTradeWapPayResponse response = client.pageExecute(request,null,&quot;GET&quot;);</div><div class="line">    test = response.Body;</div></pre></td></tr></table></figure></p>
+<p>2、将Url传入前台页面<a>标签，待用户点击确定<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">id</span>=<span class="string">"test"</span> <span class="attr">href</span>=<span class="string">"&lt;%=test%&gt;"</span> <span class="attr">class</span>=<span class="string">"button button-big button-fill"</span>&gt;</span>支付宝结算<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure></a></p>
+<p>3、用户点击页面后跳转到提示页，提示用户使用手机自带浏览器打开连接</p>
+<p>4、完成支付</p>
+<p>5、整体的代码</p>
+<p>前端<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">  <span class="tag">&lt;<span class="name">%@</span> <span class="attr">Page</span> <span class="attr">Language</span>=<span class="string">"C#"</span> <span class="attr">AutoEventWireup</span>=<span class="string">"true"</span> <span class="attr">CodeFile</span>=<span class="string">"JsApiPayPage1.aspx.cs"</span> <span class="attr">Inherits</span>=<span class="string">"JsApiPayPage1"</span> %&gt;</span></div><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span> <span class="attr">runat</span>=<span class="string">"server"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"content-type"</span> <span class="attr">content</span>=<span class="string">"text/html;charset=utf-8"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"IE=edge"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-mobile-web-app-capable"</span> <span class="attr">content</span>=<span class="string">"yes"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-mobile-web-app-status-bar-style"</span> <span class="attr">content</span>=<span class="string">"black"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>微信支付<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>  <span class="attr">style</span>=<span class="string">"background-color: #efeff4;"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">runat</span>=<span class="string">"server"</span> <span class="attr">id</span>=<span class="string">"calculator"</span> <span class="attr">v-cloak</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content-block"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">id</span>=<span class="string">"test"</span> <span class="attr">href</span>=<span class="string">"&lt;%=test%&gt;"</span> <span class="attr">class</span>=<span class="string">"button"</span>&gt;</span>支付宝结算<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="comment">//绑定单击事件</span></div><div class="line"> <span class="keyword">var</span> btn = <span class="built_in">document</span>.querySelector(<span class="string">"#test"</span>);</div><div class="line">       btn.addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</div><div class="line">           e.preventDefault();</div><div class="line">           e.stopPropagation();</div><div class="line">           e.stopImmediatePropagation();</div><div class="line">           <span class="comment">//ele.href 是GET到支付宝收银台的URL</span></div><div class="line">           _AP.pay(e.target.href);</div><div class="line">           <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">       &#125;, <span class="literal">false</span>);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> System;</div><div class="line"><span class="keyword">using</span> System.Collections.Generic;</div><div class="line"><span class="keyword">using</span> CYQ.Data;</div><div class="line"><span class="keyword">using</span> Web.Lianmengban_2016;</div><div class="line"><span class="keyword">using</span> CYQ.Data.Table;</div><div class="line"><span class="keyword">using</span> Aop.Api.Util;</div><div class="line"><span class="keyword">using</span> Aop.Api;</div><div class="line"><span class="keyword">using</span> Aop.Api.Request;</div><div class="line"><span class="keyword">using</span> Aop.Api.Response;</div><div class="line"></div><div class="line"><span class="keyword">public</span> partial <span class="keyword">class</span> JsApiPayPage1 : System.Web.UI.Page</div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">string</span> test &#123; get; <span class="built_in">set</span>; &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">Page_Load</span><span class="params">(object sender, EventArgs e)</span></span></div><div class="line">    &#123;</div><div class="line">        CreateAliPayPramaters();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">CreateAliPayPramaters</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">         <span class="comment">//pageExecute&lt;T&gt;(IAopRequest&lt;T&gt; request, string accessToken, string reqMethod) where T : AopResponse</span></div><div class="line">        IAopClient client = <span class="keyword">new</span> DefaultAopClient(<span class="string">"https://openapi.alipay.com/gateway.do"</span>, AliConfig.APP_ID, AliConfig.APP_PRIVATE_KEY, <span class="string">"json"</span>, <span class="string">"1.0"</span>, <span class="string">"RSA2"</span>, AliConfig.ALIPAY_PUBLIC_KEY, AliConfig.CHARSET, <span class="literal">false</span>);</div><div class="line">        <span class="comment">//实例化具体API对应的request类,类名称和接口名称对应,当前调用接口名称如：alipay.open.public.template.message.industry.modify </span></div><div class="line">        AlipayTradeWapPayRequest request = <span class="keyword">new</span> AlipayTradeWapPayRequest();</div><div class="line">        <span class="comment">//AlipayOpenPublicTemplateMessageIndustryModifyRequest request = new AlipayOpenPublicTemplateMessageIndustryModifyRequest();</span></div><div class="line">        <span class="comment">//SDK已经封装掉了公共参数，这里只需要传入业务参数</span></div><div class="line">        <span class="comment">//此次只是参数展示，未进行字符串转义，实际情况下请转义</span></div><div class="line">        request.BizContent = <span class="string">"&#123;"</span> +</div><div class="line">        <span class="string">"    \"subject\":\"大乐透\","</span> +</div><div class="line">        <span class="string">"    \"out_trade_no\":\"70501111111S0011111191\","</span> +</div><div class="line">        <span class="string">"    \"total_amount\":0.01,"</span> +</div><div class="line">        <span class="string">"    \"product_code\":\"QUICK_WAP_WAY\""</span> +</div><div class="line">        <span class="string">"  &#125;"</span>;</div><div class="line"></div><div class="line">        AlipayTradeWapPayResponse response = client.pageExecute(request,null,<span class="string">"GET"</span>);</div><div class="line">        test = response.Body;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    </div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> AliConfig</div><div class="line">&#123;</div><div class="line">    <span class="comment">//=======【基本信息设置】=====================================</span></div><div class="line">    <span class="comment">/* 支付宝手机网页支付信息配置</span></div><div class="line">    public const string URL = "https://openapi.alipay.com/gateway.do";</div><div class="line">    public const string APP_ID = "20170111111144";</div><div class="line">    public const string APP_PRIVATE_KEY = @"MIIEowIBAAKCAQEA31kawX3d***t";</div><div class="line">    public const string FORMAT = "json";</div><div class="line">    public const string CHARSET = "utf-8";</div><div class="line">    public const string ALIPAY_PUBLIC_KEY = @"MIIBIjANBgkqhkiG9***";</div><div class="line">    public const string SIGN_TYPE = "RSA2";</div><div class="line">    public const string SELLER_EMAIL = "1234@123.com";</div><div class="line">    public const string NOTIFY_URL = "http://www.222.net/ResultNotifyAliPay.aspx";</div><div class="line">    public const string RETURN_URL = "http://www.222.net/AliReturnPage.aspx";</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="总结及出现的问题"><a href="#总结及出现的问题" class="headerlink" title="总结及出现的问题"></a>总结及出现的问题</h2><p>1、参数的内容<br>按照api提供的列表把必填项的key及value一定要写全，写对；<br>2、BizContent的业务参数内多个参数之间用“，”号隔开，之前忘记写全，报错；<br>3、签名错误<br>sign_valid</p>
+<p>API里面生成签名，包括sign_type<br>接收支付宝的异步通知时，验签之前不包括sign 和 sign_type</p>
+<h3 id="签名sign生成规则-1"><a href="#签名sign生成规则-1" class="headerlink" title="签名sign生成规则"></a><a href="https://doc.open.alipay.com/docs/doc.htm?docType=1&amp;articleId=106118" target="_blank" rel="external">签名sign生成规则</a></h3><p>支付宝官方sdk有个bug，Aop.Api.Util.AlipaySignature类中方法没有去掉sign_type就进行验证，导致出错；</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">RSACheckV2</span><span class="params">(IDictionary&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; parameters, <span class="built_in">string</span> publicKeyPem)</span></span></div><div class="line">       &#123;</div><div class="line">           <span class="built_in">string</span> sign = parameters[<span class="string">"sign"</span>];</div><div class="line"></div><div class="line">           parameters.Remove(<span class="string">"sign"</span>);</div><div class="line">           parameters.Remove(<span class="string">"sign_type"</span>);<span class="comment">//新增修改bug</span></div><div class="line">           <span class="built_in">string</span> signContent = GetSignContent(parameters);</div><div class="line"></div><div class="line">           <span class="keyword">return</span> RSACheckContent(signContent, sign, publicKeyPem, DEFAULT_CHARSET, <span class="string">"RSA"</span>);</div><div class="line">       &#125;</div><div class="line"></div><div class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">RSACheckV2</span><span class="params">(IDictionary&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; parameters, <span class="built_in">string</span> publicKeyPem, <span class="built_in">string</span> charset)</span></span></div><div class="line">       &#123;</div><div class="line">           <span class="built_in">string</span> sign = parameters[<span class="string">"sign"</span>];</div><div class="line"></div><div class="line">           parameters.Remove(<span class="string">"sign"</span>);</div><div class="line">           parameters.Remove(<span class="string">"sign_type"</span>);<span class="comment">//新增修改bug</span></div><div class="line">           <span class="built_in">string</span> signContent = GetSignContent(parameters);</div><div class="line"></div><div class="line">           <span class="keyword">return</span> RSACheckContent(signContent, sign, publicKeyPem, charset, <span class="string">"RSA"</span>);</div><div class="line">       &#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">RSACheckV2</span><span class="params">(IDictionary&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; parameters, <span class="built_in">string</span> publicKeyPem, <span class="built_in">string</span> charset, <span class="built_in">string</span> signType, <span class="keyword">bool</span> keyFromFile)</span></span></div><div class="line">       &#123;</div><div class="line">           <span class="built_in">string</span> sign = parameters[<span class="string">"sign"</span>];</div><div class="line"></div><div class="line">           parameters.Remove(<span class="string">"sign"</span>);</div><div class="line">           parameters.Remove(<span class="string">"sign_type"</span>);<span class="comment">//新增修改bug</span></div><div class="line">           <span class="built_in">string</span> signContent = GetSignContent(parameters);</div><div class="line"></div><div class="line">           <span class="keyword">return</span> RSACheckContent(signContent, sign, publicKeyPem, charset, signType, keyFromFile);</div><div class="line">       &#125;</div></pre></td></tr></table></figure>
+<p>4、交易订单处理失败 请稍后再试 ali38173<br>转到支付宝时，弹出这个错误，找了很久，才发现是由于Bizcontent的最后一个}括号内包含一个全角的空格，很坑啊；</p>
+<hr>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/支付宝/" rel="tag"># 支付宝</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/20/net动态控制发布IIS网站一/" rel="next" title=".net动态控制发布IIS网站（一）">
+                <i class="fa fa-chevron-left"></i> .net动态控制发布IIS网站（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/16/xml序列化/" rel="prev" title="xml序列化">
+                xml序列化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMjkxOC85NDc5"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="菜儿" />
+          <p class="site-author-name" itemprop="name">菜儿</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/zuoluo11" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#微信公众号集合支付宝支付"><span class="nav-number">1.</span> <span class="nav-text">微信公众号集合支付宝支付</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置基础信息"><span class="nav-number">1.1.</span> <span class="nav-text">配置基础信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API及业务逻辑"><span class="nav-number">1.2.</span> <span class="nav-text">API及业务逻辑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#手机支付API"><span class="nav-number">1.2.1.</span> <span class="nav-text">手机支付API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SDK下载"><span class="nav-number">1.2.2.</span> <span class="nav-text">SDK下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#微信公众号集成帮助包"><span class="nav-number">1.2.3.</span> <span class="nav-text">微信公众号集成帮助包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#签名sign生成规则"><span class="nav-number">1.2.4.</span> <span class="nav-text">签名sign生成规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现"><span class="nav-number">1.3.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结及出现的问题"><span class="nav-number">1.4.</span> <span class="nav-text">总结及出现的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#签名sign生成规则-1"><span class="nav-number">1.4.1.</span> <span class="nav-text">签名sign生成规则</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">菜儿</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

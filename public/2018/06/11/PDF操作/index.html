@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="菜儿" />
+
+
+
+<meta name="description" content="PDF操作去除页脚部位的水印">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PDF操作">
+<meta property="og:url" content="https://zuoluo11.github.io/2018/06/11/PDF操作/index.html">
+<meta property="og:site_name" content="菜儿's BLog">
+<meta property="og:description" content="PDF操作去除页脚部位的水印">
+<meta property="og:image" content="https://zuoluo11.github.io/2018/06/11/PDF操作/20180611152915.jpg">
+<meta property="og:updated_time" content="2020-03-28T01:38:14.529Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PDF操作">
+<meta name="twitter:description" content="PDF操作去除页脚部位的水印">
+<meta name="twitter:image" content="https://zuoluo11.github.io/2018/06/11/PDF操作/20180611152915.jpg">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="菜儿&#39;s BLog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>PDF操作 | 菜儿&#39;s BLog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">菜儿</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">Remember Yourself.</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:zuoluo11@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ASP-MVC/">ASP.MVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ASP-NET/">ASP.NET</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ASP-NET日志/">ASP.NET日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IIS/">IIS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4Net/">Log4Net</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WinForm/">WinForm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-基础/">c#基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/easyui/">easyui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/加密解密/">加密解密</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/发送消息/">发送消息</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/地图操作/">地图操作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/扩展方法/">扩展方法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/支付宝/">支付宝</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器兼容/">浏览器兼容</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/百度地图/">百度地图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/空日志删除/">空日志删除</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">菜儿</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">菜儿</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">Remember Yourself.</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:zuoluo11@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-PDF操作" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/06/11/PDF操作/" class="article-date">
+      <time datetime="2018-06-11T06:36:07.000Z" itemprop="datePublished">2018-06-11</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      PDF操作
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/插件/">插件</a>
+    </div>
+
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>PDF操作去除页脚部位的水印</p>
+<a id="more"></a>
+<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>使用某报表插件时，由于免费版导出PDF会出现水印字体，因此考虑将该水印去除后，输出到客户端浏览器。<br><img src="/2018/06/11/PDF操作/20180611152915.jpg" alt="页脚位置出现水印" title="页脚位置出现水印"></p>
+<p>考虑的解决方案包括：<br>1、 报表插件导出PDF -&gt;编辑PDF水印-&gt;PDF输出到客户端。<br>2、 报表插件导出图片-&gt;编程处理图片水印-&gt;将多张图片生成PDF-&gt;PDF输出到客户端。<br>3、 寻找破解版的报表插件直接导出PDF。<br>4、 自己通过代码直接生成Word，不使用第三方报表插件。</p>
+<p>OK上面就是能够想到的解决方法。</p>
+<p>第4种方案应该可以实现，但相对来说工作量大一些，放到最后尝试，所以没有使用。<br>第3种方案简单粗暴，但在实现过程中发现第三方报表插件的版本5.6虽然有破解版，但由于版本过低，导致页面只能在<br>低版本的IE中才能查看，明显无法用于实际环境。<br>第2种方案虽然比直接操作PDF复杂一些，但是肯定能实现，在实现的过程中发现，报表插件导出的图片IMG中会存在分页内容，所以暂时放弃。（后期发现可以导出多张图片）<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">String visitGUID=Guid.NewGuid().ToString();</div><div class="line">IGRExportOption ExportOption = Report.PrepareExport(GRExportType.gretIMG);</div><div class="line">IGRE2IMGOption E2IMGOption = ExportOption.AsE2IMGOption;</div><div class="line">E2IMGOption.ImageType = GRExportImageType.greitPNG;</div><div class="line">E2IMGOption.AllInOne = <span class="literal">false</span>; <span class="comment">//所有页产生在一个图像文件中</span></div><div class="line">E2IMGOption.FileName = ReportPath + <span class="string">"\\SuperviseExamine\\Result\\"</span> + visitGUID + <span class="string">"\\"</span> + visitGUID + <span class="string">".png"</span>;</div><div class="line">Report.Export();</div></pre></td></tr></table></figure></p>
+<p>最后留下第1种方案并开始进行尝试实现。</p>
+<h2 id="收集网上信息"><a href="#收集网上信息" class="headerlink" title="收集网上信息"></a>收集网上信息</h2><p>对PDF操作肯定找第三方控件了，iText上场。</p>
+<h3 id="PDF操作插件-iText"><a href="#PDF操作插件-iText" class="headerlink" title="PDF操作插件 iText"></a>PDF操作插件 iText</h3><p>iText is a PDF library that allows you to CREATE, ADAPT, INSPECT and MAINTAIN documents in the Portable Document Format (PDF), allowing you to add PDF functionality to your software projects with ease.  We even have documentation to help you get coding.</p>
+<p>We have two currently supported versions: iText 5 and iText 7. Both are available under AGPL and Commercial license.</p>
+<ul>
+<li>iText 5 AGPL</li>
+<li>iText 7 community: <a href="https://www.nuget.org/packages/itext7/" target="_blank" rel="external">https://www.nuget.org/packages/itext7/</a></li>
+</ul>
+<p>iText 5 is a one solution library that is complex, but well documented to help you create your solutions.</p>
+<p>iText 7 is a complete re-write of iText 5, allowing you to choose your adventure with add-ons, all based on a simple, modular code structure that is easy to use and well documented.</p>
+<p>本次使用iText5插件，版本号5.5.13</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="最终实现代码"><a href="#最终实现代码" class="headerlink" title="最终实现代码"></a>最终实现代码</h3><p>方便找到这篇文章的朋友，直接将实现的代码放出<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> ServerUtility</div><div class="line">   &#123;</div><div class="line">       <span class="comment">//直接使用流对象进行数据处理</span></div><div class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">ResponseBinaryPDF</span><span class="params">(HttpContextBase context, IGRBinaryObject ExportResult, <span class="built_in">string</span> FileName, <span class="built_in">string</span> ContentType, <span class="built_in">string</span> OpenMode)</span></span></div><div class="line">       &#123;</div><div class="line">           <span class="comment">//通过已有PDF来修改水印</span></div><div class="line">           <span class="comment">//using (FileStream fs = new FileStream(outputFilePath, FileMode.Open))</span></div><div class="line">           <span class="comment">//&#123;</span></div><div class="line">           <span class="comment">//    byte[] bytes = new byte[(int)fs.Length];</span></div><div class="line">           <span class="comment">//    fs.Read(bytes, 0, bytes.Length);</span></div><div class="line">           <span class="comment">//    fs.Close();</span></div><div class="line">           <span class="comment">//&#125;</span></div><div class="line"></div><div class="line">           byte[] inputPdfStreamData = (byte[])(ExportResult.SaveToVariant());<span class="comment">//PDF字节流</span></div><div class="line"></div><div class="line">           <span class="keyword">using</span> (MemoryStream outputPdfStream = <span class="keyword">new</span> MemoryStream())</div><div class="line">           &#123;</div><div class="line">               <span class="comment">//使用PDF字节数组初始化PDFReader</span></div><div class="line">               PdfReader reader = <span class="keyword">new</span> PdfReader(inputPdfStreamData);</div><div class="line">               <span class="comment">//按照原PDF的内容创建PdfStamper对象，准备放一张白色图片去掉水印</span></div><div class="line">               <span class="keyword">using</span> (PdfStamper stamper = <span class="keyword">new</span> PdfStamper(reader, outputPdfStream))</div><div class="line">               &#123;</div><div class="line">                   <span class="keyword">int</span> pageCount = reader.NumberOfPages;</div><div class="line">                   <span class="comment">//多页循环</span></div><div class="line">                   <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= pageCount; i++)</div><div class="line">                   &#123;</div><div class="line">                       <span class="comment">//创建一个用来覆盖水印的白色背景图片，大小要比水印稍大</span></div><div class="line">                       iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(<span class="keyword">new</span> Bitmap(<span class="number">400</span>, <span class="number">30</span>), BaseColor.WHITE);</div><div class="line">                       <span class="comment">//把图片放到水印的位置（IText使用的单位是pt而不是px，（0,0）坐标是PDF左下角！！）</span></div><div class="line">                       image.SetAbsolutePosition(Convert.ToInt16(<span class="number">70</span>), Convert.ToInt16(<span class="number">37</span>));</div><div class="line">                       <span class="comment">//添加图片到PDF的当前页</span></div><div class="line">                       stamper.GetOverContent(i).AddImage(image, <span class="literal">true</span>);</div><div class="line">                   &#125;</div><div class="line">               &#125;</div><div class="line"></div><div class="line">               <span class="comment">//将MemoryStream输出到客户端浏览器</span></div><div class="line">               <span class="built_in">string</span> Disposition = <span class="string">""</span>;</div><div class="line"></div><div class="line">               <span class="keyword">if</span> (OpenMode != null &amp;&amp; OpenMode.Length &gt; <span class="number">0</span>)</div><div class="line">                   Disposition = OpenMode + <span class="string">"; "</span>;</div><div class="line"></div><div class="line">               Disposition += ServerUtility.EncodeAttachmentFileName(context.Request.UserAgent, FileName);</div><div class="line"></div><div class="line">               context.Response.ContentType = ContentType;</div><div class="line">               context.Response.AppendHeader(<span class="string">"Content-Length"</span>, ExportResult.DataSize.ToString());</div><div class="line">               context.Response.AppendHeader(<span class="string">"Content-Disposition"</span>, Disposition);</div><div class="line">               context.Response.ClearContent();</div><div class="line">               object Data = ExportResult.SaveToVariant();</div><div class="line">               context.Response.BinaryWrite(outputPdfStream.ToArray());</div><div class="line">               context.Response.Flush();</div><div class="line">           &#125;</div><div class="line"></div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<h3 id="实现代码过程"><a href="#实现代码过程" class="headerlink" title="实现代码过程"></a>实现代码过程</h3><p>1、 网络上找到了简单实用iText操作PDF的代码，分为三块内容，第一块是创建空白PDF，第二块是创建水印，第三块去除水印。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">temp1</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="built_in">string</span> workingFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);</div><div class="line">        <span class="built_in">string</span> startFile = Path.Combine(workingFolder, <span class="string">"StartFile.pdf"</span>);</div><div class="line">        <span class="built_in">string</span> watermarkedFile = Path.Combine(workingFolder, <span class="string">"Watermarked.pdf"</span>);</div><div class="line">        <span class="built_in">string</span> unwatermarkedFile = Path.Combine(workingFolder, <span class="string">"Un-watermarked.pdf"</span>);</div><div class="line">        <span class="built_in">string</span> watermarkText = <span class="string">"This is a test"</span>;</div><div class="line"></div><div class="line">        <span class="comment">//watermarkedFile= @"E:\a\1.pdf";</span></div><div class="line">        <span class="comment">//SECTION 1</span></div><div class="line">        <span class="comment">//Create a 5 page PDF, nothing special here</span></div><div class="line">        <span class="keyword">using</span> (FileStream fs = <span class="keyword">new</span> FileStream(startFile, FileMode.Create, FileAccess.Write, FileShare.None))</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">using</span> (Document doc = <span class="keyword">new</span> Document(PageSize.LETTER))</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">using</span> (PdfWriter witier = PdfWriter.GetInstance(doc, fs))</div><div class="line">                &#123;</div><div class="line">                    doc.Open();</div><div class="line"></div><div class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++)</div><div class="line">                    &#123;</div><div class="line">                        doc.NewPage();</div><div class="line">                        doc.Add(<span class="keyword">new</span> Paragraph(String.Format(<span class="string">"This is page &#123;0&#125;"</span>, i)));</div><div class="line">                    &#125;</div><div class="line"></div><div class="line">                    doc.Close();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//SECTION 2</span></div><div class="line">        <span class="comment">//Create our watermark on a separate layer.The only different here is that we are adding the watermark to a PdfLayer which is an OCG or Optional Content Group</span></div><div class="line">        PdfReader reader1 = <span class="keyword">new</span> PdfReader(startFile);</div><div class="line">        <span class="keyword">using</span> (FileStream fs = <span class="keyword">new</span> FileStream(watermarkedFile, FileMode.Create, FileAccess.Write, FileShare.None))</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">using</span> (PdfStamper stamper = <span class="keyword">new</span> PdfStamper(reader1, fs))</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">int</span> pageCount1 = reader1.NumberOfPages;</div><div class="line">                <span class="comment">//Create a new layer</span></div><div class="line">                PdfLayer layer = <span class="keyword">new</span> PdfLayer(<span class="string">"WatermarkLayer"</span>, stamper.Writer);</div><div class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= pageCount1; i++)</div><div class="line">                &#123;</div><div class="line">                    iTextSharp.text.Rectangle rect = reader1.GetPageSize(i);</div><div class="line">                    <span class="comment">//Get the ContentByte object</span></div><div class="line">                    PdfContentByte cb = stamper.GetUnderContent(i);</div><div class="line">                    <span class="comment">//Tell the CB that the next commands should be "bound" to this new layer</span></div><div class="line">                    cb.BeginLayer(layer);</div><div class="line">                    cb.SetFontAndSize(BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED), <span class="number">50</span>);</div><div class="line">                    PdfGState gState = <span class="keyword">new</span> PdfGState();</div><div class="line">                    gState.FillOpacity = <span class="number">0.25f</span>;</div><div class="line">                    cb.SetGState(gState);</div><div class="line">                    cb.SetColorFill(BaseColor.BLACK);</div><div class="line">                    cb.BeginText();</div><div class="line">                    cb.ShowTextAligned(PdfContentByte.ALIGN_CENTER, watermarkText, rect.Width / <span class="number">2</span>, rect.Height / <span class="number">2</span>, <span class="number">45f</span>);</div><div class="line">                    cb.EndText();</div><div class="line">                    <span class="comment">//"Close" the layer</span></div><div class="line">                    cb.EndLayer();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//SECTION 3</span></div><div class="line">        <span class="comment">//Remove the layer created above</span></div><div class="line">        <span class="comment">//First we bind a reader to the watermarked file, then strip out a bunch of things, and finally use a simple stamper to write out the edited reader</span></div><div class="line">        PdfReader reader2 = <span class="keyword">new</span> PdfReader(watermarkedFile);</div><div class="line"></div><div class="line">        <span class="comment">//NOTE, This will destroy all layers in the document, only use if you don't have additional layers</span></div><div class="line">        <span class="comment">//Remove the OCG group completely from the document.</span></div><div class="line">        <span class="comment">//reader2.Catalog.Remove(PdfName.OCPROPERTIES);</span></div><div class="line"></div><div class="line">        <span class="comment">//Clean up the reader, optional</span></div><div class="line">        reader2.RemoveUnusedObjects();</div><div class="line"></div><div class="line">        <span class="comment">//Placeholder variables</span></div><div class="line">        PRStream stream;</div><div class="line">        String content;</div><div class="line">        PdfDictionary page;</div><div class="line">        PdfArray contentarray;</div><div class="line"></div><div class="line">        <span class="comment">//Get the page count</span></div><div class="line">        <span class="keyword">int</span> pageCount2 = reader2.NumberOfPages;</div><div class="line">        <span class="comment">//Loop through each page</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= pageCount2; i++)</div><div class="line">        &#123;</div><div class="line">            <span class="comment">//Get the page</span></div><div class="line">            page = reader2.GetPageN(i);</div><div class="line">            <span class="comment">//Get the raw content</span></div><div class="line">            contentarray = page.GetAsArray(PdfName.CONTENTS);</div><div class="line">            <span class="keyword">if</span> (contentarray != null)</div><div class="line">            &#123;</div><div class="line">                <span class="comment">//Loop through content</span></div><div class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; contentarray.Size; j++)</div><div class="line">                &#123;</div><div class="line">                    <span class="comment">//Get the raw byte stream</span></div><div class="line">                    stream = (PRStream)contentarray.GetAsStream(j);</div><div class="line">                    <span class="comment">//Convert to a string. NOTE, you might need a different encoding here</span></div><div class="line">                    content = System.Text.Encoding.ASCII.GetString(PdfReader.GetStreamBytes(stream));</div><div class="line">                    <span class="comment">//Look for the OCG token in the stream as well as our watermarked text</span></div><div class="line">                    <span class="keyword">if</span> (content.IndexOf(<span class="string">"/OC"</span>) &gt;= <span class="number">0</span> &amp;&amp; content.IndexOf(watermarkText) &gt;= <span class="number">0</span>)</div><div class="line">                    &#123;</div><div class="line">                        <span class="comment">//Remove it by giving it zero length and zero data</span></div><div class="line">                        stream.Put(PdfName.LENGTH, <span class="keyword">new</span> PdfNumber(<span class="number">0</span>));</div><div class="line">                        stream.SetData(<span class="keyword">new</span> byte[<span class="number">0</span>]);</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//Write the content out</span></div><div class="line">        <span class="keyword">using</span> (FileStream fs = <span class="keyword">new</span> FileStream(unwatermarkedFile, FileMode.Create, FileAccess.Write, FileShare.None))</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">using</span> (PdfStamper stamper = <span class="keyword">new</span> PdfStamper(reader2, fs))</div><div class="line">            &#123;</div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//this.Close();</span></div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>2、由于水印位置固定且位于页脚处无其他内容，因此创建白色图片覆盖水印未知实现去除功能。<br>结合上面的代码和网上找到的相关实现进行修改后如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">temp2</span><span class="params">()</span></span></div><div class="line">       &#123;</div><div class="line">           <span class="built_in">string</span> watermarkedFile = @<span class="string">"E:\a\1out.pdf"</span>;</div><div class="line">           <span class="built_in">string</span> startFile = @<span class="string">"E:\a\1.pdf"</span>;</div><div class="line">           File.Delete(watermarkedFile);</div><div class="line">           PdfReader reader1 = <span class="keyword">new</span> PdfReader(startFile);</div><div class="line">           <span class="keyword">using</span> (FileStream fs = <span class="keyword">new</span> FileStream(watermarkedFile, FileMode.Create, FileAccess.Write, FileShare.None))</div><div class="line">           &#123;</div><div class="line">               <span class="keyword">using</span> (PdfStamper stamper = <span class="keyword">new</span> PdfStamper(reader1, fs))</div><div class="line">               &#123;</div><div class="line">                   <span class="keyword">int</span> pageCount1 = reader1.NumberOfPages;</div><div class="line">                   <span class="comment">//Create a new layer</span></div><div class="line">                   PdfLayer layer = <span class="keyword">new</span> PdfLayer(<span class="string">"WatermarkLayer"</span>, stamper.Writer);</div><div class="line">                   <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= pageCount1; i++)</div><div class="line">                   &#123;</div><div class="line">                       PdfContentByte canvas = stamper.GetOverContent(i);</div><div class="line">                       canvas.SaveState();</div><div class="line">                       canvas.SetColorFill(BaseColor.RED);</div><div class="line">                       <span class="comment">//PdfGState gs = new PdfGState();</span></div><div class="line">                       <span class="comment">//gs.FillOpacity = 0.6f;//设置透明度</span></div><div class="line">                       <span class="comment">//canvas.SetGState(gs);</span></div><div class="line">                       <span class="comment">//PDF的左下角的坐标是（0,0），单位是pt</span></div><div class="line">                       canvas.Rectangle(<span class="number">70</span>, <span class="number">38</span>, <span class="number">400</span>, <span class="number">30</span>);</div><div class="line">                       canvas.Fill();</div><div class="line">                       canvas.RestoreState();</div><div class="line">                   &#125;</div><div class="line"></div><div class="line">                   stamper.Close();</div><div class="line">                   reader1.Close();</div><div class="line">               &#125;</div><div class="line">           &#125;</div><div class="line">       &#125;</div></pre></td></tr></table></figure></p>
+<p>3、结合到实际的系统中(将有水印和无水印的两个PDF保存到本地，再以流方式传给客户端浏览器)</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// &lt;summary&gt;</span></div><div class="line"><span class="comment">/// 将报表生成的二进制数据响应给 HTPP 请求客户端</span></div><div class="line"><span class="comment">/// &lt;/summary&gt;</span></div><div class="line"><span class="comment">/// &lt;param name="context"&gt; HTPP 请求对象&lt;/param&gt;</span></div><div class="line"><span class="comment">/// &lt;param name="ExportResult"&gt;报表生成的二进制数据&lt;/param&gt;</span></div><div class="line"><span class="comment">/// &lt;param name="FileName"&gt;指定下载(或保存)文件时的默认文件名称&lt;/param&gt;</span></div><div class="line"><span class="comment">/// &lt;param name="ContentType"&gt;响应的ContentType&lt;/param&gt;</span></div><div class="line"><span class="comment">/// &lt;param name="OpenMode"&gt;指定生成的数据打开模式，可选[inline|attachment]，"inline"表示在网页中内联显示，"attachment"表示以附件文件形式下载。如果不指定，由浏览器自动确定打开方式。&lt;/param&gt;</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">ResponseBinaryPDF</span><span class="params">(HttpContextBase context, IGRBinaryObject ExportResult, <span class="built_in">string</span> FileName, <span class="built_in">string</span> ContentType, <span class="built_in">string</span> OpenMode)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="meta">#region 保存到本地pdf</span></div><div class="line"></div><div class="line">    <span class="built_in">string</span> newFileName = DirFileHelper.GetRamCode() + <span class="string">".pdf"</span>; <span class="comment">//随机生成新的文件名</span></div><div class="line">    <span class="built_in">string</span> upLoadPath = DirFileHelper.GetUpLoadPath(); <span class="comment">//保存目录相对路径</span></div><div class="line">    <span class="built_in">string</span> fullUpLoadPath = DirFileHelper.GetMapPath(upLoadPath); <span class="comment">//保存目录的物理路径</span></div><div class="line">    <span class="built_in">string</span> newFilePath = upLoadPath + newFileName; <span class="comment">//保存后的路径</span></div><div class="line"></div><div class="line">    <span class="comment">//检查保存的物理路径是否存在，不存在则创建</span></div><div class="line">    <span class="keyword">if</span> (!Directory.Exists(fullUpLoadPath))</div><div class="line">    &#123;</div><div class="line">        Directory.CreateDirectory(fullUpLoadPath);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//保存文件</span></div><div class="line">    ExportResult.SaveToFile(fullUpLoadPath + newFileName);</div><div class="line"></div><div class="line"></div><div class="line">    <span class="meta">#endregion</span></div><div class="line"></div><div class="line">    <span class="meta">#region 读取pdf去除水印</span></div><div class="line"></div><div class="line"></div><div class="line">    <span class="built_in">string</span> inputFilePath = fullUpLoadPath + newFileName;</div><div class="line">    <span class="built_in">string</span> outputFilePath = fullUpLoadPath + newFileName.Replace(<span class="string">".pdf"</span>, <span class="string">"_removed.pdf"</span>);<span class="comment">//去除水印后pdf</span></div><div class="line">    <span class="keyword">try</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">using</span> (Stream inputPdfStream = <span class="keyword">new</span> FileStream(inputFilePath, FileMode.Open, FileAccess.Read, FileShare.Read))</div><div class="line">        <span class="keyword">using</span> (Stream outputPdfStream = <span class="keyword">new</span> FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))</div><div class="line">        &#123;</div><div class="line">            <span class="comment">//Opens the unmodified PDF for reading</span></div><div class="line">            PdfReader reader = <span class="keyword">new</span> PdfReader(inputPdfStream);</div><div class="line">            <span class="comment">//Creates a stamper to put an image on the original pdf</span></div><div class="line">            PdfStamper stamper = <span class="keyword">new</span> PdfStamper(reader, outputPdfStream); <span class="comment">//&#123; FormFlattening = true, FreeTextFlattening = true &#125;;</span></div><div class="line"></div><div class="line">            <span class="keyword">int</span> pageCount = reader.NumberOfPages;</div><div class="line">            <span class="comment">////Create a new layer</span></div><div class="line">            <span class="comment">//PdfLayer layer = new PdfLayer("WatermarkLayer", stamper.Writer);</span></div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= pageCount; i++)</div><div class="line">            &#123;</div><div class="line">                <span class="comment">//PdfContentByte canvas = stamper.GetUnderContent(i);</span></div><div class="line">                <span class="comment">//Creates an image that is the size i need to hide the text i'm interested in removing</span></div><div class="line">                iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(<span class="keyword">new</span> Bitmap(<span class="number">400</span>, <span class="number">30</span>), BaseColor.WHITE);</div><div class="line">                <span class="comment">//Sets the position that the image needs to be placed (ie the location of the text to be removed)</span></div><div class="line">                <span class="comment">//txtX.Text = 33,txtY.Text = 708 70, 38, 400, 30</span></div><div class="line">                image.SetAbsolutePosition(Convert.ToInt16(<span class="number">70</span>), Convert.ToInt16(<span class="number">37</span>));</div><div class="line">                <span class="comment">//Adds the image to the output pdf</span></div><div class="line">                stamper.GetOverContent(i).AddImage(image, <span class="literal">true</span>);</div><div class="line">            &#125;</div><div class="line"></div><div class="line"></div><div class="line">            <span class="comment">//Creates the first copy of the outputted pdf</span></div><div class="line">            stamper.Close();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">catch</span> (Exception ex)</div><div class="line">    &#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="meta">#endregion</span></div><div class="line"></div><div class="line">    <span class="meta">#region 返回客户端浏览器PDF</span></div><div class="line">    <span class="comment">//以字符流的形式下载文件</span></div><div class="line">    <span class="keyword">using</span> (FileStream fs = <span class="keyword">new</span> FileStream(outputFilePath, FileMode.Open))</div><div class="line">    &#123;</div><div class="line">        byte[] bytes = <span class="keyword">new</span> byte[(<span class="keyword">int</span>)fs.Length];</div><div class="line">        fs.Read(bytes, <span class="number">0</span>, bytes.Length);</div><div class="line">        fs.Close();</div><div class="line">        <span class="built_in">string</span> Disposition = <span class="string">""</span>;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (OpenMode != null &amp;&amp; OpenMode.Length &gt; <span class="number">0</span>)</div><div class="line">            Disposition = OpenMode + <span class="string">"; "</span>;</div><div class="line"></div><div class="line">        Disposition += ServerUtility.EncodeAttachmentFileName(context.Request.UserAgent, FileName);</div><div class="line"></div><div class="line">        context.Response.ContentType = ContentType;</div><div class="line">        context.Response.AppendHeader(<span class="string">"Content-Length"</span>, ExportResult.DataSize.ToString());</div><div class="line">        context.Response.AppendHeader(<span class="string">"Content-Disposition"</span>, Disposition);</div><div class="line"></div><div class="line">        context.Response.ClearContent();</div><div class="line">        object Data = ExportResult.SaveToVariant();</div><div class="line">        context.Response.BinaryWrite(bytes);</div><div class="line"></div><div class="line">        context.Response.Flush();</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="meta">#endregion</span></div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="网上相关资源与信息"><a href="#网上相关资源与信息" class="headerlink" title="网上相关资源与信息"></a>网上相关资源与信息</h2><p>1、 <a href="https://itextpdf.com/" target="_blank" rel="external">iText官网</a><br>2、 <a href="https://www.nuget.org/packages/iTextSharp/" target="_blank" rel="external">iText的NuGet地址</a><br>3、 <a href="http://www.it1352.com/245699.html" target="_blank" rel="external">How to convert pdfstamper to byte array</a><br>4、 <a href="http://stackoverflow.org.cn/front/ask/view?ask_id=236528" target="_blank" rel="external">PdfStamper获得字节数组</a><br>5、 <a href="http://www.runoob.com/w3cnote/px-pt-em-convert-table.html" target="_blank" rel="external">pt,px,em</a><br>6、 <a href="https://blog.csdn.net/sishenkankan/article/details/53107195" target="_blank" rel="external">使用itext直接替换PDF中的文本</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/06/11/PDF操作/">PDF操作</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">菜儿</a></p>
+        <p><span>发布时间:</span>2018-06-11, 14:36:07</p>
+        <p><span>最后更新:</span>2020-03-28, 09:38:14</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/06/11/PDF操作/" title="PDF操作">https://zuoluo11.github.io/2018/06/11/PDF操作/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://zuoluo11.github.io/2018/06/11/PDF操作/　　作者: 菜儿" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018/06/19/insurance/">
+                    保险
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/05/30/枚举使用备忘/">
+                    枚举使用备忘
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题描述"><span class="toc-number">1.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#收集网上信息"><span class="toc-number">2.</span> <span class="toc-text">收集网上信息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PDF操作插件-iText"><span class="toc-number">2.1.</span> <span class="toc-text">PDF操作插件 iText</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码"><span class="toc-number">3.</span> <span class="toc-text">代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#最终实现代码"><span class="toc-number">3.1.</span> <span class="toc-text">最终实现代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现代码过程"><span class="toc-number">3.2.</span> <span class="toc-text">实现代码过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网上相关资源与信息"><span class="toc-number">4.</span> <span class="toc-text">网上相关资源与信息</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-5 i,
+        .toc-level-5 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"PDF操作　| 菜儿's BLog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2018/06/11/PDF操作/" data-title="PDF操作" data-url="https://zuoluo11.github.io/2018/06/11/PDF操作/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"zuoluo11"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018/06/19/insurance/" title="上一篇: 保险">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/05/30/枚举使用备忘/" title="下一篇: 枚举使用备忘">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/03/14/Vue與netcore交互/">Axios与Asp.Net Core WebAPI参数交互</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/28/更换电脑恢复hexo环境/">更换电脑恢复hexo环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/24/20美元/">20美元的价值</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/08/C-去除PNG图片四周多余空白/">C#去除PNG图片四周多余空白</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/01/免费中国节假日接口/">免费中国节假日接口</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/09/2018总结和2019计划/">2018总结和2019计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/13/泛域名解析/">泛域名解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/28/redismultiplyservices/">同一服务器安装多个redis实例</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/04/进度检查201807/">进度检查201807</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/19/insurance/">保险</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/11/PDF操作/">PDF操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/30/枚举使用备忘/">枚举使用备忘</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/30/aspmvc通用授权/">ASP MVC 微信公众号通用授权</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/进度检查/">进度检查</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/16/DecoratorPattern/">设计模式-装饰模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/AbstractFactoryPattern/">设计模式-抽象工厂模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/10/FactoryMethodPattern/">设计模式-工厂方法模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/10/SimpleFactoryPattern/">设计模式-简单工厂模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/05/2018计划/">2018计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/02/2017年终总结/">2017年终总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/19/定时任务组件FluentScheduler/">定时任务组件FluentScheduler</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/18/去除微信昵称中emoji字符/">去除微信昵称中emoji字符</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/07/微信公众号-发送文本消息/">微信公众号-发送文本消息</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/05/NET防止SQL注入/">.NET防止SQL注入</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/29/RSA加密解密-c-与js版/">RSA加密解密(c#与js版)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/18/流操作/">流操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/16/xml序列化/">xml序列化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/04/微信公众号集合支付宝支付/">微信公众号集合支付宝支付</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/20/net动态控制发布IIS网站一/">.net动态控制发布IIS网站（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/net获得本机可用端口号/">.net获得本机可用端口号</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/21/window服务守护外部程序/">window服务守护外部程序不被关闭</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/16/周日历实现/">周日历实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/24/动态调用webservice/">动态调用webservice</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/02/JS动态创建行/">JS动态创建行</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/15/文件上传大小限制/">ASP.NET 文件上传大小限制</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/14/浏览器兼容/">FireFox右键菜单兼容</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/28/ZIP压缩-Net与Android相互解压/">ZIP压缩.Net与Android相互解压</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/12/c-基础-扩展方法/">c#基础-扩展方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/10/百度地图常用功能的使用/">百度地图常用功能的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/10/Log4Net生成空日志文件的解决方法/">Log4Net生成空日志文件的解决方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/10/hello-world/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2021 菜儿
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 8;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-89372867-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

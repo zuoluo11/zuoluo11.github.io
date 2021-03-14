@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="菜儿" />
+
+
+
+<meta name="description" content="微信公众号集合支付宝支付
+支付宝支付有多种方式，其中手机网站支付满足微信公众号内集成的要求，所以这篇文章即同时描述支付宝手机网站支付。
+
+
+配置基础信息
+API及业务逻辑
+代码实现
+总结及出现的问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信公众号集合支付宝支付">
+<meta property="og:url" content="https://zuoluo11.github.io/2017/07/04/微信公众号集合支付宝支付/index.html">
+<meta property="og:site_name" content="菜儿's BLog">
+<meta property="og:description" content="微信公众号集合支付宝支付
+支付宝支付有多种方式，其中手机网站支付满足微信公众号内集成的要求，所以这篇文章即同时描述支付宝手机网站支付。
+
+
+配置基础信息
+API及业务逻辑
+代码实现
+总结及出现的问题">
+<meta property="og:image" content="https://user-images.githubusercontent.com/20961472/27821257-357d8c52-60d4-11e7-8e79-927b910370d3.png">
+<meta property="og:updated_time" content="2020-03-28T01:38:14.618Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微信公众号集合支付宝支付">
+<meta name="twitter:description" content="微信公众号集合支付宝支付
+支付宝支付有多种方式，其中手机网站支付满足微信公众号内集成的要求，所以这篇文章即同时描述支付宝手机网站支付。
+
+
+配置基础信息
+API及业务逻辑
+代码实现
+总结及出现的问题">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/20961472/27821257-357d8c52-60d4-11e7-8e79-927b910370d3.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="菜儿&#39;s BLog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>微信公众号集合支付宝支付 | 菜儿&#39;s BLog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">菜儿</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">Remember Yourself.</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:zuoluo11@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ASP-MVC/">ASP.MVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ASP-NET/">ASP.NET</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ASP-NET日志/">ASP.NET日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IIS/">IIS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4Net/">Log4Net</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WinForm/">WinForm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-基础/">c#基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/easyui/">easyui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/加密解密/">加密解密</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/发送消息/">发送消息</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/地图操作/">地图操作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/扩展方法/">扩展方法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/支付宝/">支付宝</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器兼容/">浏览器兼容</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/百度地图/">百度地图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/空日志删除/">空日志删除</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">菜儿</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">菜儿</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">Remember Yourself.</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:zuoluo11@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-微信公众号集合支付宝支付" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/04/微信公众号集合支付宝支付/" class="article-date">
+      <time datetime="2017-07-04T12:21:41.000Z" itemprop="datePublished">2017-07-04</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      微信公众号集合支付宝支付
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/微信公众号/">微信公众号</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/支付宝/">支付宝</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="微信公众号集合支付宝支付"><a href="#微信公众号集合支付宝支付" class="headerlink" title="微信公众号集合支付宝支付"></a>微信公众号集合支付宝支付</h1><hr>
+<p>支付宝支付有多种方式，其中手机网站支付满足微信公众号内集成的要求，所以这篇文章即同时描述支付宝手机网站支付。</p>
+<blockquote>
+<ul>
+<li>配置基础信息</li>
+<li>API及业务逻辑</li>
+<li>代码实现</li>
+<li>总结及出现的问题</li>
+</ul>
+</blockquote>
+<a id="more"></a>
+<h2 id="配置基础信息"><a href="#配置基础信息" class="headerlink" title="配置基础信息"></a>配置基础信息</h2><ul>
+<li>[x] 给企业注册支付宝账号</li>
+<li>[x] 创建自用型应用</li>
+<li>[x] 添加并签约手机网站支付<br>需要首先在网站内签约开通手机网站支付的权限。<br><img src="https://user-images.githubusercontent.com/20961472/27821257-357d8c52-60d4-11e7-8e79-927b910370d3.png" alt="cmd-markdown-logo"></li>
+</ul>
+<h2 id="API及业务逻辑"><a href="#API及业务逻辑" class="headerlink" title="API及业务逻辑"></a>API及业务逻辑</h2><p>手机网站支付API可以前往以下网址查看及下载sdk：<br>目前手机网站支付demo有： JAVA和PHP版本<br>SDK则有：JAVA、.NET和PHP版本</p>
+<h3 id="手机支付API"><a href="#手机支付API" class="headerlink" title="手机支付API"></a><a href="https://docs.open.alipay.com/203/" target="_blank" rel="external">手机支付API</a></h3><h3 id="SDK下载"><a href="#SDK下载" class="headerlink" title="SDK下载"></a><a href="https://docs.open.alipay.com/54/103419" target="_blank" rel="external">SDK下载</a></h3><h3 id="微信公众号集成帮助包"><a href="#微信公众号集成帮助包" class="headerlink" title="微信公众号集成帮助包"></a><a href="http://p.tb.cn/rmsportal_6680_alipay_in_weixin_demo.zip?spm=a219a.7629140.0.0.XfIWmS&amp;file=rmsportal_6680_alipay_in_weixin_demo.zip" target="_blank" rel="external">微信公众号集成帮助包</a></h3><h3 id="签名sign生成规则"><a href="#签名sign生成规则" class="headerlink" title="签名sign生成规则"></a><a href="https://doc.open.alipay.com/docs/doc.htm?docType=1&amp;articleId=106118" target="_blank" rel="external">签名sign生成规则</a></h3><h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>###普通手机网站用户进行确认下单页面</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">namespace</span> AliPayDemo</div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> partial <span class="keyword">class</span> Pay : System.Web.UI.Page</div><div class="line">    &#123;</div><div class="line">        <span class="comment">//不是真实数据</span></div><div class="line">        <span class="built_in">string</span> APPID = <span class="string">"2017090907474487"</span>;<span class="comment">//应用ID</span></div><div class="line">       <span class="comment">//应用私钥</span></div><div class="line">        <span class="built_in">string</span> APP_PRIVATE_KEY = @<span class="string">"****JEwKBgQCIFY+12QuI3gI478vsixJiYOWJb2T7MRr0Zlg2n3fnQWnVB2gOkSgls/CHM3y+d/GQRJRE5aFWa2Xt"</span>;</div><div class="line">        <span class="comment">//支付宝公钥</span></div><div class="line">        <span class="built_in">string</span> ALIPAY_PUBLIC_KEY = @<span class="string">"***PXZOf8eQx+qWGky6LJZWie4IF2oqY7El1nps2qVg1IbQkDdIMNSr2a2nQF5GwSpVcF7bRZeNG2qgs3EjHu4hGqXMWbg6Fvs1iigiBYfkzQIDAQAB"</span>;</div><div class="line">        <span class="built_in">string</span> CHARSET = <span class="string">"utf-8"</span>;<span class="comment">//编码格式</span></div><div class="line">        </div><div class="line">        </div><div class="line">        </div><div class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">Page_Load</span><span class="params">(object sender, EventArgs e)</span></span></div><div class="line">        &#123;</div><div class="line">            <span class="comment">//SDK已经封装掉了公共参数，只需要初始化一次</span></div><div class="line">            IAopClient client = <span class="keyword">new</span> DefaultAopClient(<span class="string">"https://openapi.alipay.com/gateway.do"</span>, APPID, APP_PRIVATE_KEY, <span class="string">"json"</span>, <span class="string">"1.0"</span>, <span class="string">"RSA2"</span>, ALIPAY_PUBLIC_KEY, CHARSET, <span class="literal">false</span>);</div><div class="line">            </div><div class="line">            </div><div class="line">            <span class="comment">//实例化具体API对应的request类,类名称和接口名称对应,当前调用接口名称如：alipay.trade.wap.pay.request </span></div><div class="line">            AlipayTradeWapPayRequest request = <span class="keyword">new</span> AlipayTradeWapPayRequest();</div><div class="line">          </div><div class="line">            <span class="comment">//SDK已经封装掉了公共参数，这里只需要传入业务参数</span></div><div class="line">            <span class="comment">//此次只是参数展示，未进行字符串转义，实际情况下请转义</span></div><div class="line">            <span class="comment">//注意value类型，如金额没有引号，</span></div><div class="line">            request.BizContent = <span class="string">"&#123;"</span> +</div><div class="line">            <span class="string">"    \"subject\":\"大乐透\","</span> +</div><div class="line">            <span class="string">"    \"out_trade_no\":\"70501111111S0011111191\","</span> +</div><div class="line">            <span class="string">"    \"total_amount\":0.01,"</span> +</div><div class="line">            <span class="string">"    \"product_code\":\"QUICK_WAP_WAY\""</span> +</div><div class="line">            <span class="string">"  &#125;"</span>;</div><div class="line">            </div><div class="line">            AlipayTradeWapPayResponse response = client.pageExecute(request);</div><div class="line">            divBody.InnerHtml = response.Body;</div><div class="line">            <span class="comment">////调用成功，则处理业务逻辑</span></div><div class="line">            <span class="comment">//if (response.IsError)</span></div><div class="line">            <span class="comment">//&#123;</span></div><div class="line">            <span class="comment">//    //.....</span></div><div class="line">            <span class="comment">//&#125;</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>###微信公众号内用户进行确认下单页面<br>1、下载集成微信公众号的帮助包并将文件放入项目文件夹中<br>    ap.js  跳转到自带浏览器js<br>    pay.htm 提示用户跳转htm页面<br>1、使用<strong>pageExecute</strong>方法，以GET方式获得url字符串；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">AlipayTradeWapPayResponse response = client.pageExecute(request,null,&quot;GET&quot;);</div><div class="line">    test = response.Body;</div></pre></td></tr></table></figure></p>
+<p>2、将Url传入前台页面<a>标签，待用户点击确定<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">id</span>=<span class="string">"test"</span> <span class="attr">href</span>=<span class="string">"&lt;%=test%&gt;"</span> <span class="attr">class</span>=<span class="string">"button button-big button-fill"</span>&gt;</span>支付宝结算<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure></a></p>
+<p>3、用户点击页面后跳转到提示页，提示用户使用手机自带浏览器打开连接</p>
+<p>4、完成支付</p>
+<p>5、整体的代码</p>
+<p>前端<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">  <span class="tag">&lt;<span class="name">%@</span> <span class="attr">Page</span> <span class="attr">Language</span>=<span class="string">"C#"</span> <span class="attr">AutoEventWireup</span>=<span class="string">"true"</span> <span class="attr">CodeFile</span>=<span class="string">"JsApiPayPage1.aspx.cs"</span> <span class="attr">Inherits</span>=<span class="string">"JsApiPayPage1"</span> %&gt;</span></div><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span> <span class="attr">runat</span>=<span class="string">"server"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"content-type"</span> <span class="attr">content</span>=<span class="string">"text/html;charset=utf-8"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"IE=edge"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-mobile-web-app-capable"</span> <span class="attr">content</span>=<span class="string">"yes"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-mobile-web-app-status-bar-style"</span> <span class="attr">content</span>=<span class="string">"black"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>微信支付<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>  <span class="attr">style</span>=<span class="string">"background-color: #efeff4;"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">runat</span>=<span class="string">"server"</span> <span class="attr">id</span>=<span class="string">"calculator"</span> <span class="attr">v-cloak</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content-block"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">id</span>=<span class="string">"test"</span> <span class="attr">href</span>=<span class="string">"&lt;%=test%&gt;"</span> <span class="attr">class</span>=<span class="string">"button"</span>&gt;</span>支付宝结算<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="comment">//绑定单击事件</span></div><div class="line"> <span class="keyword">var</span> btn = <span class="built_in">document</span>.querySelector(<span class="string">"#test"</span>);</div><div class="line">       btn.addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</div><div class="line">           e.preventDefault();</div><div class="line">           e.stopPropagation();</div><div class="line">           e.stopImmediatePropagation();</div><div class="line">           <span class="comment">//ele.href 是GET到支付宝收银台的URL</span></div><div class="line">           _AP.pay(e.target.href);</div><div class="line">           <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">       &#125;, <span class="literal">false</span>);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> System;</div><div class="line"><span class="keyword">using</span> System.Collections.Generic;</div><div class="line"><span class="keyword">using</span> CYQ.Data;</div><div class="line"><span class="keyword">using</span> Web.Lianmengban_2016;</div><div class="line"><span class="keyword">using</span> CYQ.Data.Table;</div><div class="line"><span class="keyword">using</span> Aop.Api.Util;</div><div class="line"><span class="keyword">using</span> Aop.Api;</div><div class="line"><span class="keyword">using</span> Aop.Api.Request;</div><div class="line"><span class="keyword">using</span> Aop.Api.Response;</div><div class="line"></div><div class="line"><span class="keyword">public</span> partial <span class="keyword">class</span> JsApiPayPage1 : System.Web.UI.Page</div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">string</span> test &#123; get; <span class="built_in">set</span>; &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">Page_Load</span><span class="params">(object sender, EventArgs e)</span></span></div><div class="line">    &#123;</div><div class="line">        CreateAliPayPramaters();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">CreateAliPayPramaters</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">         <span class="comment">//pageExecute&lt;T&gt;(IAopRequest&lt;T&gt; request, string accessToken, string reqMethod) where T : AopResponse</span></div><div class="line">        IAopClient client = <span class="keyword">new</span> DefaultAopClient(<span class="string">"https://openapi.alipay.com/gateway.do"</span>, AliConfig.APP_ID, AliConfig.APP_PRIVATE_KEY, <span class="string">"json"</span>, <span class="string">"1.0"</span>, <span class="string">"RSA2"</span>, AliConfig.ALIPAY_PUBLIC_KEY, AliConfig.CHARSET, <span class="literal">false</span>);</div><div class="line">        <span class="comment">//实例化具体API对应的request类,类名称和接口名称对应,当前调用接口名称如：alipay.open.public.template.message.industry.modify </span></div><div class="line">        AlipayTradeWapPayRequest request = <span class="keyword">new</span> AlipayTradeWapPayRequest();</div><div class="line">        <span class="comment">//AlipayOpenPublicTemplateMessageIndustryModifyRequest request = new AlipayOpenPublicTemplateMessageIndustryModifyRequest();</span></div><div class="line">        <span class="comment">//SDK已经封装掉了公共参数，这里只需要传入业务参数</span></div><div class="line">        <span class="comment">//此次只是参数展示，未进行字符串转义，实际情况下请转义</span></div><div class="line">        request.BizContent = <span class="string">"&#123;"</span> +</div><div class="line">        <span class="string">"    \"subject\":\"大乐透\","</span> +</div><div class="line">        <span class="string">"    \"out_trade_no\":\"70501111111S0011111191\","</span> +</div><div class="line">        <span class="string">"    \"total_amount\":0.01,"</span> +</div><div class="line">        <span class="string">"    \"product_code\":\"QUICK_WAP_WAY\""</span> +</div><div class="line">        <span class="string">"  &#125;"</span>;</div><div class="line"></div><div class="line">        AlipayTradeWapPayResponse response = client.pageExecute(request,null,<span class="string">"GET"</span>);</div><div class="line">        test = response.Body;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    </div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> AliConfig</div><div class="line">&#123;</div><div class="line">    <span class="comment">//=======【基本信息设置】=====================================</span></div><div class="line">    <span class="comment">/* 支付宝手机网页支付信息配置</span></div><div class="line">    public const string URL = "https://openapi.alipay.com/gateway.do";</div><div class="line">    public const string APP_ID = "20170111111144";</div><div class="line">    public const string APP_PRIVATE_KEY = @"MIIEowIBAAKCAQEA31kawX3d***t";</div><div class="line">    public const string FORMAT = "json";</div><div class="line">    public const string CHARSET = "utf-8";</div><div class="line">    public const string ALIPAY_PUBLIC_KEY = @"MIIBIjANBgkqhkiG9***";</div><div class="line">    public const string SIGN_TYPE = "RSA2";</div><div class="line">    public const string SELLER_EMAIL = "1234@123.com";</div><div class="line">    public const string NOTIFY_URL = "http://www.222.net/ResultNotifyAliPay.aspx";</div><div class="line">    public const string RETURN_URL = "http://www.222.net/AliReturnPage.aspx";</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="总结及出现的问题"><a href="#总结及出现的问题" class="headerlink" title="总结及出现的问题"></a>总结及出现的问题</h2><p>1、参数的内容<br>按照api提供的列表把必填项的key及value一定要写全，写对；<br>2、BizContent的业务参数内多个参数之间用“，”号隔开，之前忘记写全，报错；<br>3、签名错误<br>sign_valid</p>
+<p>API里面生成签名，包括sign_type<br>接收支付宝的异步通知时，验签之前不包括sign 和 sign_type</p>
+<h3 id="签名sign生成规则-1"><a href="#签名sign生成规则-1" class="headerlink" title="签名sign生成规则"></a><a href="https://doc.open.alipay.com/docs/doc.htm?docType=1&amp;articleId=106118" target="_blank" rel="external">签名sign生成规则</a></h3><p>支付宝官方sdk有个bug，Aop.Api.Util.AlipaySignature类中方法没有去掉sign_type就进行验证，导致出错；</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">RSACheckV2</span><span class="params">(IDictionary&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; parameters, <span class="built_in">string</span> publicKeyPem)</span></span></div><div class="line">       &#123;</div><div class="line">           <span class="built_in">string</span> sign = parameters[<span class="string">"sign"</span>];</div><div class="line"></div><div class="line">           parameters.Remove(<span class="string">"sign"</span>);</div><div class="line">           parameters.Remove(<span class="string">"sign_type"</span>);<span class="comment">//新增修改bug</span></div><div class="line">           <span class="built_in">string</span> signContent = GetSignContent(parameters);</div><div class="line"></div><div class="line">           <span class="keyword">return</span> RSACheckContent(signContent, sign, publicKeyPem, DEFAULT_CHARSET, <span class="string">"RSA"</span>);</div><div class="line">       &#125;</div><div class="line"></div><div class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">RSACheckV2</span><span class="params">(IDictionary&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; parameters, <span class="built_in">string</span> publicKeyPem, <span class="built_in">string</span> charset)</span></span></div><div class="line">       &#123;</div><div class="line">           <span class="built_in">string</span> sign = parameters[<span class="string">"sign"</span>];</div><div class="line"></div><div class="line">           parameters.Remove(<span class="string">"sign"</span>);</div><div class="line">           parameters.Remove(<span class="string">"sign_type"</span>);<span class="comment">//新增修改bug</span></div><div class="line">           <span class="built_in">string</span> signContent = GetSignContent(parameters);</div><div class="line"></div><div class="line">           <span class="keyword">return</span> RSACheckContent(signContent, sign, publicKeyPem, charset, <span class="string">"RSA"</span>);</div><div class="line">       &#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">RSACheckV2</span><span class="params">(IDictionary&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; parameters, <span class="built_in">string</span> publicKeyPem, <span class="built_in">string</span> charset, <span class="built_in">string</span> signType, <span class="keyword">bool</span> keyFromFile)</span></span></div><div class="line">       &#123;</div><div class="line">           <span class="built_in">string</span> sign = parameters[<span class="string">"sign"</span>];</div><div class="line"></div><div class="line">           parameters.Remove(<span class="string">"sign"</span>);</div><div class="line">           parameters.Remove(<span class="string">"sign_type"</span>);<span class="comment">//新增修改bug</span></div><div class="line">           <span class="built_in">string</span> signContent = GetSignContent(parameters);</div><div class="line"></div><div class="line">           <span class="keyword">return</span> RSACheckContent(signContent, sign, publicKeyPem, charset, signType, keyFromFile);</div><div class="line">       &#125;</div></pre></td></tr></table></figure>
+<p>4、交易订单处理失败 请稍后再试 ali38173<br>转到支付宝时，弹出这个错误，找了很久，才发现是由于Bizcontent的最后一个}括号内包含一个全角的空格，很坑啊；</p>
+<hr>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/07/04/微信公众号集合支付宝支付/">微信公众号集合支付宝支付</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">菜儿</a></p>
+        <p><span>发布时间:</span>2017-07-04, 20:21:41</p>
+        <p><span>最后更新:</span>2020-03-28, 09:38:14</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/07/04/微信公众号集合支付宝支付/" title="微信公众号集合支付宝支付">https://zuoluo11.github.io/2017/07/04/微信公众号集合支付宝支付/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://zuoluo11.github.io/2017/07/04/微信公众号集合支付宝支付/　　作者: 菜儿" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2017/08/16/xml序列化/">
+                    xml序列化
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/06/20/net动态控制发布IIS网站一/">
+                    .net动态控制发布IIS网站（一）
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#微信公众号集合支付宝支付"><span class="toc-number">1.</span> <span class="toc-text">微信公众号集合支付宝支付</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置基础信息"><span class="toc-number">1.1.</span> <span class="toc-text">配置基础信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#API及业务逻辑"><span class="toc-number">1.2.</span> <span class="toc-text">API及业务逻辑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#手机支付API"><span class="toc-number">1.2.1.</span> <span class="toc-text">手机支付API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SDK下载"><span class="toc-number">1.2.2.</span> <span class="toc-text">SDK下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#微信公众号集成帮助包"><span class="toc-number">1.2.3.</span> <span class="toc-text">微信公众号集成帮助包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#签名sign生成规则"><span class="toc-number">1.2.4.</span> <span class="toc-text">签名sign生成规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码实现"><span class="toc-number">1.3.</span> <span class="toc-text">代码实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结及出现的问题"><span class="toc-number">1.4.</span> <span class="toc-text">总结及出现的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#签名sign生成规则-1"><span class="toc-number">1.4.1.</span> <span class="toc-text">签名sign生成规则</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-5 i,
+        .toc-level-5 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"微信公众号集合支付宝支付　| 菜儿's BLog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/07/04/微信公众号集合支付宝支付/" data-title="微信公众号集合支付宝支付" data-url="https://zuoluo11.github.io/2017/07/04/微信公众号集合支付宝支付/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"zuoluo11"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/08/16/xml序列化/" title="上一篇: xml序列化">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/06/20/net动态控制发布IIS网站一/" title="下一篇: .net动态控制发布IIS网站（一）">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/03/14/Vue與netcore交互/">Axios与Asp.Net Core WebAPI参数交互</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/28/更换电脑恢复hexo环境/">更换电脑恢复hexo环境</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/24/20美元/">20美元的价值</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/08/C-去除PNG图片四周多余空白/">C#去除PNG图片四周多余空白</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/01/免费中国节假日接口/">免费中国节假日接口</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/09/2018总结和2019计划/">2018总结和2019计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/13/泛域名解析/">泛域名解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/28/redismultiplyservices/">同一服务器安装多个redis实例</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/04/进度检查201807/">进度检查201807</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/19/insurance/">保险</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/11/PDF操作/">PDF操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/30/枚举使用备忘/">枚举使用备忘</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/30/aspmvc通用授权/">ASP MVC 微信公众号通用授权</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/11/进度检查/">进度检查</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/16/DecoratorPattern/">设计模式-装饰模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/AbstractFactoryPattern/">设计模式-抽象工厂模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/10/FactoryMethodPattern/">设计模式-工厂方法模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/10/SimpleFactoryPattern/">设计模式-简单工厂模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/05/2018计划/">2018计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/02/2017年终总结/">2017年终总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/19/定时任务组件FluentScheduler/">定时任务组件FluentScheduler</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/18/去除微信昵称中emoji字符/">去除微信昵称中emoji字符</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/07/微信公众号-发送文本消息/">微信公众号-发送文本消息</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/05/NET防止SQL注入/">.NET防止SQL注入</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/29/RSA加密解密-c-与js版/">RSA加密解密(c#与js版)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/18/流操作/">流操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/16/xml序列化/">xml序列化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/04/微信公众号集合支付宝支付/">微信公众号集合支付宝支付</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/20/net动态控制发布IIS网站一/">.net动态控制发布IIS网站（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/net获得本机可用端口号/">.net获得本机可用端口号</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/21/window服务守护外部程序/">window服务守护外部程序不被关闭</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/16/周日历实现/">周日历实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/24/动态调用webservice/">动态调用webservice</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/02/JS动态创建行/">JS动态创建行</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/15/文件上传大小限制/">ASP.NET 文件上传大小限制</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/14/浏览器兼容/">FireFox右键菜单兼容</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/28/ZIP压缩-Net与Android相互解压/">ZIP压缩.Net与Android相互解压</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/12/c-基础-扩展方法/">c#基础-扩展方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/10/百度地图常用功能的使用/">百度地图常用功能的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/10/Log4Net生成空日志文件的解决方法/">Log4Net生成空日志文件的解决方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/10/hello-world/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2021 菜儿
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 8;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-89372867-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
